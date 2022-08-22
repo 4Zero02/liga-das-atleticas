@@ -13,4 +13,3 @@ class Atleta(models.Model):
     chave = models.CharField('Chave de autenticação', max_length=39, null=False, blank=False)
     # atletica = models.ForeignKey(Atletica, on_delete=models.PROTECT, null=False, blank=False)
     naipe = models.CharField('Naipe', max_length=1, choices=NAIPES, null=False, blank=False)
-    
