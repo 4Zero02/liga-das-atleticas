@@ -21,3 +21,4 @@ class Campanha(models.Model):
 class LigaUser(models.Model):
     usuario = models.OneToOneField(User, related_name='usuario_liga', on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=200)
+    cpf = models.CharField('CPF', max_length=15)
