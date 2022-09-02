@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
 
 
 NAIPES = (
@@ -16,6 +17,7 @@ class Atletica(models.Model):
     curso = models.CharField('Curso', max_length=50, null=False, blank=False)
     instagram = models.CharField('Instagem da Atlética', max_length=40, null=True, blank=True)
     twitter = models.CharField('Twitter da Atlética', max_length=40, null=True, blank=True)
+    # is_staff = models.BooleanField(_('Membro da Equipe'), default=False)
     # contato =
     # logo
 

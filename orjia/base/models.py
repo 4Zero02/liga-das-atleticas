@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
 
 
 STATUS = (
@@ -20,5 +21,19 @@ class Campanha(models.Model):
 # Verificar a informações necessárias aqui
 class LigaUser(models.Model):
     usuario = models.OneToOneField(User, related_name='usuario_liga', on_delete=models.CASCADE)
-    nome = models.CharField('Nome', max_length=200)
-    cpf = models.CharField('CPF', max_length=15)
+    nome = models.CharField('Nome', max_length=200, null=False)
+    cpf = models.CharField('CPF', max_length=15, null=False)
+    email = models.EmailField(
+        _('Email'),
+        unique=True,
+        error_messages={'unique': _("Já existe um usuário com este email")},
+    )
+
+    USERNAME_FIELD = 'email'
+
+    class Meta:
+        verbose_name = _('Usuário')
+        verbose_name_plural = _('Usuários')
+
+    def __str__(self):
+        return f'{self.email} {self.nome[:30]}'

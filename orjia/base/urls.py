@@ -1,13 +1,14 @@
 from django.urls import path
 from . import views as v
+# LoginView, home, LogoutView
 
 
 app_name = 'base'
 
 urlpatterns = [
     path('', v.home, name='index'),
-    path('login/', v.logar, name='login'),
-    path('logout/', v.sair, name='sair'),
+    path('login/', v.LoginView.as_view(), name='login'),
+    path('logout/', v.LogoutView.as_view(), name='logout'),
     # path('cadastrar/', v.SingUp.as_view(), name='cadastrar'),
 
 ]

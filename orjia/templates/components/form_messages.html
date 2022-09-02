@@ -1,0 +1,13 @@
+{% if form.non_field_errors %}
+    <div class="alert alert-danger alert-outline alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+        <div class="alert-icon">
+            <i class="far fa-fw fa-bell"></i>
+        </div>
+        <div class="alert-message">
+            {% for error in form.non_field_errors %}
+                {{error}}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

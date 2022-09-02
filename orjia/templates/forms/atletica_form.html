@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% block tittle %}Cadastrar atlética | ORJIA{% endblock tittle %}
+{% block content %}
+<div class="col-md">
+    <div class="card">
+        <div class="card-header card-header-text card-header-primary">
+            <div class="card-text">
+                <h4 class="card-title">Cadastrar atlética</h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <form method="POST" novalidate>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <span class="pull-right">
+              <a href="#" class="btn btn-danger btn-round">
+                Cancelar
+              </a>
+              <button id="add" type="submit" class="btn btn-success btn-round">Cadastrar</button>
+            </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
