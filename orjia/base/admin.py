@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import LigaUser, Campanha
+from .models import User, Campanha
 
 
-@admin.register(LigaUser)
-class LigaUserAdmin(admin.ModelAdmin):
-    model = LigaUser
-    list_display = ('usuario', 'nome')
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    model = User
+    list_display = ('full_name', 'cpf')
+
 
 @admin.register(Campanha)
 class CampanhaAdmin(admin.ModelAdmin):

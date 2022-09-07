@@ -1,8 +1,7 @@
 from django.db import models
 from datetime import date
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.utils.translation import gettext as _
-
 
 STATUS = (
     (1, 'ativo'),
@@ -18,16 +17,26 @@ class Campanha(models.Model):
     status = models.CharField(max_length=1, choices=STATUS)
 
 
-# Verificar a informações necessárias aqui
-class LigaUser(models.Model):
-    usuario = models.OneToOneField(User, related_name='usuario_liga', on_delete=models.CASCADE)
-    nome = models.CharField('Nome', max_length=200, null=False)
-    cpf = models.CharField('CPF', max_length=15, null=False)
+class User(AbstractBaseUser, PermissionsMixin):
+    cpf = models.CharField(
+        _('CPF'),
+        unique=True,
+        error_messages={'unique': _("Já existe um usuário com este CPF")},
+        max_length=15,
+        null=True
+    )
     email = models.EmailField(
         _('Email'),
         unique=True,
         error_messages={'unique': _("Já existe um usuário com este email")},
     )
+    full_name = models.CharField(_('Nome Completo'), max_length=255)
+    is_staff = models.BooleanField(_('Membro da Equipe'), default=False)
+    is_active = models.BooleanField(
+        _('Ativo'), default=True, help_text=_('Desative para tirar o acesso do usuário')
+    )
+
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
 
@@ -36,4 +45,4 @@ class LigaUser(models.Model):
         verbose_name_plural = _('Usuários')
 
     def __str__(self):
-        return f'{self.email} {self.nome[:30]}'
+        return f'{self.email} {self.full_name[:30]}'

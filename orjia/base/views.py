@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
 from .forms import AuthForm
-from django.contrib.messages.views import SuccessMessageMixin
+
+
+User = get_user_model()
 
 
 def home(request):
@@ -21,7 +22,3 @@ class LoginView(LoginView):
 class LogoutView(LogoutView):
     template_name = ''
 
-
-@login_required()
-def atletica_add(request):
-    return render(request, 'dashboard.html', locals())

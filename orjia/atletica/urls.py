@@ -6,6 +6,6 @@ app_name = 'atletica'
 
 urlpatterns = [
     # path('atleta/', v., name='produto_list'),
-    path('add/', v.atletica_add, name='atletica_add'),
+    path('add/', v.RegisterView.as_view(), name='atletica_add'),
     path('atleta/add/', v.atleta_add, name='atleta_add'),
 ]
