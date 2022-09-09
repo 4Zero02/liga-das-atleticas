@@ -15,15 +15,15 @@ NAIPES = (
 )
 
 TIPO_CONFRONTO = (
-    (0, 'Mata-mata'),
-    (1, 'Todos-x-todos')
+    ('0', 'Mata-mata'),
+    ('1', 'Todos-x-todos')
 )
 
 
 class Modalidade(models.Model):
     nome = models.CharField(max_length=12, null=False, blank=False)
     tipo = models.CharField(max_length=1, choices=TIPO_EQUIPE)
-    max_altetas = models.PositiveIntegerField()
+    max_atletas = models.PositiveIntegerField()
     min_atletas = models.PositiveIntegerField()
-    naipes = models.CharField(max_length=1, choices=NAIPES)
+    naipe = models.CharField(max_length=1, choices=NAIPES)
     tipo_confronto = models.CharField(max_length=1, choices=TIPO_CONFRONTO)

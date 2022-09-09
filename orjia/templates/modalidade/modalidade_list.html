@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Modalidades{% endblock title %}
+
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h2 class="text-center"> Lista de modalidades </h2>
+    <!--    <h2 class="text-center"> Lista de modalidades </h2>-->
+    <a href="{% url 'modalidade:modalidade_add' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Adicionar modalidade</a>
+</div>
+<div class="row mt-5">
+    {% for modalidade in modalidades %}
+    <div class="col-auto  mt-3">
+        <div class="card h-100 bg-dark mb-3" style="max-width: 20rem;">
+            <div class="card-header">
+                <h5>{{ modalidade.nome }} </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <b>Tipo: </b>{{ modalidade.tipo }}<br>
+                    <b>Máximo de atletas:</b>{{ modalidade.max_atletas }}<br>
+                    <b>Mínimo de atletas:</b>{{ modalidade.min_atletas }}<br>
+                    <b>Naipe:</b>{{ modalidade.naipe }}<br>
+                    <b>Tipo de confronto:</b>{{ modalidade.tipo_confronto }}<br>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

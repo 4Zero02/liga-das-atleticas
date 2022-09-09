@@ -2,9 +2,9 @@ from django.urls import path
 from . import views as v
 
 
-app_name = 'atletica'
+app_name = 'modalidade'
 
 urlpatterns = [
-    # path('add/', v.RegisterView.as_view(), name='atletica_add'),
-    # path('atleta/add/', v.atleta_add, name='atleta_add'),
+    path('', v.modalidade_list, name='modalidade_list'),
+    path('add/', v.modalidade_add, name='modalidade_add'),
 ]

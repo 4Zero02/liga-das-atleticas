@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Cadastro de atlética{% endblock title %}
+
+{% block content %}
+<form method="post">
+    <div class="card">
+        <div class="card-header pb-0">
+            <div class="text-center">
+                <h4 class="mb-0 font-weight-bold">Informações da modalidade</h4>
+            </div>
+        </div>
+
+        <div class="card-body pt-0">
+            <div class="m-sm-4">
+                {% if messages %}
+                <div class="row align-items-center">
+                    <div class="col">
+                        {% include 'components/messages.html' %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% csrf_token %}
+                {% include 'components/form_messages.html' with form=form %}
+                <div class="row">
+                    <div class="col-10 mb-3">
+                        {% include 'components/field.html' with label='Nome da modalidade:' field=form.nome %}
+                    </div>
+                    <div class="col-auto">
+                        {% include 'components/field.html' with label='Tipo:' field=form.tipo %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-3 mb-3">
+                        {% include 'components/field.html' with label='Minimo de atletas permitido:' field=form.min_atletas %}
+                    </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        {% include 'components/field.html' with label='Maximo de atletas permitido:' field=form.max_atletas %}
+                    </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        {% include 'components/field.html' with label='Naipe:' field=form.naipe %}
+                    </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        {% include 'components/field.html' with label='Tipo de confronto:' field=form.tipo_confronto %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="text-center mt-3 mb-5">
+            <button href="{% url 'modalidade:modalidade_list' %}" class="btn btn-lg btn-danger">Cancelar</button>
+            <button type="submit" class="btn btn-lg btn-success">Cadastrar</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
