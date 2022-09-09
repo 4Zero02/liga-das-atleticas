@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from .managers import UserManager
 from django.utils.translation import gettext as _
 
 STATUS = (
@@ -18,6 +19,7 @@ class Campanha(models.Model):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    full_name = models.CharField(_('Nome Completo'), max_length=255)
     cpf = models.CharField(
         _('CPF'),
         unique=True,
@@ -30,7 +32,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True,
         error_messages={'unique': _("Já existe um usuário com este email")},
     )
-    full_name = models.CharField(_('Nome Completo'), max_length=255)
     is_staff = models.BooleanField(_('Membro da Equipe'), default=False)
     is_active = models.BooleanField(
         _('Ativo'), default=True, help_text=_('Desative para tirar o acesso do usuário')

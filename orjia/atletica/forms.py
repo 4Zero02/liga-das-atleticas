@@ -35,7 +35,22 @@ class AtleticaForm(forms.ModelForm):
 
     class Meta:
         model = Atletica
-        fields = '__all__'
+        fields = ('nome', 'email', 'curso', 'instagram', 'twitter', 'password1', 'password2')
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome completo'}
+            ),
+            'curso': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Curso que a atlética pertence'}
+            ),
+            'instagram': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Link da instagram da atlética'}
+            ),
+            'twitter': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Link do Twitter da atlética'}
+            )
+        }
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -48,7 +63,7 @@ class AtleticaForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(False)
-        user = User(username=self.cleaned_data["email"],email=self.cleaned_data["email"])
+        user = User(username=self.cleaned_data["email"], email=self.cleaned_data["email"])
         user.set_password(self.cleaned_data["password1"])
         instance.usuario = user
 

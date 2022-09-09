@@ -18,7 +18,7 @@ def atleta_add(request):
 
 
 class RegisterView(SuccessMessageMixin, CreateView):
-    template_name = 'ateltica_form.html'
+    template_name = 'forms/atletica_form.html'
     model = Atletica
     form_class = AtleticaForm
     success_message = '%(nome) cadastrado com sucesso'

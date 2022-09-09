@@ -13,12 +13,11 @@ NAIPES = (
 class Atletica(models.Model):
     usuario = models.OneToOneField(User, related_name='usuario_atletica', on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=150)
-    email = models.CharField(verbose_name='E-mail para contato', max_length=50, null=True, blank=True)
+    email = models.CharField(verbose_name='Email', max_length=50, null=True, blank=True)
     curso = models.CharField('Curso', max_length=50, null=False, blank=False)
     instagram = models.CharField('Instagem da Atlética', max_length=40, null=True, blank=True)
     twitter = models.CharField('Twitter da Atlética', max_length=40, null=True, blank=True)
     # is_staff = models.BooleanField(_('Membro da Equipe'), default=False)
-    # contato =
     # logo
 
     class Meta:
