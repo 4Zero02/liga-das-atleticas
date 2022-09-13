@@ -21,5 +21,5 @@ class RegisterView(SuccessMessageMixin, CreateView):
     template_name = 'forms/atletica_form.html'
     model = Atletica
     form_class = AtleticaForm
-    success_message = '%(nome) cadastrado com sucesso'
-    success_url = reverse_lazy('index')
+    success_message = '%(nome)s cadastrado com sucesso'
+    success_url = reverse_lazy('base:index')
