@@ -3,3 +3,4 @@ Django==4.1
 django-bootstrap-form==3.4
 django-crispy-forms==1.14.0
 sqlparse==0.4.2
+python-environ==0.4.54
