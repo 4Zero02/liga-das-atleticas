@@ -47,13 +47,13 @@
                                                     <h1 class="h4 text-gray-900 mb-4">Acesse sua conta para
                                                         continuar!</h1>
                                                 </div>
-                                                {% if messages %}
+                                                {% comment %} {% if messages %}
                                                 <div class="row align-items-center py-4">
                                                     <div class="col">
                                                         {% include 'components/messages.html' %}
                                                     </div>
                                                 </div>
-                                                {% endif %}
+                                                {% endif %} {% endcomment %}
                                                 <form method="post">
                                                     {% csrf_token %}
                                                     {% include 'components/form_messages.html' with form=form %}
