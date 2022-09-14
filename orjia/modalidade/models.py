@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse_lazy
 
 TIPO_EQUIPE = (
     ('C', 'Coletiva'),
@@ -27,3 +27,14 @@ class Modalidade(models.Model):
     min_atletas = models.PositiveIntegerField()
     naipe = models.CharField(max_length=1, choices=NAIPES)
     tipo_confronto = models.CharField(max_length=1, choices=TIPO_CONFRONTO)
+
+    class Meta:
+        verbose_name = 'Modalidade'
+        verbose_name_plural = 'Modalidades'
+        ordering = ['nome']
+
+    def get_absolute_url(self):
+        return reverse_lazy('modalidade:modalidade_list')
+
+    def __str__(self):
+        return self.nome

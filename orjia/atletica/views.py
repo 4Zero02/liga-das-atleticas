@@ -26,6 +26,12 @@ class AtleticaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('base:index')
 
 
+def atletica_list(request):
+    atletica = Atletica.objects.all()
+    template = 'atletica/atletica_list.html'
+    return render(request, template, {'atleticas': atletica})
+
+
 class AtleticaDetail(LoginRequiredMixin, SuccessMessageMixin, DetailView):
     model = Atletica
     template_name: str = 'atletica/atletica_detail.html'
