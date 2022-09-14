@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Detalhes da Atlética{% endblock title %}
+
+{% block content %}
+  {% if messages %}
+      <div class="row align-items-center py-4">
+          <div class="col">
+              {% include 'components/messages.html' %}
+          </div>
+      </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+              <h2 class="card-title text-dark"> Atlética {{ atletica.nome }} </h2>
+
+              <div class="row mb-2 mt-2">
+                <div class="col-12">
+                  {% include 'components/read_only_field.html' with value=atletica.nome label='Nome' %}
+                </div>
+              </div>
+
+              <div class="row mb-2 mt-2">
+                <div class="col-12 col-md-6">
+                    {% include 'components/read_only_field.html' with value=atletica.email label='Email' %}
+                </div>
+                <div class="col-12 col-md-6">
+                    {% include 'components/read_only_field.html' with value=atletica.curso label='Curso' %}
+                </div>
+              </div>
+
+              <div class="row mb-2 mt-2">
+                <div class="col-12 col-md-6">
+                    {% include 'components/read_only_field.html' with value=atletica.instagram label='Instagram' %}
+                </div>
+                <div class="col-12 col-md-6">
+                    {% include 'components/read_only_field.html' with value=atletica.twitter label='Twitter' %}
+                </div>
+              </div>
+
+              <a class="btn btn-warning float-right">Editar Atlética</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
