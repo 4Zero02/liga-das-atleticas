@@ -1,64 +1,38 @@
-{% extends 'base/base.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
+<div class="row">
+    {% if messages %}
+                <div class="col-12 mb-3">
+                    {% include 'components/messages.html' %}
+                </div>
+    {% endif %}
 
-{% block title %}Cadastro de atlética{% endblock title %}
+    {% csrf_token %}
 
-{% block content %}
-<form method="post">
-    <div class="card">
-        <div class="card-header pb-0">
-            <div class="text-center">
-                <h4 class="mb-0 font-weight-bold">Informações da atlética</h4>
-            </div>
+    {% include 'components/form_messages.html' with form=form %}
+
+    <div class="col-12 mb-3">
+        {% include 'components/field.html' with label='Nome:' field=form.nome %}
+    </div>
+    <div class="col-12 mb-3">
+        {% include 'components/field.html' with label='Email:' field=form.email %}
+    </div>
+
+    <div class="col-12 mb-3">
+        {% include 'components/field.html' with label='Curso:' field=form.curso %}
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+        {% include 'components/field.html' with label='Instagem da Atlética:' field=form.instagram %}
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+        {% include 'components/field.html' with label='Twitter da Atlética:' field=form.twitter %}
+    </div>
+
+    {% if action == 'create' %}
+        <div class="col-12 col-md-6 mb-3">
+            {% include 'components/field.html' with label='Senha:' field=form.password1 %}
         </div>
-
-        <div class="card-body pt-0">
-            <div class="m-sm-4">
-                {% if messages %}
-                <div class="row align-items-center">
-                    <div class="col">
-                        {% include 'components/messages.html' %}
-                    </div>
-                </div>
-                {% endif %}
-
-                {% csrf_token %}
-                {% include 'components/form_messages.html' with form=form %}
-                <div class="row">
-                    <div class="col-12 mb-3">
-                        {% include 'components/field.html' with label='Nome:' field=form.nome %}
-                    </div>
-                    <div class="col-12 mb-3">
-                        {% include 'components/field.html' with label='Email:' field=form.email %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mb-3">
-                        {% include 'components/field.html' with label='Curso:' field=form.curso %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6 mb-3">
-                        {% include 'components/field.html' with label='Instagem da Atlética:' field=form.instagram %}
-                    </div>
-                    <div class="col-12 col-md-6 mb-3">
-                        {% include 'components/field.html' with label='Twitter da Atlética:' field=form.twitter %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6 mb-3">
-                        {% include 'components/field.html' with label='Senha:' field=form.password1 %}
-                    </div>
-                    <div class="col-12 col-md-6 mb-3">
-                        {% include 'components/field.html' with label='Confirmação de senha:' field=form.password2 %}
-                    </div>
-                </div>
-            </div>
+        <div class="col-12 col-md-6 mb-3">
+            {% include 'components/field.html' with label='Confirmação de senha:' field=form.password2 %}
         </div>
-        <div class="text-center mt-3 mb-5">
-            <button href="#" class="btn btn-lg btn-danger">Cancelar</button>
-            <button type="submit" class="btn btn-lg btn-success">Cadastrar</button>
-        </div>
-</form>
-{% endblock %}
+    {% endif %}
+</div>

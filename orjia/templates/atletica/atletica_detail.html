@@ -42,7 +42,9 @@
                 </div>
               </div>
 
-              <a class="btn btn-warning float-right">Editar Atlética</a>
+              <a href="{% url 'atletica:atletica_update' atletica.id %}" class="btn btn-warning float-right">
+                Editar Atlética
+              </a>
             </div>
         </div>
     </div>

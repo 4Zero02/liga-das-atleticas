@@ -1,29 +1,25 @@
 {% extends 'base/base.html' %}
-{% block title %}Atléticas{% endblock title %}
 {% load static %}
+
+{% block title %}Atléticas{% endblock title %}
+
 {% block content %}
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h2 class="text-center"> Lista de atléticas </h2>
     <a href="{% url 'atletica:atletica_add' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Adicionar
         atlética</a>
 </div>
+
 <div class="row mt-5">
-    {% for atletica in atleticas %}
-    <a href="#">
-        <div class="card" style="width: 18rem;">
-            <img src="{% static 'img/orjia.png' %}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{atletica.nome}}</h5>
+    {% for atletica in object_list %}
+        <a href="{% url 'atletica:atletica_detail' atletica.id %}">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'img/orjia.png' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{atletica.nome}}</h5>
+                </div>
             </div>
-        </div>
-    </a>
-    <!--    <div class="col-auto  mt-3">-->
-    <!--        <div class="card h-100 bg-dark mb-3" style="max-width: 20rem;">-->
-    <!--            <div class="card-header">-->
-    <!--                <h5>{{ atletica.nome }} </h5>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+        </a>
     {% endfor %}
 </div>
 {% endblock %}
