@@ -72,3 +72,24 @@ class AtleticaForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+
+class AtleticaChangeForm(forms.ModelForm):
+    class Meta:
+        model = Atletica
+        fields = ('nome', 'email', 'curso', 'instagram', 'twitter')
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome completo'}
+            ),
+            'curso': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Curso que a atlética pertence'}
+            ),
+            'instagram': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Link da instagram da atlética'}
+            ),
+            'twitter': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Link do Twitter da atlética'}
+            )
+        }

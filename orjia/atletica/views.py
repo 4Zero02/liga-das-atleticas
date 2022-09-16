@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import AtletaForm
-from .forms import AtleticaForm
+from .forms import AtleticaForm, AtleticaChangeForm
 from .models import Atletica
 
 
@@ -19,19 +19,30 @@ def atleta_add(request):
 
 
 class AtleticaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    template_name = 'forms/atletica_form.html'
+    template_name = 'atletica/atletica_create.html'
     model = Atletica
     form_class = AtleticaForm
     success_message = '%(nome)s cadastrado com sucesso'
-    success_url = reverse_lazy('base:index')
+    success_url = reverse_lazy('atletica:atletica_list')
 
 
-def atletica_list(request):
-    atletica = Atletica.objects.all()
+class AtleticaList(LoginRequiredMixin, ListView):
+    model = Atletica
     template = 'atletica/atletica_list.html'
-    return render(request, template, {'atleticas': atletica})
 
 
 class AtleticaDetail(LoginRequiredMixin, SuccessMessageMixin, DetailView):
     model = Atletica
     template_name: str = 'atletica/atletica_detail.html'
+
+
+class AtleticaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Atletica
+    form_class = AtleticaChangeForm
+    template_name: str = 'atletica/atletica_update.html'
+    success_message = "Atlética %(nome)s atualizada com sucesso!"
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'atletica:atletica_detail', kwargs={"pk": self.object.pk}
+        )
