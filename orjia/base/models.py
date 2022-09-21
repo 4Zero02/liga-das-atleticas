@@ -3,6 +3,7 @@ from datetime import date
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 from django.utils.translation import gettext as _
+from modalidade.models import Modalidade
 
 STATUS = (
     (1, 'ativo'),
@@ -12,10 +13,25 @@ STATUS = (
 
 class Campanha(models.Model):
     nome = models.CharField(max_length=12, null=False, blank=False)
+    # adm = models.ForeignKey(User, on_delete=models.PROTECT)
     data_incio = models.DateField('Data de início', default=date.today)
     data_final = models.DateField('Data de término', default=date.today)
     ano = models.PositiveIntegerField('Ano do evento', null=False, blank=False)
-    status = models.CharField(max_length=1, choices=STATUS)
+    status = models.CharField(max_length=1, choices=STATUS, default=1)
+
+    class Meta:
+        verbose_name = 'campanha'
+        verbose_name_plural = 'campanhas'
+
+
+class Competicao(models.Model):
+    campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT)
+    modalidade = models.ForeignKey(Modalidade, on_delete=models.PROTECT)
+    data = models.DateField('Data da competição', default=date.today)
+
+    class Meta:
+        verbose_name = 'competicao'
+        verbose_name_plural = 'competicoes'
 
 
 class User(AbstractBaseUser, PermissionsMixin):

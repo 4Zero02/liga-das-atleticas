@@ -23,7 +23,7 @@ class AtleticaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Atletica
     form_class = AtleticaForm
     success_message = '%(nome)s cadastrado com sucesso'
-    success_url = reverse_lazy('atletica:atletica_list')
+    success_url = reverse_lazy('atletica:atletica_detail')
 
 
 class AtleticaList(LoginRequiredMixin, ListView):

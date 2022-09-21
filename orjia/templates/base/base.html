@@ -38,7 +38,7 @@
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
-            {% if user.is_authenticated or user.is_staff %}
+            {% if user.is_authenticated %}
             {% include 'components/topbar.html' %}
             {% else %}
             {% include 'components/topbarCOMUNIDADE.html' %}

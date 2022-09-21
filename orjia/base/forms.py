@@ -4,8 +4,38 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate
 from django.contrib import messages
+from .models import Competicao, Campanha
 
 User = get_user_model()
+
+
+class CampanhaForm(forms.ModelForm):
+
+    class Meta:
+        model = Campanha
+        fields = ('nome', 'data_incio', 'data_final', 'ano', 'status')
+
+
+class CompeticaoForm(forms.ModelForm):
+
+    class Meta:
+        model = Competicao
+        fields = ('modalidade', 'data')
+        widgets = {
+            'modalidade': forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome completo'}
+            ),
+            'curso': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Curso que a atlética pertence'}
+            ),
+            'instagram': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Link da instagram da atlética'}
+            ),
+            'twitter': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Link do Twitter da atlética'}
+            )
+        }
 
 
 class AuthForm(forms.Form):

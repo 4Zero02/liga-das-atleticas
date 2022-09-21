@@ -24,9 +24,14 @@ class ModalidadeUpdate(UpdateView):
     form_class = ModalidadeForm
 
 
+class ModalidadeDelete(DeleteView):
+    model = Modalidade
+    success_url = "/"
+    template_name = "geeks/geeksmodel_confirm_delete.html"
+
 def modalidade_delete(request, pk):
     modalidade = Modalidade.objects.get(pk=pk)
-    form = ModalidadeForm
+    form = ModalidadeForm(instance=modalidade)
     if request.method == 'POST':
         modalidade.delete()
         return redirect('modalidade:modalidade_list')
