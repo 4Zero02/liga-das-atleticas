@@ -1,21 +1,55 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import AtletaForm
 from .forms import AtleticaForm, AtleticaChangeForm
-from .models import Atletica
+from .models import Atletica, Atleta
 
 
-@login_required()
+
+class AtletaList(LoginRequiredMixin, ListView):
+    model = Atleta
+    template = 'atleta/atleta_list.html'
+
+
+@login_required
 def atleta_add(request):
     form = AtletaForm(request.POST or None)
+    atletica_id = Atletica.objects.get(usuario=request.user)
     if form.is_valid():
+        # print('form ta valido')
+        form = form.save(commit=False)
+        form.atletica = atletica_id
         form.save()
-        return redirect('base:index')
-    return render(request, 'atleta_form.html', {'form': form})
+        return redirect('atletica:atleta_list')
+    return render(request, 'atleta/atleta_create.html', {'form': form})
+
+
+# class AtletaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+#     template_name = 'atletica/atleta_create.html'
+#     model = Atleta
+#     form_class = AtletaForm
+#     success_message = '%(nome)s cadastrado com sucesso'
+#     success_url = reverse_lazy('atletica:atleta_list')
+
+
+class AtletaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Atleta
+    form_class = AtletaForm
+    template_name: str = 'atleta/atleta_create.html'
+    success_message = "Atleta %(nome)s atualizado com sucesso!"
+
+
+def atleta_delete(request, pk):
+    atleta = Atleta.objects.get(pk=pk)
+    form = AtletaForm(instance=atleta)
+    if request.method == 'POST':
+        atleta.delete()
+        return redirect('atletica:atleta_list')
 
 
 class AtleticaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):

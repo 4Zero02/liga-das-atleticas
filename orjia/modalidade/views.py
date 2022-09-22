@@ -9,7 +9,7 @@ def modalidade_add(request):
     if form.is_valid():
         form.save()
         return redirect('modalidade:modalidade_list')
-    return render(request, 'forms/modalidade_form.html', {'form': form})
+    return render(request, 'modalidade/modalidade_create.html', {'form': form})
 
 
 def modalidade_list(request):
@@ -23,11 +23,6 @@ class ModalidadeUpdate(UpdateView):
     template_name = 'modalidade/modalidade_edit.html'
     form_class = ModalidadeForm
 
-
-class ModalidadeDelete(DeleteView):
-    model = Modalidade
-    success_url = "/"
-    template_name = "geeks/geeksmodel_confirm_delete.html"
 
 def modalidade_delete(request, pk):
     modalidade = Modalidade.objects.get(pk=pk)

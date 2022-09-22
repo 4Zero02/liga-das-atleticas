@@ -2,20 +2,20 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block title %}Cadastro de atlética{% endblock title %}
+{% block title %}Cadastro de atleta{% endblock title %}
 
 {% block content %}
 <form method="POST">
     <div class="card">
         <div class="card-header pb-0">
             <div class="text-center">
-                <h4 class="mb-0 font-weight-bold">Informações da atlética</h4>
+                <h4 class="mb-0 font-weight-bold">Informações do atleta</h4>
             </div>
         </div>
 
         <div class="card-body pt-0">
             <div class="m-sm-4">
-                {% include 'forms/atletica_form.html' with form=form action='create' %}
+              {% include 'forms/atleta_form.html' with form=form action='create' %}
             </div>
         </div>
         <div class="text-center mt-3 mb-5">

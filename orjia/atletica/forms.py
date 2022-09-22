@@ -8,11 +8,28 @@ class AtletaForm(forms.ModelForm):
 
     class Meta:
         model = Atleta
-        fields = '__all__'
+        fields = ('nome', 'matricula', 'chave', 'atletica', 'naipe')
         widgets = {
+            'naipe': forms.Select(
+                attrs={'class': 'form-control form-control-lg text-center'}
+            ),
+            # 'atletica': forms.Select(
+            #     attrs={'class': 'form-control form-control-lg text-center'}
+            # ),
             'atletica': forms.HiddenInput(),
         }
 
+    # def save(self, commit=True):
+    #     instance = super().save(False)
+    #     user = User(full_name=self.cleaned_data["nome"], email=self.cleaned_data["email"])
+    #     user.set_password(self.cleaned_data["password1"])
+    #
+    #     if commit:
+    #         user.save()
+    #         instance.usuario = user
+    #         instance.save()
+    #
+    #     return instance
 
 class AtleticaForm(forms.ModelForm):
     error_messages = {
