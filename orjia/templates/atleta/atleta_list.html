@@ -17,7 +17,7 @@
             </span>
           </div>
         </span>
-            {% if object_list %}
+            {% if atletas %}
             <table id="tabela" class="table table-striped table-responsive-sm">
                 <thead>
                 <tr>
@@ -26,7 +26,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for object in object_list %}
+                {% for object in atletas %}
                 <tr>
                     <td>{{object.nome}}</td>
                     <td class="text-center">
@@ -57,7 +57,7 @@
             {% endif %}
 
             <!-- Modal DELETE -->
-            {% for object in object_list %}
+            {% for object in atletas %}
             <div class="modal fade" id="modalDeleteAtleta{{object.pk}}" tabindex="-1" role="dialog"
                  aria-labelledby="TituloModalCentralizado" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">

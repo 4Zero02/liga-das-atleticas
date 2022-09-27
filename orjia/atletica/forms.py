@@ -1,11 +1,37 @@
 from django import forms
-from .models import Atletica, Atleta
+from .models import Atletica, Atleta, Equipe
 from base.models import User
 from django.core.validators import MinValueValidator
 
 
-class AtletaForm(forms.ModelForm):
+class EquipeForm(forms.ModelForm):
+    class Meta:
+        model = Equipe
+        fields = ['modalidade', 'atletica', 'campanha', 'atleta']
+        # 'atleta' = forms.ModelMultipleChoiceField(queryset=Atleta.objects.all())
+        widgets = {
+            'modalidade': forms.Select(
+                attrs={'class': 'form-control form-control-lg text-center'}
+            ),
+            'atletica': forms.Select(
+                attrs={'class': 'form-control form-control-lg text-center'}
+            ),
+            'campanha': forms.Select(
+                attrs={'class': 'form-control form-control-lg text-center'}
+            ),
+            # 'atleta': forms.widgets.SelectMultiple(
+            #     attrs={'class': 'form-control form-control-lg text-center'}
+            # ),
+        }
 
+        def __init__(self, *args, **kwargs):
+            super(EquipeForm, self).__init__(*args, **kwargs)
+            self.fields['atleta'] = forms.ModelMultipleChoiceField(
+                widget=forms.widgets.SelectMultiple, queryset=Atleta.objects.all()
+            )
+
+
+class AtletaForm(forms.ModelForm):
     class Meta:
         model = Atleta
         fields = ('nome', 'matricula', 'chave', 'atletica', 'naipe')
@@ -30,6 +56,7 @@ class AtletaForm(forms.ModelForm):
     #         instance.save()
     #
     #     return instance
+
 
 class AtleticaForm(forms.ModelForm):
     error_messages = {

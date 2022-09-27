@@ -5,15 +5,21 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import AtletaForm
-from .forms import AtleticaForm, AtleticaChangeForm
-from .models import Atletica, Atleta
-
+from .forms import AtleticaForm, AtleticaChangeForm, EquipeForm, AtletaForm
+from .models import Atletica, Atleta, Equipe
 
 
 class AtletaList(LoginRequiredMixin, ListView):
     model = Atleta
-    template = 'atleta/atleta_list.html'
+    template_name: str = 'atleta/atleta_list.html'
+
+
+def atleta_list(request):
+    template_name = 'atleta/atleta_list.html'
+    atletica_id = Atletica.objects.get(usuario=request.user)
+    atleta_list = Atleta.objects.filter(atletica=atletica_id).order_by('nome')
+    context = {'atletas': atleta_list}
+    return render(request, template_name, context)
 
 
 @login_required
@@ -21,20 +27,11 @@ def atleta_add(request):
     form = AtletaForm(request.POST or None)
     atletica_id = Atletica.objects.get(usuario=request.user)
     if form.is_valid():
-        # print('form ta valido')
         form = form.save(commit=False)
         form.atletica = atletica_id
         form.save()
         return redirect('atletica:atleta_list')
     return render(request, 'atleta/atleta_create.html', {'form': form})
-
-
-# class AtletaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-#     template_name = 'atletica/atleta_create.html'
-#     model = Atleta
-#     form_class = AtletaForm
-#     success_message = '%(nome)s cadastrado com sucesso'
-#     success_url = reverse_lazy('atletica:atleta_list')
 
 
 class AtletaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -58,6 +55,14 @@ class AtleticaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = AtleticaForm
     success_message = '%(nome)s cadastrado com sucesso'
     success_url = reverse_lazy('atletica:atletica_detail')
+
+
+class EquipeCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = 'equipe/equipe_create.html'
+    model = Equipe
+    form_class = EquipeForm
+    # success_message = '%(nome)s cadastrado com sucesso'
+    success_url = reverse_lazy('atletica:atleta_list')
 
 
 class AtleticaList(LoginRequiredMixin, ListView):

@@ -1,9 +1,22 @@
 from django.contrib import admin
-from .models import Atletica
+from .models import Atletica, Atleta, Equipe
 
 
 @admin.register(Atletica)
 class AtleticaAdmin(admin.ModelAdmin):
     model = Atletica
-    list_display = ('usuario', 'nome', 'curso')
+    list_display = ('nome', 'email', 'curso')
 
+
+@admin.register(Atleta)
+class AtletaAdmin(admin.ModelAdmin):
+    model = Atleta
+    list_display = ('nome', 'matricula', 'atletica')
+    ordering = ('-atletica',)
+
+
+@admin.register(Equipe)
+class EquipeAdmin(admin.ModelAdmin):
+    model = Equipe
+    list_display = ('atletica', 'modalidade', 'campanha')
+    ordering = ('-atletica',)

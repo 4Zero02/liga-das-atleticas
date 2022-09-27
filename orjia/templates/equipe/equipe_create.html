@@ -2,20 +2,20 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block title %}Cadastro de modalidade{% endblock title %}
+{% block title %}Cadastro de equipe{% endblock title %}
 
 {% block content %}
 <form method="POST">
     <div class="card">
         <div class="card-header pb-0">
             <div class="text-center">
-                <h4 class="mb-0 font-weight-bold">Informações da modalidade</h4>
+                <h4 class="mb-0 font-weight-bold">Informações da equipe</h4>
             </div>
         </div>
 
         <div class="card-body pt-0">
             <div class="m-sm-4">
-                {% include 'forms/modalidade_form.html' with form=form %}
+                {% include 'forms/equipe_form.html' with form=form %}
             </div>
         </div>
         <div class="text-center mt-3 mb-5">
@@ -25,3 +25,6 @@
     </div>
 </form>
 {% endblock %}
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock javascript %}

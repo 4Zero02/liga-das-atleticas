@@ -1,5 +1,7 @@
 from django.db import models
 from base.models import User
+from modalidade.models import Modalidade
+from base.models import Campanha
 from django.utils.translation import gettext as _
 
 
@@ -44,9 +46,10 @@ class Atleta(models.Model):
     def __str__(self):
         return self.nome
 
-# class Equipe(models.Model):
-    # modalidade =
-    # atletica =
-    # campanha =
-    # atleta =
-    # naipe =
+
+class Equipe(models.Model):
+    modalidade = models.ForeignKey(Modalidade, on_delete=models.CASCADE, null=False)
+    atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=False)
+    # campanha vai ser setada diretamente como a campanha ativa
+    campanha = models.ForeignKey(Campanha, on_delete=models.CASCADE, null=True)
+    atleta = models.ManyToManyField(Atleta)
