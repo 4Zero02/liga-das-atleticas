@@ -13,7 +13,7 @@ class CampanhaForm(forms.ModelForm):
 
     class Meta:
         model = Campanha
-        fields = ('nome', 'data_incio', 'data_final', 'ano', 'status')
+        fields = ('nome', 'data_inicio', 'data_final', 'ano', 'status')
 
 
 class CompeticaoForm(forms.ModelForm):

@@ -8,6 +8,7 @@ urlpatterns = [
     path('add/', v.AtleticaCreate.as_view(), name='atletica_add'),
     path('<int:pk>', v.AtleticaDetail.as_view(), name='atletica_detail'),
     path('update/<int:pk>', v.AtleticaUpdate.as_view(), name='atletica_update'),
+    path('delete/<int:pk>', v.AtleticaDelete.as_view(), name='atletica_delete'),
 
     # URLS ATLETAS
     path('atleta/list', v.atleta_list, name='atleta_list'),

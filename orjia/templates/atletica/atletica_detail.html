@@ -4,47 +4,82 @@
 {% block title %}Detalhes da Atlética{% endblock title %}
 
 {% block content %}
-  {% if messages %}
-      <div class="row align-items-center py-4">
-          <div class="col">
-              {% include 'components/messages.html' %}
-          </div>
-      </div>
-  {% endif %}
+{% if messages %}
+<div class="row align-items-center py-4">
+    <div class="col">
+        {% include 'components/messages.html' %}
+    </div>
+</div>
+{% endif %}
 
-  <div class="row">
+<div class="row">
     <div class="col-12">
         <div class="card">
-          <div class="card-body">
-              <h2 class="card-title text-dark"> Atlética {{ atletica.nome }} </h2>
+            <div class="card-body">
+                <h2 class="card-title text-dark"> Atlética {{ atletica.nome }} </h2>
 
-              <div class="row mb-2 mt-2">
-                <div class="col-12">
-                  {% include 'components/read_only_field.html' with value=atletica.nome label='Nome' %}
+                <div class="row mb-2 mt-2">
+                    <div class="col-12">
+                        {% include 'components/read_only_field.html' with value=atletica.nome label='Nome' %}
+                    </div>
                 </div>
-              </div>
 
-              <div class="row mb-2 mt-2">
-                <div class="col-12 col-md-6">
-                    {% include 'components/read_only_field.html' with value=atletica.email label='Email' %}
+                <div class="row mb-2 mt-2">
+                    <div class="col-12 col-md-6">
+                        {% include 'components/read_only_field.html' with value=atletica.email label='Email' %}
+                    </div>
+                    <div class="col-12 col-md-6">
+                        {% include 'components/read_only_field.html' with value=atletica.curso label='Curso' %}
+                    </div>
                 </div>
-                <div class="col-12 col-md-6">
-                    {% include 'components/read_only_field.html' with value=atletica.curso label='Curso' %}
-                </div>
-              </div>
 
-              <div class="row mb-2 mt-2">
-                <div class="col-12 col-md-6">
-                    {% include 'components/read_only_field.html' with value=atletica.instagram label='Instagram' %}
+                <div class="row mb-2 mt-2">
+                    <div class="col-12 col-md-6">
+                        {% include 'components/read_only_field.html' with value=atletica.instagram label='Instagram' %}
+                    </div>
+                    <div class="col-12 col-md-6">
+                        {% include 'components/read_only_field.html' with value=atletica.twitter label='Twitter' %}
+                    </div>
                 </div>
-                <div class="col-12 col-md-6">
-                    {% include 'components/read_only_field.html' with value=atletica.twitter label='Twitter' %}
-                </div>
-              </div>
+                {% if user.is_authenticated and user.is_staff %}
+                <button type="button" rel="tooltip" data-placement="left" title="Apagar item" class="btn btn-danger"
+                        data-toggle="modal" data-target="#modalAtletica{{atletica.pk}}">
+                    <i class="fa fa-trash" aria-hidden="true">Excluir</i>
+                </button>
 
-              <a href="{% url 'atletica:atletica_update' atletica.id %}" class="btn btn-warning float-right">
-                Editar Atlética
-              </a>
+                </a>
+                <a href="{% url 'atletica:atletica_update' atletica.id %}" class="btn btn-warning float-right">
+                    Editar
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalAtletica{{atletica.pk}}" tabindex="-1" role="dialog"
+         aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TituloModalCentralizado">Apagar Atlética</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'atletica:atletica_delete' atletica.pk %}" method="POST" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col">
+                                Tem certeza que deseja apagar a atletica {{atletica.nome}}?
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-danger btn-round">Apagar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

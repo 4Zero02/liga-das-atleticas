@@ -5,10 +5,18 @@ from django.core.validators import MinValueValidator
 
 
 class EquipeForm(forms.ModelForm):
+    atleta = forms.ModelMultipleChoiceField(
+        label='Atleta',
+        required=True,
+        queryset=Atleta.objects.all(),
+        widget=forms.SelectMultiple(
+            attrs={'class': 'col-12 mb-3 js-example-basic-multiple', 'multiple': 'multiple'}
+        )
+    )
+
     class Meta:
         model = Equipe
-        fields = ['modalidade', 'atletica', 'campanha', 'atleta']
-        # 'atleta' = forms.ModelMultipleChoiceField(queryset=Atleta.objects.all())
+        fields = ['modalidade', 'atletica', 'atleta']
         widgets = {
             'modalidade': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
@@ -16,19 +24,10 @@ class EquipeForm(forms.ModelForm):
             'atletica': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
-            'campanha': forms.Select(
-                attrs={'class': 'form-control form-control-lg text-center'}
-            ),
-            # 'atleta': forms.widgets.SelectMultiple(
+            # 'campanha': forms.Select(
             #     attrs={'class': 'form-control form-control-lg text-center'}
             # ),
         }
-
-        def __init__(self, *args, **kwargs):
-            super(EquipeForm, self).__init__(*args, **kwargs)
-            self.fields['atleta'] = forms.ModelMultipleChoiceField(
-                widget=forms.widgets.SelectMultiple, queryset=Atleta.objects.all()
-            )
 
 
 class AtletaForm(forms.ModelForm):
@@ -39,23 +38,19 @@ class AtletaForm(forms.ModelForm):
             'naipe': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
-            # 'atletica': forms.Select(
-            #     attrs={'class': 'form-control form-control-lg text-center'}
-            # ),
             'atletica': forms.HiddenInput(),
         }
 
-    # def save(self, commit=True):
-    #     instance = super().save(False)
-    #     user = User(full_name=self.cleaned_data["nome"], email=self.cleaned_data["email"])
-    #     user.set_password(self.cleaned_data["password1"])
-    #
-    #     if commit:
-    #         user.save()
-    #         instance.usuario = user
-    #         instance.save()
-    #
-    #     return instance
+
+class AtletaUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Atleta
+        fields = ('nome', 'matricula', 'chave', 'naipe')
+        widgets = {
+            'naipe': forms.Select(
+                attrs={'class': 'form-control form-control-lg text-center'}
+            ),
+        }
 
 
 class AtleticaForm(forms.ModelForm):

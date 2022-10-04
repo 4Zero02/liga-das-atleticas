@@ -8,17 +8,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#"><img src="{% static 'img/orjia.png' %}"
+                <a class="nav-link" href="{% url 'base:index' %}"><img src="{% static 'img/orjia.png' %}"
                                                   style="max-height:100%; max-width:100%;"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Atleticas</a>
+                <a class="nav-link" style="color:red;" href="{% url 'atletica:atletica_list' %}">Atleticas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Resultados</a>
+                <a class="nav-link" style="color:red;" href="#">Resultados</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Modalidades</a>
+                <a class="nav-link" style="color:red;" href="{% url 'modalidade:modalidade_list' %}">Modalidades</a>
             </li>
         </ul>
     </div>

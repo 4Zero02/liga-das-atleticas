@@ -7,13 +7,16 @@ from django.forms import inlineformset_factory
 from .forms import AuthForm
 from base.models import Campanha, Competicao
 from base.forms import CompeticaoForm, CampanhaForm
+from atletica.models import Atletica
 
 User = get_user_model()
 
 
 def home(request):
     template = 'base/content.html'
-    return render(request, template)
+    atleticas = Atletica.objects.all()
+    context = {'atleticas': atleticas}
+    return render(request, template, context)
 
 
 class LoginView(LoginView):

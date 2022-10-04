@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import AtleticaForm, AtleticaChangeForm, EquipeForm, AtletaForm
+from .forms import AtleticaForm, AtleticaChangeForm, EquipeForm, AtletaForm, AtletaUpdateForm
 from .models import Atletica, Atleta, Equipe
 
 
@@ -36,9 +36,10 @@ def atleta_add(request):
 
 class AtletaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Atleta
-    form_class = AtletaForm
-    template_name: str = 'atleta/atleta_create.html'
-    success_message = "Atleta %(nome)s atualizado com sucesso!"
+    form_class = AtletaUpdateForm
+    template_name: str = 'atleta/atleta_update.html'
+    # success_message = "Atleta %(nome)s atualizado com sucesso!"
+    success_url = reverse_lazy('atletica:atleta_list')
 
 
 def atleta_delete(request, pk):
@@ -54,7 +55,17 @@ class AtleticaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Atletica
     form_class = AtleticaForm
     success_message = '%(nome)s cadastrado com sucesso'
-    success_url = reverse_lazy('atletica:atletica_detail')
+    # success_url = reverse_lazy('atletica:atletica_detail')
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'atletica:atletica_detail', kwargs={"pk": self.object.pk}
+        )
+
+
+class AtleticaDelete(LoginRequiredMixin, DeleteView, SuccessMessageMixin):
+    model = Atletica
+    success_url = reverse_lazy('atletica:atletica_list')
 
 
 class EquipeCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -65,12 +76,13 @@ class EquipeCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('atletica:atleta_list')
 
 
-class AtleticaList(LoginRequiredMixin, ListView):
+
+class AtleticaList(ListView):
     model = Atletica
     template = 'atletica/atletica_list.html'
 
 
-class AtleticaDetail(LoginRequiredMixin, SuccessMessageMixin, DetailView):
+class AtleticaDetail(SuccessMessageMixin, DetailView):
     model = Atletica
     template_name: str = 'atletica/atletica_detail.html'
 

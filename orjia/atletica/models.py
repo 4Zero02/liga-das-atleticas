@@ -33,7 +33,7 @@ class Atletica(models.Model):
 class Atleta(models.Model):
     nome = models.CharField('Nome do atleta', max_length=50, null=False, blank=False)
     matricula = models.PositiveIntegerField('Número da matricula', null=False, blank=False)
-    chave = models.CharField('Chave de autenticação', max_length=39, null=False, blank=False)
+    chave = models.TextField('Chave de autenticação', max_length=39, null=False, blank=False)
     atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=True, blank=True)
     naipe = models.CharField('Naipe', max_length=1, choices=NAIPES, null=False, blank=False)
     # status = models.CharField() APTO OU NÃO, POREM QUEM DECIDE É A LIGA
