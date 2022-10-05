@@ -68,6 +68,7 @@ class AtleticaDelete(LoginRequiredMixin, DeleteView, SuccessMessageMixin):
     success_url = reverse_lazy('atletica:atletica_list')
 
 
+# Alterar pra def():
 class EquipeCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'equipe/equipe_create.html'
     model = Equipe

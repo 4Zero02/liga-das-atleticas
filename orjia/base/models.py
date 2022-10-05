@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 from django.utils.translation import gettext as _
 from modalidade.models import Modalidade
+from atletica.models import Equipe
+
 
 STATUS = (
     (1, 'ativo'),
@@ -17,7 +19,7 @@ class Campanha(models.Model):
     data_inicio = models.DateField('Data de início', default=date.today)
     data_final = models.DateField('Data de término', default=date.today)
     ano = models.PositiveIntegerField('Ano do evento', null=False, blank=False)
-    status = models.CharField(max_length=1, choices=STATUS, default=1)
+    status = models.CharField(max_length=1, choices=STATUS, default=0)
 
     class Meta:
         verbose_name = 'campanha'
@@ -28,6 +30,7 @@ class Competicao(models.Model):
     campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT)
     modalidade = models.ForeignKey(Modalidade, on_delete=models.PROTECT)
     data = models.DateField('Data da competição', default=date.today)
+    equipes = models.ManyToManyField(Equipe)
 
     class Meta:
         verbose_name = 'competicao'

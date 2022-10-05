@@ -8,11 +8,6 @@ TIPO_EQUIPE = (
     ('M', 'Mesa')
 )
 
-NAIPES = (
-    ('M', 'Masculino'),
-    ('F', 'Feminino'),
-    ('O', 'Misto')
-)
 
 TIPO_CONFRONTO = (
     ('0', 'Mata-mata'),
@@ -21,11 +16,10 @@ TIPO_CONFRONTO = (
 
 
 class Modalidade(models.Model):
-    nome = models.CharField(max_length=12, null=False, blank=False)
+    nome = models.CharField(max_length=20, null=False, blank=False)
     tipo = models.CharField(max_length=1, choices=TIPO_EQUIPE)
     max_atletas = models.PositiveIntegerField()
     min_atletas = models.PositiveIntegerField()
-    naipe = models.CharField(max_length=1, choices=NAIPES)
     tipo_confronto = models.CharField(max_length=1, choices=TIPO_CONFRONTO)
 
     class Meta:

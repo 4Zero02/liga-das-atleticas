@@ -6,18 +6,28 @@ from django.contrib.auth import authenticate
 from django.contrib import messages
 from .models import Competicao, Campanha
 
+
 User = get_user_model()
 
 
-class CampanhaForm(forms.ModelForm):
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
+    def __init__(self, **kwargs):
+        super().__init__(format='%Y-%m-%d', attrs={'class': 'form-control'})
+
+
+class CampanhaForm(forms.ModelForm):
     class Meta:
         model = Campanha
         fields = ('nome', 'data_inicio', 'data_final', 'ano', 'status')
+        widgets = {
+            'data_inicio': DateInput(),
+            'data_final': DateInput()
+        }
 
 
 class CompeticaoForm(forms.ModelForm):
-
     class Meta:
         model = Competicao
         fields = ('modalidade', 'data')

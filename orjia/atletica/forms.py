@@ -33,9 +33,9 @@ class EquipeForm(forms.ModelForm):
 class AtletaForm(forms.ModelForm):
     class Meta:
         model = Atleta
-        fields = ('nome', 'matricula', 'chave', 'atletica', 'naipe')
+        fields = ('nome', 'matricula', 'chave', 'atletica', 'sex')
         widgets = {
-            'naipe': forms.Select(
+            'sex': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
             'atletica': forms.HiddenInput(),
@@ -45,9 +45,9 @@ class AtletaForm(forms.ModelForm):
 class AtletaUpdateForm(forms.ModelForm):
     class Meta:
         model = Atleta
-        fields = ('nome', 'matricula', 'chave', 'naipe')
+        fields = ('nome', 'matricula', 'chave', 'sex')
         widgets = {
-            'naipe': forms.Select(
+            'sex': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
         }

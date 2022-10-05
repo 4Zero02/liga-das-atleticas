@@ -1,14 +1,7 @@
 from django.db import models
-from base.models import User
+from base.models import User, Campanha
 from modalidade.models import Modalidade
-from base.models import Campanha
 from django.utils.translation import gettext as _
-
-
-NAIPES = (
-    ('M', 'Masculino'),
-    ('F', 'Feminino'),
-)
 
 
 class Atletica(models.Model):
@@ -19,7 +12,7 @@ class Atletica(models.Model):
     instagram = models.CharField('Instagem da Atlética', max_length=40, null=True, blank=True)
     twitter = models.CharField('Twitter da Atlética', max_length=40, null=True, blank=True)
     # is_staff = models.BooleanField(_('Membro da Equipe'), default=False)
-    # logo
+    # logo = models.ImageField(upload_to='logos')
 
     class Meta:
         ordering = ['nome']
@@ -31,12 +24,16 @@ class Atletica(models.Model):
 
 
 class Atleta(models.Model):
+    class Sex(models.TextChoices):
+        MALE = 'M', _('Masculino')
+        FEMALE = 'F', _('Feminino')
+
     nome = models.CharField('Nome do atleta', max_length=50, null=False, blank=False)
     matricula = models.PositiveIntegerField('Número da matricula', null=False, blank=False)
     chave = models.TextField('Chave de autenticação', max_length=39, null=False, blank=False)
     atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=True, blank=True)
-    naipe = models.CharField('Naipe', max_length=1, choices=NAIPES, null=False, blank=False)
-    # status = models.CharField() APTO OU NÃO, POREM QUEM DECIDE É A LIGA
+    sex = models.CharField(_('Sexo'), max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
+    status = models.BooleanField()
 
     class Meta:
         ordering = ['nome']
@@ -48,8 +45,19 @@ class Atleta(models.Model):
 
 
 class Equipe(models.Model):
+    class Sex(models.TextChoices):
+        MALE = 'M', ('Masculino')
+        FEMALE = 'F', ('Feminino')
+        MIX = 'O', ('Misto')
+
     modalidade = models.ForeignKey(Modalidade, on_delete=models.CASCADE, null=False)
     atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=False)
-    # campanha vai ser setada diretamente como a campanha ativa
     campanha = models.ForeignKey(Campanha, on_delete=models.CASCADE, null=True)
     atleta = models.ManyToManyField(Atleta)
+    sex = models.CharField('Sexo', max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
+
+    class Meta:
+        ordering = ['modalidade']
+        verbose_name = 'Equipe'
+        verbose_name_plural = 'Equipes'
+
