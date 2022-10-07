@@ -15,10 +15,10 @@ class ModalidadeForm(forms.ModelForm):
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
             'max_atletas': forms.NumberInput(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Maximo de atletas permitido'}
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Maximo de atletas'}
             ),
             'min_atletas': forms.NumberInput(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Minimo de atletas permitido'}
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Minimo de atletas'}
             ),
             'tipo_confronto': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}

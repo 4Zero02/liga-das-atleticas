@@ -22,6 +22,12 @@ class CampanhaForm(forms.ModelForm):
         model = Campanha
         fields = ('nome', 'data_inicio', 'data_final', 'ano', 'status')
         widgets = {
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome completo'}
+            ),
+            'ano': forms.NumberInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Maximo de atletas'}
+            ),
             'data_inicio': DateInput(),
             'data_final': DateInput()
         }
@@ -36,15 +42,6 @@ class CompeticaoForm(forms.ModelForm):
             'nome': forms.TextInput(
                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome completo'}
             ),
-            'curso': forms.TextInput(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Curso que a atlética pertence'}
-            ),
-            'instagram': forms.TextInput(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Link da instagram da atlética'}
-            ),
-            'twitter': forms.TextInput(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Link do Twitter da atlética'}
-            )
         }
 
 

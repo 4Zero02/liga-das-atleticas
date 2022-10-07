@@ -1,35 +1,33 @@
-<div class="row">
-    {% if messages %}
-    <div class="col-12 mb-3">
-        {% include 'components/messages.html' %}
-    </div>
-    {% endif %}
+<div class="card-body pt-0">
+    <div class="m-sm-4">
+        {% if messages %}
+        <div class="row align-items-center">
+            <div class="col">
+                {% include 'components/messages.html' %}
+            </div>
+        </div>
+        {% endif %}
 
-    {% csrf_token %}
-
-    {% include 'components/form_messages.html' with form=form %}
-
-    <div class="row">
-        <div class="col-10 mb-3">
-            {% include 'components/field.html' with label='Nome da modalidade:' field=form.nome %}
+        {% csrf_token %}
+        {% include 'components/form_messages.html' with form=form %}
+        <div class="row">
+            <div class="col-10 mb-3">
+                {% include 'components/field.html' with label='Nome da modalidade:' field=form.nome %}
+            </div>
+            <div class="col-auto">
+                {% include 'components/field.html' with label='Tipo:' field=form.tipo %}
+            </div>
         </div>
-        <div class="col-auto">
-            {% include 'components/field.html' with label='Tipo:' field=form.tipo %}
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12 col-md-3 mb-3">
-            {% include 'components/field.html' with label='Minimo de atletas permitido:' field=form.min_atletas %}
-        </div>
-        <div class="col-12 col-md-3 mb-3">
-            {% include 'components/field.html' with label='Maximo de atletas permitido:' field=form.max_atletas %}
-        </div>
-        <div class="col-12 col-md-3 mb-3">
-            {% include 'components/field.html' with label='Naipe:' field=form.naipe %}
-        </div>
-        <div class="col-12 col-md-3 mb-3">
-            {% include 'components/field.html' with label='Tipo de confronto:' field=form.tipo_confronto %}
+        <div class="row">
+            <div class="col-12 col-md-3 mb-3">
+                {% include 'components/field.html' with label='Minimo de atletas permitido:' field=form.min_atletas %}
+            </div>
+            <div class="col-12 col-md-3 mb-3">
+                {% include 'components/field.html' with label='Maximo de atletas permitido:' field=form.max_atletas %}
+            </div>
+            <div class="col-12 col-md-3 mb-3">
+                {% include 'components/field.html' with label='Tipo de confronto:' field=form.tipo_confronto %}
+            </div>
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 from django.utils.translation import gettext as _
 from modalidade.models import Modalidade
-from atletica.models import Equipe
+# from atletica.models import Equipe
 
 
 STATUS = (
@@ -30,7 +30,7 @@ class Competicao(models.Model):
     campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT)
     modalidade = models.ForeignKey(Modalidade, on_delete=models.PROTECT)
     data = models.DateField('Data da competição', default=date.today)
-    equipes = models.ManyToManyField(Equipe)
+    # equipes = models.ManyToManyField(Equipe)
 
     class Meta:
         verbose_name = 'competicao'

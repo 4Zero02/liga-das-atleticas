@@ -13,15 +13,21 @@
 </div>
 
 <div class="row mt-5">
+    {% if object_list %}
     {% for atletica in object_list %}
-        <a href="{% url 'atletica:atletica_detail' atletica.id %}">
-            <div class="card" style="width: 18rem;">
-                <img src="{% static 'img/orjia.png' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{atletica.nome}}</h5>
-                </div>
+    <a href="{% url 'atletica:atletica_detail' atletica.id %}">
+        <div class="card" style="width: 18rem;">
+            <img src="{% static 'img/orjia.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{atletica.nome}}</h5>
             </div>
-        </a>
+        </div>
+    </a>
     {% endfor %}
+    {% else %}
+    <div class="tab-content text-center">
+        <p class="alert alert-warning">Sem atléticas cadastradas.</p>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -33,7 +33,7 @@ class Atleta(models.Model):
     chave = models.TextField('Chave de autenticação', max_length=39, null=False, blank=False)
     atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=True, blank=True)
     sex = models.CharField(_('Sexo'), max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
-    status = models.BooleanField()
+    status = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['nome']
@@ -51,8 +51,8 @@ class Equipe(models.Model):
         MIX = 'O', ('Misto')
 
     modalidade = models.ForeignKey(Modalidade, on_delete=models.CASCADE, null=False)
-    atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=False)
-    campanha = models.ForeignKey(Campanha, on_delete=models.CASCADE, null=True)
+    atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=True, blank=True)
+    campanha = models.ForeignKey(Campanha, on_delete=models.CASCADE, null=True, blank=True)
     atleta = models.ManyToManyField(Atleta)
     sex = models.CharField('Sexo', max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
 
@@ -60,4 +60,3 @@ class Equipe(models.Model):
         ordering = ['modalidade']
         verbose_name = 'Equipe'
         verbose_name_plural = 'Equipes'
-

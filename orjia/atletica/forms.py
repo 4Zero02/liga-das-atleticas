@@ -10,23 +10,44 @@ class EquipeForm(forms.ModelForm):
         required=True,
         queryset=Atleta.objects.all(),
         widget=forms.SelectMultiple(
-            attrs={'class': 'col-12 mb-3 js-example-basic-multiple', 'multiple': 'multiple'}
+            attrs={'class': 'form-control form-control-lg text-center js-example-basic-multiple', 'multiple': 'multiple'}
         )
     )
 
     class Meta:
         model = Equipe
-        fields = ['modalidade', 'atletica', 'atleta']
+        fields = ('modalidade', 'atletica', 'atleta', 'sex')
         widgets = {
             'modalidade': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
-            'atletica': forms.Select(
+            'sex': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
-            # 'campanha': forms.Select(
-            #     attrs={'class': 'form-control form-control-lg text-center'}
-            # ),
+            'atletica': forms.HiddenInput(),
+        }
+
+
+class EquipeUpdateForm(forms.ModelForm):
+    atleta = forms.ModelMultipleChoiceField(
+        label='Atleta',
+        required=True,
+        queryset=Atleta.objects.all(),
+        widget=forms.SelectMultiple(
+            attrs={'class': 'form-control form-control-lg text-center js-example-basic-multiple', 'multiple': 'multiple'}
+        )
+    )
+
+    class Meta:
+        model = Equipe
+        fields = ('modalidade', 'atleta', 'sex')
+        widgets = {
+            'modalidade': forms.Select(
+                attrs={'class': 'form-control form-control-lg text-center'}
+            ),
+            'sex': forms.Select(
+                attrs={'class': 'form-control form-control-lg text-center'}
+            ),
         }
 
 
@@ -35,6 +56,15 @@ class AtletaForm(forms.ModelForm):
         model = Atleta
         fields = ('nome', 'matricula', 'chave', 'atletica', 'sex')
         widgets = {
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome do atleta'}
+            ),
+            'matricula': forms.NumberInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Matricula do atleta'}
+            ),
+            'chave': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Chave de autenticacao'}
+            ),
             'sex': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
@@ -47,6 +77,15 @@ class AtletaUpdateForm(forms.ModelForm):
         model = Atleta
         fields = ('nome', 'matricula', 'chave', 'sex')
         widgets = {
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome do atleta'}
+            ),
+            'matricula': forms.NumberInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Matricula do atleta'}
+            ),
+            'chave': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Chave de autenticacao'}
+            ),
             'sex': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),

@@ -10,6 +10,7 @@
         modalidade</a>
     {% endif %}
 </div>
+{% if modalidades %}
 <div class="row mt-5">
     {% for modalidade in modalidades %}
     <div class="col-auto  mt-3">
@@ -22,7 +23,6 @@
                     <b>Tipo: </b>{{ modalidade.tipo }}<br>
                     <b>Máximo de atletas:</b>{{ modalidade.max_atletas }}<br>
                     <b>Mínimo de atletas:</b>{{ modalidade.min_atletas }}<br>
-                    <b>Naipe:</b>{{ modalidade.naipe }}<br>
                     <b>Tipo de confronto:</b>{{ modalidade.tipo_confronto }}<br>
                 </p>
                 {% if user.is_authenticated and user.is_staff %}
@@ -76,4 +76,9 @@
     </div>
     {% endfor %}
 </div>
+{% else %}
+<div class="tab-content text-center">
+    <p class="alert alert-warning">Sem modalidades cadastradas.</p>
+</div>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,240 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Equipes{% endblock title %}
+{% block content %}
+
+<div class="card card-nav-tabs">
+    <div class="card-header card-header-primary">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#equipesALL" data-toggle="tab">Todas equipes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#equipesMASC" data-toggle="tab">Equipes MASC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#equipesFEM" data-toggle="tab">Equipes FEM</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- TODAS EQUIPES -->
+    <div class="card-body ">
+        <div class="tab-content text-center">
+            <div class="tab-pane active" id="equipesALL">
+                <span class="pull-right">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h2 class="text-center"></h2>
+                        <span class="pull-right">
+                            <a href="{% url 'atletica:equipe_create' %}">
+                            <button type="button" class="btn btn-primary btn-round">
+                                <span class="fa fa-plus"></span> Adicionar Equipe
+                            </button>
+                            </a>
+                            <!--                            <button type="button" class="btn btn-primary btn-round dropdown-toggle"-->
+                            <!--                                    data-toggle="dropdown"-->
+                            <!--                                    aria-haspopup="true" aria-expanded="false">-->
+                            <!--                                <span class="fa fa-plus"></span> Adicionar Equipe-->
+                            <!--                            </button>-->
+                            <!--                                <div class="dropdown-menu">-->
+                            <!--                                    <a class="dropdown-item" href="{% url 'atletica:equipe_create' %}">Masculina</a>-->
+                            <!--                                    <a class="dropdown-item" href="{% url 'atletica:equipe_create' %}">Feminina</a>-->
+                            <!--                                    <a class="dropdown-item" href="{% url 'atletica:equipe_create' %}">Misto</a>-->
+                            <!--                                </div>-->
+                        </span>
+                    </div>
+                </span>
+                {% if object_list %}
+                <table id="tabelaALL" class="table table-striped table-responsive-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Equipes</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for object in object_list %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{ object.modalidade }} {{object.sex}}</td>
+                        <td class="text-center">
+                            <a href="{% url 'atletica:equipe_update' object.pk %}">
+                                <button rel="tooltip" data-placement="left" title="Editar item" class="btn btn-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd"
+                                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                    </svg>
+                                </button>
+                            </a>
+                            <!-- Button modal -->
+                            <button type="button" rel="tooltip" data-placement="left" title="Apagar item"
+                                    class="btn btn-danger"
+                                    data-toggle="modal" data-target="#modalEquipe{{object.pk}}">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <br>
+                <p class="alert alert-warning">Sem itens na lista.</p>
+                {% endif %}
+
+                <!-- Modal DELETE -->
+                {% for object in object_list %}
+                <div class="modal fade" id="modalEquipe{{object.pk}}" tabindex="-1" role="dialog"
+                     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="TituloModalCentralizado">Apagar equipe</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{% url 'atletica:equipe_delete' object.pk %}" method="POST" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col">
+                                            Tem certeza que deseja apagar a equipe?
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">
+                                            Cancelar
+                                        </button>
+                                        <button type="submit" class="btn btn-danger btn-round">Apagar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- EQUIPE MASC -->
+            <div class="tab-pane" id="equipesMASC">
+                <span class="pull-right">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h2 class="text-center"></h2>
+                        <span class="pull-right">
+                            <a href="{% url 'atletica:equipe_create' %}">
+                            <button type="button" class="btn btn-primary btn-round">
+                                <span class="fa fa-plus"></span> Adicionar Equipe
+                            </button>
+                            </a>
+                        </span>
+                    </div>
+                </span>
+                {% if object_masc %}
+                <table id="tabelaMASC" class="table table-striped table-responsive-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Equipes</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for object in object_masc %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{ object.modalidade }}</td>
+                        <td class="text-center">
+                            <a href="#">
+                                <button rel="tooltip" data-placement="left" title="Editar item" class="btn btn-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd"
+                                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                    </svg>
+                                </button>
+                            </a>
+                            <!-- Button modal -->
+                            <button type="button" rel="tooltip" data-placement="left" title="Apagar item"
+                                    class="btn btn-danger"
+                                    data-toggle="modal" data-target="#modalEquipe{{object.pk}}">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <br>
+                <p class="alert alert-warning">Sem itens na lista.</p>
+                {% endif %}
+            </div>
+
+            <!-- EQUIPE FEM -->
+            <div class="tab-pane" id="equipesFEM">
+                <span class="pull-right">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h2 class="text-center"></h2>
+                        <span class="pull-right">
+                            <a href="{% url 'atletica:equipe_create' %}">
+                            <button type="button" class="btn btn-primary btn-round">
+                                <span class="fa fa-plus"></span> Adicionar Equipe
+                            </button>
+                            </a>
+                        </span>
+                    </div>
+                </span>
+                {% if object_fem %}
+                <table id="tabelaFEM" class="table table-striped table-responsive-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Equipes</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for object in object_fem %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{ object.modalidade }}</td>
+                        <td class="text-center">
+                            <a href="#">
+                                <button rel="tooltip" data-placement="left" title="Editar item" class="btn btn-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd"
+                                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                    </svg>
+                                </button>
+                            </a>
+                            <!-- Button modal -->
+                            <button type="button" rel="tooltip" data-placement="left" title="Apagar item"
+                                    class="btn btn-danger"
+                                    data-toggle="modal" data-target="#modalEquipe{{object.pk}}">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <br>
+                <p class="alert alert-warning">Sem itens na lista.</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

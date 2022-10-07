@@ -17,5 +17,8 @@ urlpatterns = [
     path('atleta/delete/<int:pk>', v.atleta_delete, name='atleta_delete'),
 
     # URLS EQUIPES
-    path('equipe/add', v.EquipeCreate.as_view(), name='equipe_create'),
+    path('equipe/', v.equipe_list, name='equipe_list'),
+    path('equipe/add', v.equipe_create, name='equipe_create'),
+    path('equipe/delete/<int:pk>', v.equipe_delete, name='equipe_delete'),
+    path('equipe/update/<int:pk>', v.EquipeUpdate.as_view(), name='equipe_update'),
 ]
