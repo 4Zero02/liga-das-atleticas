@@ -21,6 +21,7 @@
             </div>
         </div>
     </div>
+
     <!-- TODAS EQUIPES -->
     <div class="card-body ">
         <div class="tab-content text-center">
@@ -34,16 +35,6 @@
                                 <span class="fa fa-plus"></span> Adicionar Equipe
                             </button>
                             </a>
-                            <!--                            <button type="button" class="btn btn-primary btn-round dropdown-toggle"-->
-                            <!--                                    data-toggle="dropdown"-->
-                            <!--                                    aria-haspopup="true" aria-expanded="false">-->
-                            <!--                                <span class="fa fa-plus"></span> Adicionar Equipe-->
-                            <!--                            </button>-->
-                            <!--                                <div class="dropdown-menu">-->
-                            <!--                                    <a class="dropdown-item" href="{% url 'atletica:equipe_create' %}">Masculina</a>-->
-                            <!--                                    <a class="dropdown-item" href="{% url 'atletica:equipe_create' %}">Feminina</a>-->
-                            <!--                                    <a class="dropdown-item" href="{% url 'atletica:equipe_create' %}">Misto</a>-->
-                            <!--                                </div>-->
                         </span>
                     </div>
                 </span>
@@ -151,7 +142,7 @@
                         <td>{{forloop.counter}}</td>
                         <td>{{ object.modalidade }}</td>
                         <td class="text-center">
-                            <a href="#">
+                            <a href="{% url 'atletica:equipe_update' object.pk %}">
                                 <button rel="tooltip" data-placement="left" title="Editar item" class="btn btn-info">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -164,7 +155,7 @@
                             <!-- Button modal -->
                             <button type="button" rel="tooltip" data-placement="left" title="Apagar item"
                                     class="btn btn-danger"
-                                    data-toggle="modal" data-target="#modalEquipe{{object.pk}}">
+                                    data-toggle="modal" data-target="#modalEquipeM{{object.pk}}">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </td>
@@ -176,6 +167,39 @@
                 <br>
                 <p class="alert alert-warning">Sem itens na lista.</p>
                 {% endif %}
+
+                <!-- Modal DELETE -->
+                {% for object in object_list %}
+                <div class="modal fade" id="modalEquipeM{{object.pk}}" tabindex="-1" role="dialog"
+                     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="TituloModalCentralizado">Apagar equipe</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{% url 'atletica:equipe_delete' object.pk %}" method="POST" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col">
+                                            Tem certeza que deseja apagar a equipe de {{object.modalidade}}?
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">
+                                            Cancelar
+                                        </button>
+                                        <button type="submit" class="btn btn-danger btn-round">Apagar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
 
             <!-- EQUIPE FEM -->
@@ -207,7 +231,7 @@
                         <td>{{forloop.counter}}</td>
                         <td>{{ object.modalidade }}</td>
                         <td class="text-center">
-                            <a href="#">
+                            <a href="{% url 'atletica:equipe_update' object.pk %}">
                                 <button rel="tooltip" data-placement="left" title="Editar item" class="btn btn-info">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -220,7 +244,7 @@
                             <!-- Button modal -->
                             <button type="button" rel="tooltip" data-placement="left" title="Apagar item"
                                     class="btn btn-danger"
-                                    data-toggle="modal" data-target="#modalEquipe{{object.pk}}">
+                                    data-toggle="modal" data-target="#modalEquipeF{{object.pk}}">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </td>
@@ -232,6 +256,39 @@
                 <br>
                 <p class="alert alert-warning">Sem itens na lista.</p>
                 {% endif %}
+
+                <!-- Modal DELETE -->
+                {% for object in object_list %}
+                <div class="modal fade" id="modalEquipeF{{object.pk}}" tabindex="-1" role="dialog"
+                     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="TituloModalCentralizado">Apagar equipe</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{% url 'atletica:equipe_delete' object.pk %}" method="POST" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col">
+                                            Tem certeza que deseja apagar a equipe de {{object.modalidade}}?
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">
+                                            Cancelar
+                                        </button>
+                                        <button type="submit" class="btn btn-danger btn-round">Apagar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
 
         </div>
