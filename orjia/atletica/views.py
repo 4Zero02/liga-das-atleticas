@@ -21,14 +21,15 @@ def equipe_list(request):
 
 @login_required
 def equipe_create(request):
-    form = EquipeForm(request.POST or None)
-    atletica_id = Atletica.objects.get(usuario=request.user)
-    if form.is_valid():
-        form = form.save(commit=False)
-        form.atletica = atletica_id
+    equipe_form = EquipeForm(request.POST or None)
+    atletica = Atletica.objects.get(usuario=request.user)
+    if equipe_form.is_valid():
+        form = equipe_form.save(commit=False)
+        form.atletica = atletica
         form.save()
+        equipe_form.save_m2m()
         return redirect('atletica:equipe_list')
-    return render(request, 'equipe/equipe_create.html', {'form': form})
+    return render(request, 'equipe/equipe_create.html', {'form': equipe_form})
 
 
 @login_required

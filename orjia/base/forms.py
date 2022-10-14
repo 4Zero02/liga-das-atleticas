@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate
 from django.contrib import messages
-from .models import Competicao, Campanha
+from .models import Campanha
 
 
 User = get_user_model()
@@ -20,29 +20,29 @@ class DateInput(forms.DateInput):
 class CampanhaForm(forms.ModelForm):
     class Meta:
         model = Campanha
-        fields = ('nome', 'data_inicio', 'data_final', 'ano', 'status')
+        fields = ('nome', 'data_inicio', 'data_final', 'ano')
         widgets = {
             'nome': forms.TextInput(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome completo'}
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome da campanha'}
             ),
             'ano': forms.NumberInput(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Maximo de atletas'}
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Ano da campanha'}
             ),
             'data_inicio': DateInput(),
             'data_final': DateInput()
         }
 
 
-class CompeticaoForm(forms.ModelForm):
-    class Meta:
-        model = Competicao
-        fields = ('modalidade', 'data')
-        widgets = {
-            'modalidade': forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
-            'nome': forms.TextInput(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome completo'}
-            ),
-        }
+# class CompeticaoForm(forms.ModelForm):
+#     class Meta:
+#         model = Competicao
+#         fields = ('modalidade', 'data')
+#         widgets = {
+#             'modalidade': forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
+#             'nome': forms.TextInput(
+#                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome completo'}
+#             ),
+#         }
 
 
 class AuthForm(forms.Form):
