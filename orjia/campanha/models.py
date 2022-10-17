@@ -1,7 +1,7 @@
 from django.db import models
 from modalidade.models import Modalidade
 from datetime import date
-from atletica.models import Equipe
+
 
 # Create your models here.
 STATUS = (
@@ -31,14 +31,6 @@ class Competicao(models.Model):
     class Meta:
         verbose_name = 'competicao'
         verbose_name_plural = 'competicoes'
-
-
-class Partida(models.Model):
-    # modalidade = models.ForeignKey(Modalidade, on_delete=models.PROTECT)
-    # campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT)
-    competicao = models.ForeignKey(Competicao, on_delete=models.PROTECT)
-    equipe = models.ManyToManyField(Equipe)
-    # resultado =
 
 
 # class Ranking(models.Model):

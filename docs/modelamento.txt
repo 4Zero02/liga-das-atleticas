@@ -1,0 +1,77 @@
+- usuários - atletica
+	- nome
+	- email = user
+	- senha
+	- curso
+	- logo
+	- instagram
+	- twitter
+	- contato
+
+- atletas
+	- nome
+	- matricula
+	- documento
+	- atletica
+	- contato?
+
+- equipes
+	- modalidade
+	- atletica
+	- campanha
+	- atleta
+	- naipe acho que nao precisa
+
+- equipes_atletas (Tabela pivô, não diz respeito a modelagem.. Apenas pra facilitar a visualização)
+	- equipe
+	- atleta
+
+- modalidades esportivas (do ORJIA)
+	- nome
+	- tipo(Coletiva, individual, virtuais ou mesa)
+	- max_atletas
+	- min_atletas
+	- naipes(fem, masc ou misto)
+	- ?
+	- tipo_confronto (mata-mata, all x all)
+		mata-mata gera tabela de jogo com rounds e resultados
+		bateria gera tabela de ranking
+		grupos passa uma quantidade definida de participantes
+
+
+
+- campanhas(ORJIAS)
+	- nome
+	- data_inicio
+	- data_fim
+	- ano
+	- competicoes
+
+
+- competicao
+	- campanha = autoset
+	- modalidade
+	- data
+	- equipe = autoset		
+
+
+- partida
+	- modalidade = autoset
+	- competicao = autoset
+	- campanha = autoset
+	- equipes
+	# - resultado
+	# - status (agendado, em_jogo, finalizado, cancelado)
+	# - etapa (quartas, semi_final, terceiro_lugar, final)
+
+---------------------------------
+- resultado                     |
+	- partida               |
+	- round                 |
+	- placar                |
+	- jogo                  |
+---------------------------------
+
+
+
+

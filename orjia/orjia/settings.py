@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'base',
     'atletica',
     'modalidade',
+    'campanha',
+    'partida',
 ]
 
 MIDDLEWARE = [

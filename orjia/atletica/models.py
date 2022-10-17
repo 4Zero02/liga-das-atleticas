@@ -2,6 +2,7 @@ from django.db import models
 from campanha.models import Campanha, Competicao
 from modalidade.models import Modalidade
 from django.utils.translation import gettext as _
+from orjia.base.models import User
 
 
 class Atletica(models.Model):
@@ -53,7 +54,7 @@ class Equipe(models.Model):
     modalidade = models.ForeignKey(Modalidade, on_delete=models.CASCADE, null=False)
     atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=True, blank=True)
     campanha = models.ForeignKey(Campanha, on_delete=models.CASCADE, null=True, blank=True)
-    competicao = models.ForeignKey()
+    competicao = models.ForeignKey(Competicao, on_delete=models.CASCADE, null=True)
     atleta = models.ManyToManyField(Atleta)
     sex = models.CharField('Sexo', max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
 
