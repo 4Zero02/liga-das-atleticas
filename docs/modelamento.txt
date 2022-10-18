@@ -20,7 +20,7 @@
 	- atletica
 	- campanha
 	- atleta
-	- naipe acho que nao precisa
+	- naipe
 
 - equipes_atletas (Tabela pivô, não diz respeito a modelagem.. Apenas pra facilitar a visualização)
 	- equipe
@@ -31,9 +31,9 @@
 	- tipo(Coletiva, individual, virtuais ou mesa)
 	- max_atletas
 	- min_atletas
-	- naipes(fem, masc ou misto)
+	- eh_misto
 	- ?
-	- tipo_confronto (mata-mata, all x all)
+	- tipo_confronto (mata-mata, all x all) M - mata-mata, A - all
 		mata-mata gera tabela de jogo com rounds e resultados
 		bateria gera tabela de ranking
 		grupos passa uma quantidade definida de participantes
@@ -51,27 +51,58 @@
 - competicao
 	- campanha = autoset
 	- modalidade
-	- data
-	- equipe = autoset		
-
+  - naipe
+	- ranking
 
 - partida
 	- modalidade = autoset
 	- competicao = autoset
 	- campanha = autoset
-	- equipes
-	# - resultado
-	# - status (agendado, em_jogo, finalizado, cancelado)
-	# - etapa (quartas, semi_final, terceiro_lugar, final)
+	- data
+	- equipes (partida_equipe)
+	- equipe_vencedora
+	- etapa (quartas, semi_final, terceiro_lugar, final)
 
----------------------------------
-- resultado                     |
-	- partida               |
-	- round                 |
-	- placar                |
-	- jogo                  |
----------------------------------
+- partida_equipe
+	- equipe
+	- partida
+
+- Ranking
+	- competicao
+	- equipe1
+	- equipe2
+	- equipe3
+	- equipe4
+	- equipe5
+	- equipe6
+	- equipe7
+	- equipe8
 
 
+Modalidades
+
+Resultados > Competição.modalidade >
+		- Masculino e Feminino
+		- Misto
+		> Lista de partidas (Etapa, numero, equipe A, equipe B, resultado)
+		> Se partida.modalidade == "M"
+			> Iterar sobre as partidas (ordenado por numero)
+				> Exibir (Numero, Etapa, partida.equipe[0], "X" , partida.equipe[1], equipe_vencedora)
+		> Senão
+			> Exibir competição.ranking
+
+Ranking > Competição.modalidade
+ > Exibir o ranking dos 8 primeiros daquela competição
 
 
+Add competição
+ - campanha autosetada
+ - modalidade
+ - naipe
+
+Add partida >
+ campanha autosetada
+ competição
+ numero
+ equipes (select many)
+ etapa

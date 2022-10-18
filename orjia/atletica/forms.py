@@ -111,6 +111,12 @@ class AtleticaForm(forms.ModelForm):
         )
     )
 
+    logo = forms.ImageField(
+        required=True, widget=forms.FileInput(
+            attrs={'class': 'form-control', 'placeholder': 'Foto', 'accept': 'image/jpeg,image/jpg'}
+        )
+    )
+
     class Meta:
         model = Atletica
         fields = ('nome', 'email', 'curso', 'instagram', 'twitter', 'password1', 'password2')

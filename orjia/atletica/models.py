@@ -1,8 +1,27 @@
+import string
+from random import choice
 from django.db import models
 from campanha.models import Campanha, Competicao
 from modalidade.models import Modalidade
 from django.utils.translation import gettext as _
 from orjia.base.models import User
+import os
+
+def create_token(tam=8):
+    token = ''
+    choices = string.ascii_letters + string.digits
+    for i in range(1, tam + 1):
+        token += choice(choices)
+
+        if i % 4 == 0 and i != tam:
+            token += '.'
+
+    return token.upper()
+
+
+def upload_photo(instance, filename):
+    # /media/logos/<instance.id>-<token_aleatorio>.<extensao_do_arquivo>
+    return f"logos/{instance.pk}-{create_token(4)}{os.path.splitext(filename)[-1]}"
 
 
 class Atletica(models.Model):
@@ -12,8 +31,8 @@ class Atletica(models.Model):
     curso = models.CharField('Curso', max_length=50, null=False, blank=False)
     instagram = models.CharField('Instagem da Atlética', max_length=40, null=True, blank=True)
     twitter = models.CharField('Twitter da Atlética', max_length=40, null=True, blank=True)
+    logo = models.ImageField(upload_to=upload_photo)
     # is_staff = models.BooleanField(_('Membro da Equipe'), default=False)
-    # logo = models.ImageField(upload_to='logos')
 
     class Meta:
         ordering = ['nome']

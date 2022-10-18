@@ -51,7 +51,7 @@
                     {% for object in object_list %}
                     <tr>
                         <td>{{forloop.counter}}</td>
-                        <td>{{ object.modalidade }} {{object.sex}}</td>
+                        <td>{{ object.modalidade }} {{ object.get_sex_display }}</td>
                         <td class="text-center">
                             <a href="{% url 'atletica:equipe_update' object.pk %}">
                                 <button rel="tooltip" data-placement="left" title="Editar item" class="btn btn-info">
