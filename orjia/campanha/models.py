@@ -1,8 +1,6 @@
-from distutils.command.upload import upload
 from django.db import models
 from modalidade.models import Modalidade
 from datetime import date
-import os
 
 # Create your models here.
 STATUS = (

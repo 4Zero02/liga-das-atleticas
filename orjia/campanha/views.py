@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, resolve_url
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.forms import inlineformset_factory
-from campanha.models import Campanha, Competicao
-from campanha.forms import CampanhaForm, CompeticaoForm
+from .models import Campanha, Competicao
+from .forms import CampanhaForm, CompeticaoForm
 
 
 # Create your views here.

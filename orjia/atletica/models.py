@@ -1,11 +1,13 @@
 import string
+from distutils.command.upload import upload
 from random import choice
 from django.db import models
 from campanha.models import Campanha, Competicao
 from modalidade.models import Modalidade
 from django.utils.translation import gettext as _
-from orjia.base.models import User
+from base.models import User
 import os
+
 
 def create_token(tam=8):
     token = ''
@@ -32,7 +34,6 @@ class Atletica(models.Model):
     instagram = models.CharField('Instagem da Atlética', max_length=40, null=True, blank=True)
     twitter = models.CharField('Twitter da Atlética', max_length=40, null=True, blank=True)
     logo = models.ImageField(upload_to=upload_photo)
-    # is_staff = models.BooleanField(_('Membro da Equipe'), default=False)
 
     class Meta:
         ordering = ['nome']
@@ -81,3 +82,9 @@ class Equipe(models.Model):
         ordering = ['modalidade']
         verbose_name = 'Equipe'
         verbose_name_plural = 'Equipes'
+
+
+class Score(models.Model):
+    atletica = models.ForeignKey(Atletica, on_delete=models.PROTECT)
+    campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT)
+    pontos = models.PositiveIntegerField()

@@ -11,7 +11,7 @@
 - atletas
 	- nome
 	- matricula
-	- documento
+	- chave_documento
 	- atletica
 	- contato?
 
@@ -32,13 +32,10 @@
 	- max_atletas
 	- min_atletas
 	- eh_misto
-	- ?
 	- tipo_confronto (mata-mata, all x all) M - mata-mata, A - all
 		mata-mata gera tabela de jogo com rounds e resultados
 		bateria gera tabela de ranking
 		grupos passa uma quantidade definida de participantes
-
-
 
 - campanhas(ORJIAS)
 	- nome
@@ -47,17 +44,13 @@
 	- ano
 	- competicoes
 
-
 - competicao
 	- campanha = autoset
 	- modalidade
-  - naipe
-	- ranking
+    - naipe
 
 - partida
-	- modalidade = autoset
 	- competicao = autoset
-	- campanha = autoset
 	- data
 	- equipes (partida_equipe)
 	- equipe_vencedora
@@ -78,8 +71,12 @@
 	- equipe7
 	- equipe8
 
+- pontuacao
+    - atletica
+    - campanha
+    - pontos
 
-Modalidades
+====================================================================================================
 
 Resultados > Competição.modalidade >
 		- Masculino e Feminino

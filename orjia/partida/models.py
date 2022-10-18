@@ -1,12 +1,26 @@
 from django.db import models
 from atletica.models import Equipe
-from orjia.campanha.models import Competicao
+from campanha.models import Competicao
+from datetime import date
 
 
 # Create your models here.
 class Partida(models.Model):
-    # modalidade = models.ForeignKey(Modalidade, on_delete=models.PROTECT)
-    # campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT)
     competicao = models.ForeignKey(Competicao, on_delete=models.PROTECT)
     equipe = models.ManyToManyField(Equipe)
-    # resultado =
+    data = models.DateField('Data de início', default=date.today)
+    equipes = models.ManyToManyField(Equipe)
+    equipe_vencedora = models.ForeignKey(Equipe, on_delete=models.PROTECT, null=True, blank=True)
+    # etapa = models.Choices()
+
+
+class Ranking(models.Model):
+    competicao = models.OneToOneField(Competicao, on_delete=models.CASCADE)
+    equipe1 = models.ForeignKey(Equipe, on_delete=models.PROTECT)
+    equipe2 = models.ForeignKey(Equipe, on_delete=models.PROTECT)
+    equipe3 = models.ForeignKey(Equipe, on_delete=models.PROTECT)
+    equipe4 = models.ForeignKey(Equipe, on_delete=models.PROTECT)
+    equipe5 = models.ForeignKey(Equipe, on_delete=models.PROTECT)
+    equipe6 = models.ForeignKey(Equipe, on_delete=models.PROTECT)
+    equipe7 = models.ForeignKey(Equipe, on_delete=models.PROTECT)
+    equipe8 = models.ForeignKey(Equipe, on_delete=models.PROTECT)
