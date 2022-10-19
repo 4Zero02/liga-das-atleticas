@@ -21,7 +21,7 @@ class Modalidade(models.Model):
     max_atletas = models.PositiveIntegerField()
     min_atletas = models.PositiveIntegerField()
     tipo_confronto = models.CharField(max_length=1, choices=TIPO_CONFRONTO)
-    eh_misto = models.BooleanField(default=False)
+    eh_misto = models.BooleanField(default=False, null=True)
 
     class Meta:
         verbose_name = 'Modalidade'

@@ -28,10 +28,10 @@ class CampanhaForm(forms.ModelForm):
 class CompeticaoForm(forms.ModelForm):
     class Meta:
         model = Competicao
-        fields = ('modalidade', 'data')
+        fields = ('modalidade', 'sex')
         widgets = {
             'modalidade': forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
-            'nome': forms.TextInput(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome completo'}
+            'sex': forms.Select(
+                attrs={'class': 'form-control form-control-lg text-center'}
             ),
         }

@@ -15,7 +15,7 @@ class Campanha(models.Model):
     data_inicio = models.DateField('Data de início', default=date.today)
     data_final = models.DateField('Data de término', default=date.today)
     ano = models.PositiveIntegerField('Ano do evento', null=False, blank=False)
-    status = models.CharField(max_length=1, choices=STATUS, default=0)
+    status = models.CharField(max_length=1, choices=STATUS, default=1)
 
     class Meta:
         verbose_name = 'campanha'

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Atletica, Atleta, Equipe
+from .models import Atletica, Atleta, Equipe, Score
 
 
 @admin.register(Atletica)
@@ -20,3 +20,10 @@ class EquipeAdmin(admin.ModelAdmin):
     model = Equipe
     list_display = ('atletica', 'modalidade', 'campanha')
     ordering = ('-atletica',)
+
+
+@admin.register(Score)
+class ScoreAdmin(admin.ModelAdmin):
+    model = Score
+    list_display = ('campanha', 'atletica', 'pontos')
+    ordering = ('-campanha', '-atletica')

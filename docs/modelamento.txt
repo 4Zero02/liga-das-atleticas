@@ -91,11 +91,15 @@ Resultados > Competição.modalidade >
 Ranking > Competição.modalidade
  > Exibir o ranking dos 8 primeiros daquela competição
 
-
-Add competição
- - campanha autosetada
- - modalidade
- - naipe
+Add campanha
+    - nome
+    - data_inicio
+    - data_final
+    - ano
+    Add competição
+        - campanha autosetada
+        - modalidade
+        - naipe
 
 Add partida >
  campanha autosetada

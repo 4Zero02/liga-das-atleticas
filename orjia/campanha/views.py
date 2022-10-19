@@ -29,7 +29,7 @@ def campanha_create(request):
         if form.is_valid() and formset.is_valid():
             form = form.save(commit=False)
             # form.funcionario = request.user
-            form.status = 1
+            # form.status = 1
             form.save()
             formset.save()
             url = 'base:index'

@@ -4,14 +4,15 @@ from base.models import User
 from django.core.validators import MinValueValidator
 
 
+# FORMS EQUIPE
 class EquipeForm(forms.ModelForm):
     atleta = forms.ModelMultipleChoiceField(
         label='Atleta',
         required=True,
         queryset=Atleta.objects.all(),
         widget=forms.SelectMultiple(
-            attrs={'class': 'form-control form-control-lg text-center js-example-basic-multiple', 'multiple': 'multiple'}
-        )
+            attrs={'class': 'form-control form-control-lg text-center js-example-basic-multiple',
+                   'multiple': 'multiple'})
     )
 
     class Meta:
@@ -34,7 +35,8 @@ class EquipeUpdateForm(forms.ModelForm):
         required=True,
         queryset=Atleta.objects.all(),
         widget=forms.SelectMultiple(
-            attrs={'class': 'form-control form-control-lg text-center js-example-basic-multiple', 'multiple': 'multiple'}
+            attrs={'class': 'form-control form-control-lg text-center js-example-basic-multiple',
+                   'multiple': 'multiple'}
         )
     )
 
@@ -51,6 +53,7 @@ class EquipeUpdateForm(forms.ModelForm):
         }
 
 
+# FORMS ATLETA
 class AtletaForm(forms.ModelForm):
     class Meta:
         model = Atleta
@@ -92,6 +95,7 @@ class AtletaUpdateForm(forms.ModelForm):
         }
 
 
+# FORMS ATLETICA
 class AtleticaForm(forms.ModelForm):
     error_messages = {
         'password_mismatch': 'The two password fields didnt match.',
@@ -110,16 +114,15 @@ class AtleticaForm(forms.ModelForm):
             }
         )
     )
-
-    # logo = forms.ImageField(
-    #     required=True, widget=forms.FileInput(
-    #         attrs={'class': 'form-control', 'placeholder': 'Foto', 'accept': 'image/jpeg,image/jpg'}
-    #     )
-    # )
+    logo = forms.ImageField(
+        required=True, widget=forms.FileInput(
+            attrs={'class': 'form-control', 'placeholder': 'Foto', 'accept': 'image/jpeg,image/jpg'}
+        )
+    )
 
     class Meta:
         model = Atletica
-        fields = ('nome', 'email', 'curso', 'instagram', 'twitter', 'password1', 'password2')
+        fields = ('nome', 'email', 'curso', 'instagram', 'twitter', 'password1', 'password2', 'logo')
         widgets = {
             'email': forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
             'nome': forms.TextInput(

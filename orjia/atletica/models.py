@@ -33,7 +33,7 @@ class Atletica(models.Model):
     curso = models.CharField('Curso', max_length=50, null=False, blank=False)
     instagram = models.CharField('Instagem da Atlética', max_length=40, null=True, blank=True)
     twitter = models.CharField('Twitter da Atlética', max_length=40, null=True, blank=True)
-    # logo = models.ImageField(upload_to=upload_photo)
+    logo = models.ImageField(upload_to=upload_photo, null=True)
 
     class Meta:
         ordering = ['nome']
@@ -88,3 +88,8 @@ class Score(models.Model):
     atletica = models.ForeignKey(Atletica, on_delete=models.PROTECT)
     campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT)
     pontos = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ['pontos']
+        verbose_name = 'Pontuação'
+        verbose_name_plural = 'Pontuação'

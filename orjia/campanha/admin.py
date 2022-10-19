@@ -13,3 +13,4 @@ class CampanhaAdmin(admin.ModelAdmin):
 class CompeticaoAdmin(admin.ModelAdmin):
     model = Competicao
     list_display = ('campanha', 'modalidade', 'sex')
+    ordering = ('-campanha', 'modalidade')
