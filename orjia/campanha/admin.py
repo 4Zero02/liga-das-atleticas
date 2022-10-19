@@ -9,7 +9,7 @@ class CampanhaAdmin(admin.ModelAdmin):
     list_display = ('nome', 'ano')
 
 
-@admin.register(Campanha)
+@admin.register(Competicao)
 class CompeticaoAdmin(admin.ModelAdmin):
     model = Competicao
     list_display = ('campanha', 'modalidade', 'sex')

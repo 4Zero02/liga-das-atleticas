@@ -10,8 +10,8 @@ TIPO_EQUIPE = (
 
 
 TIPO_CONFRONTO = (
-    (0, 'Mata-mata'),
-    (1, 'Todos-x-todos')
+    ('0', 'Mata-mata'),
+    ('1', 'Todos-x-todos')
 )
 
 
