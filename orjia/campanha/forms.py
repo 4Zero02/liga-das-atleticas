@@ -28,9 +28,22 @@ class CampanhaForm(forms.ModelForm):
 class CompeticaoForm(forms.ModelForm):
     class Meta:
         model = Competicao
+        fields = ('modalidade', 'sex', 'campanha')
+        widgets = {
+            'modalidade': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
+            'sex': forms.Select(
+                attrs={'class': 'form-control form-control-lg text-center'}
+            ),
+            'campanha': forms.HiddenInput(),
+        }
+
+
+class CompeticaoUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Competicao
         fields = ('modalidade', 'sex')
         widgets = {
-            'modalidade': forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
+            'modalidade': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
             'sex': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),

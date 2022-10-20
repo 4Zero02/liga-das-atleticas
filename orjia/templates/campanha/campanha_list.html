@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Campanhas{% endblock title %}
+
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h2 class="text-center"> Lista de campanhas </h2>
+    {% if user.is_authenticated and user.is_staff %}
+    <a href="{% url 'campanha:campanha_create' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Adicionar
+        campanha</a>
+    {% endif %}
+</div>
+
+<div class="row mt-5">
+    {% if object_list %}
+    {% for campanha in object_list %}
+    <a href="{% url 'campanha:campanha_detail' campanha.id %}">
+        <div class="card" style="width: 18rem;">
+            <img src="{% static 'img/orjia.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{campanha.nome}}</h5>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    <div class="tab-content text-center">
+        <p class="alert alert-warning">Sem campanhas cadastradas.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -28,7 +28,7 @@ class Competicao(models.Model):
         FEMALE = 'F', ('Feminino')
         MIX = 'O', ('Misto')
 
-    campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT)
+    campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT, null=True, blank=True)
     modalidade = models.ForeignKey(Modalidade, on_delete=models.PROTECT)
     sex = models.CharField('Sexo', max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
 

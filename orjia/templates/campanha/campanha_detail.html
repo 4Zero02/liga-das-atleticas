@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Detalhes da campanha{% endblock title %}
+
+{% block content %}
+{% if messages %}
+<div class="row align-items-center py-4">
+    <div class="col">
+        {% include 'components/messages.html' %}
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-dark"> Campanha {{ campanha.nome }}
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h2 class="text-center"></h2>
+                        <span class="pull-right">
+                            <a href="{% url 'campanha:competicao_create' %}">
+                            <button type="button" class="btn btn-primary btn-round">
+                                <span class="fa fa-plus"></span> Adicionar competição
+                            </button>
+                            </a>
+                        </span>
+                    </div>
+                </h2>
+                <div class="row mb-2 mt-2">
+                    <div class="col-12">
+                        {% include 'components/read_only_field.html' with value=campanha.nome label='Nome' %}
+                    </div>
+                </div>
+                <div class="row mb-2 mt-2">
+                    <div class="col-12 col-md-6">
+                        {% include 'components/read_only_field.html' with value=campanha.data_inicio label='Inicio' %}
+                    </div>
+                    <div class="col-12 col-md-6">
+                        {% include 'components/read_only_field.html' with value=campanha.data_final label='Final' %}
+                    </div>
+                </div>
+                {% if user.is_authenticated and user.is_staff %}
+                <a href="{% url 'campanha:campanha_update' campanha.id %}" class="btn btn-warning float-right">
+                    Editar
+                </a>
+                {% endif %}
+                <br><br>
+                <div class="col">
+                    {% if competicao %}
+                    {% for object in competicao %}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="card-title text-dark"> Competição {{ object.modalidade }}</h2>
+                                    <div class="row mb-2 mt-2">
+                                        <div class="col-12">
+                                            {% include 'components/read_only_field.html' with value=object.get_sex_display label='Naipe' %}
+                                        </div>
+                                    </div>
+                                    <a href="{% url 'campanha:competicao_detail' object.pk %}"
+                                       class="btn btn-primary float-right">
+                                        Visualizar
+                                    </a>
+                                    {% if user.is_authenticated and user.is_staff %}
+                                    <a href="{% url 'campanha:competicao_update' object.pk %}"
+                                       class="btn btn-warning float-right">
+                                        Editar
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    {% endfor %}
+                    {% else %}
+                    <div class="tab-content text-center">
+                        <p class="alert alert-warning">Sem competições cadastradas.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

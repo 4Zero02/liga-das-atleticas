@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Cadastro de campanha{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <form method="post">
+                <div class="card-header pb-0">
+                    <div class="text-center">
+                        <h4 class="mb-0 font-weight-bold">Informações da campanha</h4>
+                    </div>
+                </div>
+
+                <div class="card-body pt-0">
+                    <div class="m-sm-4">
+                        {% include 'forms/campanha_form.html' with form=form %}
+                    </div>
+                </div>
+                <div class="text-center mt-3 mb-5">
+                    <button onclick="history.back()" class="btn btn-lg btn-danger">Cancelar</button>
+                    <button type="submit" class="btn btn-lg btn-success">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

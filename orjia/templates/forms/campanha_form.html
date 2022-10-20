@@ -1,0 +1,30 @@
+<div class="row">
+    {% if messages %}
+    <div class="row align-items-center">
+        <div class="col">
+            {% include 'components/messages.html' %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% csrf_token %}
+    {% include 'components/form_messages.html' with form=form %}
+    <div class="row">
+        <div class="col-12 mb-3">
+            {% include 'components/field.html' with label='Nome:' field=form.nome %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mb-3">
+            {% include 'components/field.html' with label='Data de inicio:' field=form.data_inicio %}
+        </div>
+        <div class="col-12 mb-3">
+            {% include 'components/field.html' with label='Data de termino:' field=form.data_final %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mb-3">
+            {% include 'components/field.html' with label='Ano da campanha:' field=form.ano %}
+        </div>
+    </div>
+</div>
