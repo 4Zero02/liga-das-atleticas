@@ -32,6 +32,45 @@ def equipe_create(request):
     return render(request, 'equipe/equipe_create.html', {'form': equipe_form})
 
 
+# class MoldCreate(SuccessMessageMixin, CreateView):
+#     model = Mold
+#     form_class = MoldForm
+#     template_name = 'anamneses/mold_create.html'
+#     success_url = reverse_lazy('mold_list')
+#     success_message = 'Molde criado com sucesso!'
+#
+#     def get(self, request):
+#         self.object = None
+#         self.questions = Question.objects.filter(
+#             Q(institution=request.user.institution) | Q(institution__id__isnull=True))
+#
+#         form = self.get_form(self.get_form_class())
+#
+#         return self.render_to_response(
+#             self.get_context_data(
+#                 form=form
+#             )
+#         )
+#
+#     def post(self, request):
+#         self.object = None
+#         institution = request.user.institution
+#         self.questions = Question.objects.filter(Q(institution=institution) | Q(institution__id__isnull=True))
+#
+#         form = self.get_form(self.get_form_class())
+#
+#         if form.is_valid():
+#             return self.form_valid(form)
+#         else:
+#             return self.form_invalid(form)
+#
+#     def get_form_kwargs(self):
+#         kwargs = super(MoldCreate, self).get_form_kwargs()
+#         kwargs['request'] = self.request
+#         kwargs['question_queryset'] = self.questions
+#         return kwargs
+
+
 @login_required
 def equipe_delete(request, pk):
     equipe = Equipe.objects.get(pk=pk)

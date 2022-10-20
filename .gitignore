@@ -10,7 +10,7 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
-.env
+orjia/.env
 venv
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
@@ -134,7 +134,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+orjia/.env
 .venv
 env/
 venv/
