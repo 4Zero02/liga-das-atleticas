@@ -43,7 +43,7 @@ class CompeticaoUpdateForm(forms.ModelForm):
         model = Competicao
         fields = ('modalidade', 'sex')
         widgets = {
-            'modalidade': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}),
+            'modalidade': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Modalidade'}),
             'sex': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),

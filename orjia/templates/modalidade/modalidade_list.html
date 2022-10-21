@@ -14,16 +14,16 @@
 <div class="row mt-5">
     {% for modalidade in modalidades %}
     <div class="col-auto  mt-3">
-        <div class="card h-100 bg-dark mb-3" style="max-width: 20rem;">
+        <div class="card h-100 mb-3" style="max-width: 20rem;">
             <div class="card-header">
                 <h5>{{ modalidade.nome }} </h5>
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    <b>Tipo: </b>{{ modalidade.tipo }}<br>
-                    <b>Máximo de atletas:</b>{{ modalidade.max_atletas }}<br>
-                    <b>Mínimo de atletas:</b>{{ modalidade.min_atletas }}<br>
-                    <b>Tipo de confronto:</b>{{ modalidade.tipo_confronto }}<br>
+                    <b>Tipo: </b> {{ modalidade.get_tipo_display }}<br>
+                    <b>Máximo de atletas:</b> {{ modalidade.max_atletas }}<br>
+                    <b>Mínimo de atletas:</b> {{ modalidade.min_atletas }}<br>
+                    <b>Tipo de confronto:</b> {{ modalidade.get_tipo_confronto_display }}<br>
                 </p>
                 {% if user.is_authenticated and user.is_staff %}
                 <a href="{% url 'modalidade:modalidade_edit' modalidade.pk %}">

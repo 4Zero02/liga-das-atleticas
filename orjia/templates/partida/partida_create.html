@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Cadastro de partida{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    <div class="card">
+        <div class="card-header pb-0">
+            <div class="text-center">
+                <h4 class="mb-0 font-weight-bold">Informações da partida</h4>
+            </div>
+        </div>
+
+        <div class="card-body pt-0">
+            <div class="m-sm-4">
+                {% include 'forms/partida_form.html' with form=form %}
+            </div>
+        </div>
+        <div class="text-center mt-3 mb-5">
+            <a onclick="history.back()" class="btn btn-lg btn-danger">Cancelar</a>
+            <button type="submit" class="btn btn-lg btn-success">Cadastrar</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

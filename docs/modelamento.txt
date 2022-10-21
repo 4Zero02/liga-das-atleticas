@@ -91,7 +91,7 @@ Resultados > Competição.modalidade >
 Ranking > Competição.modalidade
  > Exibir o ranking dos 8 primeiros daquela competição
 
-Add campanha
+Add campanha - isso ta o neh
     - nome
     - data_inicio
     - data_final

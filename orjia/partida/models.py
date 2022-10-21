@@ -14,10 +14,11 @@ class Partida(models.Model):
         TERCEIRO = 'T', ('Terceiro lugar')
         FINAL = 'F', ('Final')
 
-    competicao = models.ForeignKey(Competicao, on_delete=models.PROTECT)
+    competicao = models.ForeignKey(Competicao, on_delete=models.PROTECT, null=True)
     numero = models.PositiveIntegerField('Sequencia do jogo', null=True, blank=True)
-    data = models.DateField('Data de início', default=date.today)
-    equipes = models.ManyToManyField(Equipe, related_name='Equipes_partida', blank=True)
+    data = models.DateField('Data da partida', default=date.today)
+    equipeA = models.ForeignKey(Equipe, related_name='Equipe_partida_A', on_delete=models.PROTECT, null=True)
+    equipeB = models.ForeignKey(Equipe, related_name='Equipe_partida_B', on_delete=models.PROTECT, null=True)
     equipe_vencedora = models.ForeignKey(Equipe, related_name='Equipe_vencedora', on_delete=models.PROTECT, null=True,
                                          blank=True, default='A definir')
     etapa = models.CharField('Etapa', max_length=1, choices=Etapa.choices, default=Etapa.PRE, null=True)

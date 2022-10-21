@@ -4,6 +4,6 @@ from . import views as v
 app_name = 'partida'
 
 urlpatterns = [
-    # path('', v.AtleticaList.as_view(), name='atletica_list'),
+    path('create/<int:pk>', v.partida_create, name='partida_create'),
 
 ]
