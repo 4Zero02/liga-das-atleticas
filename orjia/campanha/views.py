@@ -9,7 +9,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from partida.models import Partida, Ranking
-
+from partida.forms import RankingForm
 
 class CampanhaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'campanha/campanha_create.html'
@@ -27,11 +27,15 @@ class CampanhaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 @login_required
 def competicao_create(request):
     form = CompeticaoForm(request.POST or None)
+    # formRanking = RankingForm()
     campanha = Campanha.objects.get(status=1)
     if form.is_valid():
         form = form.save(commit=False)
         form.campanha = campanha
         form.save()
+        # formRanking = formRanking.save(commit=False)
+        # formRanking.competicao = form
+        # formRanking.save()
         return redirect('campanha:campanha_detail', campanha.pk)
     return render(request, 'competicao/competicao_create.html', {'form': form})
 
@@ -65,8 +69,11 @@ def competicao_detail(request, pk):
     template_name = 'competicao/competicao_detail.html'
     competicao = Competicao.objects.get(pk=pk)
     partida = Partida.objects.filter(competicao=competicao)
-    ranking = Ranking.objects.get(competicao=competicao)
-    context = {'competicao': competicao, 'partida': partida}
+    try:
+        ranking = Ranking.objects.get(competicao=competicao)
+    except Ranking.DoesNotExist:
+        ranking = None
+    context = {'competicao': competicao, 'partida': partida, 'ranking': ranking}
     return render(request, template_name, context)
 
 

@@ -25,11 +25,51 @@ class Partida(models.Model):
 
 class Ranking(models.Model):
     competicao = models.OneToOneField(Competicao, on_delete=models.CASCADE, null=True)
-    equipe1 = models.ForeignKey(Equipe, related_name='Primeiro_Lugar', on_delete=models.PROTECT, default='A definir')
-    equipe2 = models.ForeignKey(Equipe, related_name='Segundo_Lugar', on_delete=models.PROTECT, default='A definir')
-    equipe3 = models.ForeignKey(Equipe, related_name='Terceiro_Lugar', on_delete=models.PROTECT, default='A definir')
-    equipe4 = models.ForeignKey(Equipe, related_name='Quarto_Lugar', on_delete=models.PROTECT, default='A definir')
-    equipe5 = models.ForeignKey(Equipe, related_name='Quinto_Lugar', on_delete=models.PROTECT, default='A definir')
-    equipe6 = models.ForeignKey(Equipe, related_name='Sexto_Lugar', on_delete=models.PROTECT, default='A definir')
-    equipe7 = models.ForeignKey(Equipe, related_name='Setimo_Lugar', on_delete=models.PROTECT, default='A definir')
-    equipe8 = models.ForeignKey(Equipe, related_name='Oitavo_Lugar', on_delete=models.PROTECT, default='A definir')
+    equipe1 = models.ForeignKey(Equipe,
+                                related_name='Primeiro_Lugar',
+                                on_delete=models.PROTECT,
+                                default='A definir',
+                                null=True
+                                )
+    equipe2 = models.ForeignKey(Equipe,
+                                related_name='Segundo_Lugar',
+                                on_delete=models.PROTECT,
+                                default='A definir',
+                                null=True
+                                )
+    equipe3 = models.ForeignKey(Equipe,
+                                related_name='Terceiro_Lugar',
+                                on_delete=models.PROTECT,
+                                default='A definir',
+                                null=True
+                                )
+    equipe4 = models.ForeignKey(Equipe,
+                                related_name='Quarto_Lugar',
+                                on_delete=models.PROTECT,
+                                default='A definir',
+                                null=True
+                                )
+    equipe5 = models.ForeignKey(Equipe,
+                                related_name='Quinto_Lugar',
+                                on_delete=models.PROTECT,
+                                default='A definir',
+                                null=True
+                                )
+    equipe6 = models.ForeignKey(Equipe,
+                                related_name='Sexto_Lugar',
+                                on_delete=models.PROTECT,
+                                default='A definir',
+                                null=True
+                                )
+    equipe7 = models.ForeignKey(Equipe,
+                                related_name='Setimo_Lugar',
+                                on_delete=models.PROTECT,
+                                default='A definir',
+                                null=True
+                                )
+    equipe8 = models.ForeignKey(Equipe,
+                                related_name='Oitavo_Lugar',
+                                on_delete=models.PROTECT,
+                                default='A definir',
+                                null=True
+                                )
