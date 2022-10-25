@@ -18,8 +18,12 @@ class Campanha(models.Model):
     status = models.CharField(max_length=1, choices=STATUS, default=1)
 
     class Meta:
+        ordering = ['ano']
         verbose_name = 'campanha'
         verbose_name_plural = 'campanhas'
+
+    def __str__(self):
+        return self.nome
 
 
 class Competicao(models.Model):
@@ -33,5 +37,9 @@ class Competicao(models.Model):
     sex = models.CharField('Sexo', max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
 
     class Meta:
+        ordering = ['campanha']
         verbose_name = 'competicao'
         verbose_name_plural = 'competicoes'
+
+    def __str__(self):
+        return self.modalidade

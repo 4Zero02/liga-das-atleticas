@@ -91,7 +91,10 @@ Resultados > Competição.modalidade >
 Ranking > Competição.modalidade
  > Exibir o ranking dos 8 primeiros daquela competição
 
-Add campanha - isso ta o neh
+atribuir score com base no ranking da competicao
+
+<DEIXAR ACESSIVEL PRA COMUNIDADE>
+Add campanha - isso ta ok neh
     - nome
     - data_inicio
     - data_final
@@ -107,3 +110,5 @@ Add partida >
  numero
  equipes (select many)
  etapa
+ queryset(apenas equipes daquela modalidade e sex)
+ exibir atletica

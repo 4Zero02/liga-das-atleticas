@@ -116,7 +116,7 @@ class AtleticaForm(forms.ModelForm):
     )
     logo = forms.ImageField(
         required=False, widget=forms.FileInput(
-            attrs={'class': 'form-control', 'placeholder': 'Foto', 'accept': 'image/jpeg,image/jpg'}
+            attrs={'class': 'form-control', 'placeholder': 'Foto', 'accept': 'image/jpeg,image/jpg,image/png'}
         )
     )
 
@@ -164,7 +164,7 @@ class AtleticaForm(forms.ModelForm):
 class AtleticaChangeForm(forms.ModelForm):
     logo = forms.ImageField(
         required=False, widget=forms.FileInput(
-            attrs={'class': 'form-control', 'placeholder': 'Foto', 'accept': 'image/jpeg,image/jpg'}
+            attrs={'class': 'form-control', 'placeholder': 'Foto', 'accept': 'image/jpeg,image/png,image/jpg'}
         )
     )
 

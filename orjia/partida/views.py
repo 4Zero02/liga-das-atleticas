@@ -14,6 +14,7 @@ from campanha.models import Competicao
 def partida_create(request, pk):
     form = PartidaForm(request.POST or None)
     if form.is_valid():
+        print('entrou')
         form = form.save(commit=False)
         form.competicao = pk
         form.save()

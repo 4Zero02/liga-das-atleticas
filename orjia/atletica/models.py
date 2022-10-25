@@ -83,6 +83,9 @@ class Equipe(models.Model):
         verbose_name = 'Equipe'
         verbose_name_plural = 'Equipes'
 
+    def __str__(self):
+        return self.atletica.nome
+
 
 class Score(models.Model):
     atletica = models.ForeignKey(Atletica, on_delete=models.PROTECT)

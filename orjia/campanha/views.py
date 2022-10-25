@@ -11,11 +11,13 @@ from django.contrib.messages.views import SuccessMessageMixin
 from partida.models import Partida, Ranking
 from partida.forms import RankingForm
 
+
 class CampanhaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'campanha/campanha_create.html'
     model = Campanha
     form_class = CampanhaForm
     success_message = 'Campanha %(nome)s cadastrada com sucesso'
+
     # success_url = reverse_lazy('atletica:atletica_detail')
 
     def get_success_url(self):
