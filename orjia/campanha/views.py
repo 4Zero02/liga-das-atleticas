@@ -8,7 +8,7 @@ from .forms import CampanhaForm, CompeticaoForm, CompeticaoUpdateForm
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from partida.models import Partida, Ranking
+from partida.models import Partida, Ranking, Competidor
 from partida.forms import RankingForm
 
 
@@ -66,12 +66,13 @@ def campanha_detail(request, pk):
 def competicao_detail(request, pk):
     template_name = 'competicao/competicao_detail.html'
     competicao = Competicao.objects.get(pk=pk)
-    partida = Partida.objects.filter(competicao=competicao)
+    competidores = Partida.equipes.through.objects.filter(partida__competicao=competicao)
+    result = [[competidores[i], competidores[i+1]] for i in range(0, len(competidores), 2)]
     try:
         ranking = Ranking.objects.get(competicao=competicao)
     except Ranking.DoesNotExist:
         ranking = None
-    context = {'competicao': competicao, 'partida': partida, 'ranking': ranking}
+    context = {'competicao': competicao, 'competidores': result, 'ranking': ranking}
     return render(request, template_name, context)
 
 

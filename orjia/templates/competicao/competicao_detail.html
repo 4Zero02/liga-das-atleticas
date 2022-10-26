@@ -39,7 +39,7 @@
                                         </span>
                                     </div>
                                 </span>
-                                {% if partida %}
+                                {% if competidores %}
                                 <table id="tabelaPARTIDA" class="table table-striped table-responsive-sm">
                                     <thead>
                                     <tr>
@@ -48,17 +48,16 @@
                                         <th>X</th>
                                         <th>Atlética</th>
                                         <th>Vencedor</th>
-                                        <!--                        <th class="text-center">Ações</th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for object in partida %}
+                                    {% for competidor in competidores %}
                                     <tr>
-                                        <td>{{ forloop.counter }}</td>
-                                        <td>{{ object.equipes }}</td>
+                                        <td>{{ competidor.0.partida.numero }}</td>
+                                        <td>{{ competidor.0.equipe.atletica.nome }}</td>
                                         <td>X</td>
-                                        <td>{{ object.equipes }}</td>
-                                        <td>{{ object.equipe_vencedora }}</td>
+                                        <td>{{ competidor.1.equipe.atletica.nome }}</td>
+                                        <td>A DEFINIR</td>
                                     </tr>
                                     {% endfor %}
                                     </tbody>

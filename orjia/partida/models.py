@@ -15,11 +15,11 @@ class Partida(models.Model):
         TERCEIRO = 'T', ('Terceiro lugar')
         FINAL = 'F', ('Final')
 
-    competicao = models.ForeignKey(Competicao, on_delete=models.PROTECT, null=True)
+    competicao = models.ForeignKey(Competicao, on_delete=models.PROTECT, null=True, blank=True)
     numero = models.PositiveIntegerField('Sequencia do jogo', null=True, blank=True)
     data = models.DateField('Data da partida', default=date.today)
     local = models.CharField('Local do jogo', max_length=255, null=True, default='A definir')
-    equipes = models.ManyToManyField(Equipe)
+    equipes = models.ManyToManyField(Equipe, through='Competidor')
     etapa = models.CharField('Etapa', max_length=1, choices=Etapa.choices, default=Etapa.PRE, null=True)
 
     class Meta:
@@ -42,7 +42,7 @@ class Competidor(models.Model):
     equipe = models.ForeignKey(Equipe, on_delete=models.PROTECT, null=True)
     partida = models.ForeignKey(Partida, on_delete=models.PROTECT, null=True)
     qualificador = models.CharField(max_length=1, null=True)
-    resultado = models.PositiveIntegerField('Resultado da equipe', null=True, default='A definir')
+    resultado = models.PositiveIntegerField('Resultado da equipe', null=True, blank=True)
     unidade = models.CharField('Unidade', choices=Unidade.choices, max_length=1, default=Unidade.GERAL, null=True)
 
 

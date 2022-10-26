@@ -13,11 +13,11 @@ from campanha.models import Competicao
 @login_required
 def partida_create(request, pk):
     partida_form = PartidaForm(request.POST or None)
+    competicao = Competicao.objects.get(pk=pk)
     if partida_form.is_valid():
-        print('entrou')
         form = partida_form.save(commit=False)
-        form.competicao = pk
+        form.competicao = competicao
         form.save()
         partida_form.save_m2m()
         return redirect('campanha:competicao_detail', pk)
-    return render(request, 'partida/partida_create.html', {'form': form})
+    return render(request, 'partida/partida_create.html', {'form': partida_form})

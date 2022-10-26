@@ -78,7 +78,8 @@ class Equipe(models.Model):
         verbose_name_plural = 'Equipes'
 
     def __str__(self):
-        return self.atletica.nome
+        nome = '{} - {}'.format(self.atletica.nome, self.competicao.modalidade.nome)
+        return nome
 
 
 class Score(models.Model):
