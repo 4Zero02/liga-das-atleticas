@@ -7,6 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import AtleticaForm, AtleticaChangeForm, EquipeForm, EquipeUpdateForm, AtletaForm, AtletaUpdateForm
 from .models import Atletica, Atleta, Equipe
+from campanha.models import Campanha, Competicao
+from django.db.models import Q
 
 
 def equipe_list(request):
@@ -23,9 +25,15 @@ def equipe_list(request):
 def equipe_create(request):
     equipe_form = EquipeForm(request.POST or None)
     atletica = Atletica.objects.get(usuario=request.user)
+    campanha = Campanha.objects.get(status=1)
+    # print('chega aqui')
     if equipe_form.is_valid():
+        # print('mas nao aqui')
         form = equipe_form.save(commit=False)
+        form.campanha = campanha
         form.atletica = atletica
+        sex = form.competicao.sex
+        form.sex = sex
         form.save()
         equipe_form.save_m2m()
         return redirect('atletica:equipe_list')
@@ -129,6 +137,7 @@ class AtleticaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Atletica
     form_class = AtleticaForm
     success_message = 'Atletica %(nome)s cadastrada com sucesso'
+
     # success_url = reverse_lazy('atletica:atletica_detail')
 
     def get_success_url(self):

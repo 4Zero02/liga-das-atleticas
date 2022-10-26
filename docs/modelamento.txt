@@ -76,6 +76,16 @@
     - campanha
     - pontos
 
+Partida (id, id_competição, etapa[p,8,4,4.5,s,3,f], md[1,3,5])
+Partida_Equipe (id, id_partida, id_equipe, equipe[a-z], resultado, unidade)
+Equipe (id, id_atletica, id_modelalidade)
+
+
++ modalidade vem de competição
++ confronto[tt,mm] vem de modalide
+
+
+
 ====================================================================================================
 
 Resultados > Competição.modalidade >
@@ -112,3 +122,6 @@ Add partida >
  etapa
  queryset(apenas equipes daquela modalidade e sex)
  exibir atletica
+
+ visualizar equipe
+ permitir a liga alterar o status do atletas

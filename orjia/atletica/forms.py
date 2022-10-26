@@ -17,15 +17,13 @@ class EquipeForm(forms.ModelForm):
 
     class Meta:
         model = Equipe
-        fields = ('modalidade', 'atletica', 'atleta', 'sex')
+        fields = ('competicao', 'campanha', 'atletica', 'atleta', 'sex')
         widgets = {
-            'modalidade': forms.Select(
-                attrs={'class': 'form-control form-control-lg text-center'}
-            ),
-            'sex': forms.Select(
+            'competicao': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
             'atletica': forms.HiddenInput(),
+            'sex': forms.HiddenInput(),
         }
 
 
@@ -42,14 +40,12 @@ class EquipeUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Equipe
-        fields = ('modalidade', 'atleta', 'sex')
+        fields = ('competicao', 'atleta', 'sex')
         widgets = {
-            'modalidade': forms.Select(
+            'competicao': forms.Select(
                 attrs={'class': 'form-control form-control-lg text-center'}
             ),
-            'sex': forms.Select(
-                attrs={'class': 'form-control form-control-lg text-center'}
-            ),
+            'sex': forms.HiddenInput(),
         }
 
 

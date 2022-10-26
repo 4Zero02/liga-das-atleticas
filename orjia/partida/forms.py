@@ -17,17 +17,26 @@ class RankingForm(forms.ModelForm):
 
 
 class PartidaForm(forms.ModelForm):
+    equipes = forms.ModelMultipleChoiceField(
+        label='Equipes',
+        required=True,
+        queryset=Equipe.objects.all(),
+        widget=forms.SelectMultiple(
+            attrs={'class': 'form-control form-control-lg text-center js-example-basic-multiple',
+                   'multiple': 'multiple'}
+        )
+    )
+
     class Meta:
         model = Partida
-        fields = ('competicao', 'numero', 'data', 'equipeA', 'equipeB', 'equipe_vencedora', 'etapa')
+        fields = ('competicao', 'numero', 'data', 'local', 'equipes', 'etapa')
         widgets = {
             'competicao': forms.HiddenInput(),
+            'local': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome do atleta'}
+            ),
             'numero': forms.NumberInput(
                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Sequencia do jogo'}),
             'data': DateInput(),
-            'equipeA': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Equipe A'}),
-            'equipeB': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Equipe B'}),
-            'equipe_vencedora': forms.Select(
-                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Equipe vencedora'}),
             'etapa': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Etapa'})
         }

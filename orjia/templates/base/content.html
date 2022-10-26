@@ -1,6 +1,9 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
 {% block title %}Início{% endblock title %}
-%}{% block content %}
+
+{% block content %}
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Ranking</h1>
@@ -17,14 +20,12 @@
         </tr>
         </thead>
         <tbody>
-        {#% for object in atleticas %#}
         <tr>
             <th scope="row">1</th>
             <td>IMPERIAL</td>
             <td>-20</td>
         </tr>
-        {#% endfor %#}
         </tbody>
     </table>
 </div>
-{% endblock content %}
+{% endblock %}

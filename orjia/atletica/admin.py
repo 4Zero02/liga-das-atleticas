@@ -18,7 +18,7 @@ class AtletaAdmin(admin.ModelAdmin):
 @admin.register(Equipe)
 class EquipeAdmin(admin.ModelAdmin):
     model = Equipe
-    list_display = ('atletica', 'modalidade', 'campanha')
+    list_display = ('atletica', 'competicao', 'campanha')
     ordering = ('-atletica',)
 
 

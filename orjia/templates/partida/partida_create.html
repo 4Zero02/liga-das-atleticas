@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block title %}Cadastro de partida{% endblock title %}
+{% block title %}Registro da partida{% endblock title %}
 
 {% block content %}
 <form method="POST">
@@ -25,3 +25,11 @@
     </div>
 </form>
 {% endblock %}
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-multiple').select2();
+    });
+</script>
+{% endblock javascript %}

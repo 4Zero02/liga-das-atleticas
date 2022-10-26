@@ -42,4 +42,5 @@ class Competicao(models.Model):
         verbose_name_plural = 'competicoes'
 
     def __str__(self):
-        return self.modalidade
+        nome = "{} - {}".format(self.modalidade, self.sex)
+        return nome

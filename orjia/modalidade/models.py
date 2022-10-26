@@ -3,7 +3,6 @@ from django.urls import reverse_lazy
 
 TIPO_EQUIPE = (
     ('C', 'Coletiva'),
-    ('I', 'Individual'),
     ('V', 'Virtual'),
     ('M', 'Mesa')
 )

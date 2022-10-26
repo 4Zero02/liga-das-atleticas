@@ -66,20 +66,14 @@ class Atleta(models.Model):
 
 
 class Equipe(models.Model):
-    class Sex(models.TextChoices):
-        MALE = 'M', ('Masculino')
-        FEMALE = 'F', ('Feminino')
-        MIX = 'O', ('Misto')
-
-    modalidade = models.ForeignKey(Modalidade, on_delete=models.CASCADE, null=False)
     atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=True, blank=True)
     campanha = models.ForeignKey(Campanha, on_delete=models.CASCADE, null=True, blank=True)
-    competicao = models.ForeignKey(Competicao, on_delete=models.CASCADE, null=True)
+    competicao = models.ForeignKey(Competicao, on_delete=models.CASCADE, null=True, blank=True)
     atleta = models.ManyToManyField(Atleta)
-    sex = models.CharField('Sexo', max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
+    sex = models.CharField('Sexo', max_length=1, null=True, blank=True)
 
     class Meta:
-        ordering = ['modalidade']
+        ordering = ['competicao']
         verbose_name = 'Equipe'
         verbose_name_plural = 'Equipes'
 

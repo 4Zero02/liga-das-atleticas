@@ -12,8 +12,8 @@
     {% endif %}
 </div>
 
+{% if object_list %}
 <div class="row mt-5">
-    {% if object_list %}
     {% for atletica in object_list %}
     <a href="{% url 'atletica:atletica_detail' atletica.id %}">
         <div class="card" style="width: 18rem;">
@@ -24,10 +24,10 @@
         </div>
     </a>
     {% endfor %}
-    {% else %}
-    <div class="tab-content text-center">
-        <p class="alert alert-warning">Sem atléticas cadastradas.</p>
-    </div>
-    {% endif %}
 </div>
+{% else %}
+<div class="tab-content text-center">
+    <p class="alert alert-warning">Sem atléticas cadastradas.</p>
+</div>
+{% endif %}
 {% endblock %}

@@ -10,6 +10,7 @@ class Partida(models.Model):
         PRE = 'P', ('Pre-liminar')
         OITAVAS = 'O', ('Oitavas')
         QUARTAS = 'Q', ('Quartas')
+        DESEMPATE = 'D', ('Quartas-desempate')
         SEMI = 'S', ('Semi-final')
         TERCEIRO = 'T', ('Terceiro lugar')
         FINAL = 'F', ('Final')
@@ -17,17 +18,32 @@ class Partida(models.Model):
     competicao = models.ForeignKey(Competicao, on_delete=models.PROTECT, null=True)
     numero = models.PositiveIntegerField('Sequencia do jogo', null=True, blank=True)
     data = models.DateField('Data da partida', default=date.today)
-    # equipeA = models.ForeignKey(Equipe, related_name='Equipe_partida_A', on_delete=models.PROTECT, null=True)
-    # equipeB = models.ForeignKey(Equipe, related_name='Equipe_partida_B', on_delete=models.PROTECT, null=True)
-    # equipe_vencedora = models.ForeignKey(Equipe, related_name='Equipe_vencedora', on_delete=models.PROTECT, null=True,
-    #                                      blank=True, default='A definir')
-
+    local = models.CharField('Local do jogo', max_length=255, null=True, default='A definir')
+    equipes = models.ManyToManyField(Equipe)
     etapa = models.CharField('Etapa', max_length=1, choices=Etapa.choices, default=Etapa.PRE, null=True)
 
     class Meta:
         ordering = ['numero']
         verbose_name = 'partida'
         verbose_name_plural = 'partidas'
+
+
+class Competidor(models.Model):
+    class Unidade(models.TextChoices):
+        PONTOS = 'P', ('Pontos')
+        SETS = 'S', ('Sets')
+        GOLS = 'G', ('Gols')
+        SEC = 'T', ('Segundos')
+        MIN = 'M', ('Minutos')
+        ROUNDS = 'R', ('Rodadas')
+        GERAL = 'O', ('Geral')
+        # RODADAS = 'O', ('Misto')
+
+    equipe = models.ForeignKey(Equipe, on_delete=models.PROTECT, null=True)
+    partida = models.ForeignKey(Partida, on_delete=models.PROTECT, null=True)
+    qualificador = models.CharField(max_length=1, null=True)
+    resultado = models.PositiveIntegerField('Resultado da equipe', null=True, default='A definir')
+    unidade = models.CharField('Unidade', choices=Unidade.choices, max_length=1, default=Unidade.GERAL, null=True)
 
 
 class Ranking(models.Model):
