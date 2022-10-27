@@ -6,7 +6,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-dark"> Competição {{ competicao.modalidade }} {{ competicao.get_sex_display }}</h2>
+                <h2 class="card-title text-dark"> Competição {{ competicao.modalidade }} - {{ competicao.get_sex_display }}</h2>
                 <div class="card card-nav-tabs">
                     <div class="card-header card-header-primary">
                         <div class="nav-tabs-navigation">
@@ -29,6 +29,7 @@
                             <div class="tab-pane active" id="partidas">
                                 <span class="pull-right">
                                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                        {% if user.is_authenticated and user.is_staff %}
                                         <h2 class="text-center"></h2>
                                         <span class="pull-right">
                                             <a href="{% url 'partida:partida_create' competicao.pk %}">
@@ -37,68 +38,53 @@
                                             </button>
                                             </a>
                                         </span>
+                                        {% endif %}
                                     </div>
                                 </span>
                                 {% if competidores %}
                                 <table id="tabelaPARTIDA" class="table table-striped table-responsive-sm">
                                     <thead>
                                     <tr>
+                                        <th>Etapa</th>
                                         <th>Sequencia do jogo</th>
                                         <th>Atlética</th>
                                         <th>X</th>
                                         <th>Atlética</th>
                                         <th>Vencedor</th>
+                                        <th>Ações</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for competidor in competidores %}
                                     <tr>
+                                        <td>{{ competidor.0.partida.get_etapa_display }}</td>
                                         <td>{{ competidor.0.partida.numero }}</td>
                                         <td>{{ competidor.0.equipe.atletica.nome }}</td>
                                         <td>X</td>
                                         <td>{{ competidor.1.equipe.atletica.nome }}</td>
                                         <td>A DEFINIR</td>
+                                        <td>
+                                            {% if user.is_authenticated and user.is_staff %}
+                                            <a href="{% url 'partida:partida_update' competidor.0.partida.pk %}">
+                                                <button type="button" rel="tooltip" data-placement="left"
+                                                        title="Editar item"
+                                                        class="btn btn-warning"><i class="bi bi-pencil-fill"></i>
+                                                </button>
+                                            </a>
+                                            {% endif %}
+                                            <button type="button" rel="tooltip" data-placement="left"
+                                                    title="Editar item"
+                                                    class="btn btn-info"><i class="bi bi-eye-fill"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                     </tbody>
                                 </table>
                                 {% else %}
                                 <br>
-                                <p class="alert alert-warning">Sem partidas cadastradas.</p>
+                                <p class="alert alert-warning">Sem partidas registradas.</p>
                                 {% endif %}
-
-                                <!-- Modal DELETE -->
-                                {#% for object in object_list %#}
-                                <!--                <div class="modal fade" id="modalEquipe{{object.pk}}" tabindex="-1" role="dialog"-->
-                                <!--                     aria-labelledby="TituloModalCentralizado" aria-hidden="true">-->
-                                <!--                    <div class="modal-dialog modal-dialog-centered" role="document">-->
-                                <!--                        <div class="modal-content">-->
-                                <!--                            <div class="modal-header">-->
-                                <!--                                <h5 class="modal-title" id="TituloModalCentralizado">Apagar equipe</h5>-->
-                                <!--                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">-->
-                                <!--                                    <span aria-hidden="true">&times;</span>-->
-                                <!--                                </button>-->
-                                <!--                            </div>-->
-                                <!--                            <div class="modal-body">-->
-                                <!--                                <form action="#" method="POST" novalidate>-->
-                                <!--                                    {#% csrf_token %#}-->
-                                <!--                                    <div class="row">-->
-                                <!--                                        <div class="col">-->
-                                <!--                                            Tem certeza que deseja apagar a equipe?-->
-                                <!--                                        </div>-->
-                                <!--                                    </div>-->
-                                <!--                                    <div class="modal-footer">-->
-                                <!--                                        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">-->
-                                <!--                                            Cancelar-->
-                                <!--                                        </button>-->
-                                <!--                                        <button type="submit" class="btn btn-danger btn-round">Apagar</button>-->
-                                <!--                                    </div>-->
-                                <!--                                </form>-->
-                                <!--                            </div>-->
-                                <!--                        </div>-->
-                                <!--                    </div>-->
-                                <!--                </div>-->
-                                {#% endfor %#}
                             </div>
 
                             <!-- RANKING -->

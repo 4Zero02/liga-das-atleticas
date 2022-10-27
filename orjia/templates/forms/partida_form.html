@@ -10,8 +10,14 @@
     {% include 'components/form_messages.html' with form=form %}
 
     <div class="row">
-        <div class="col-4 mb-3">
+        <div class="col-2 mb-3">
             {% include 'components/field.html' with label='Sequencia da partida:' field=form.numero %}
+        </div>
+        <div class="col-4 mb-3">
+            {% include 'components/field.html' with label='Etapa da partida:' field=form.etapa %}
+        </div>
+        <div class="col-3 mb-3">
+            {% include 'components/field.html' with label='Melhor de:' field=form.md %}
         </div>
         <div class="col-3 mb-3">
             {% include 'components/field.html' with label='Data da partida:' field=form.data %}
@@ -21,9 +27,6 @@
         </div>
         <div class="col-12 mb-3">
             {% include 'components/field.html' with label='Equipes da partida:' field=form.equipes %}
-        </div>
-        <div class="col-12 mb-3">
-            {% include 'components/field.html' with label='Etapa da partida:' field=form.etapa %}
         </div>
     </div>
 </div>

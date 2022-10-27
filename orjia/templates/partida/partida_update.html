@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <h2 class="card-title text-dark"> Competição {{ competicao.modalidade }} - {{ competicao.get_sex_display }}</h2>
+                <h2 class="card-title text-dark"> Competição {{ competicao.modalidade.nome }} - {{ competicao.get_sex_display }}</h2>
                 <form method="POST">
                     <div class="card">
                         <div class="card-header pb-0">
@@ -25,7 +25,7 @@
                         </div>
                         <div class="text-center mt-3 mb-5">
                             <a onclick="history.back()" class="btn btn-lg btn-danger">Cancelar</a>
-                            <button type="submit" class="btn btn-lg btn-success">Cadastrar</button>
+                            <button type="submit" class="btn btn-lg btn-success">Salvar</button>
                         </div>
                     </div>
                 </form>

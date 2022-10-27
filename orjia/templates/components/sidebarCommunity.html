@@ -5,7 +5,8 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'base:index' %}">
         <div class="sidebar-brand-icon">
             <!--            <i class="fas fa-laugh-wink"></i>-->
-            <img src="{% static 'img/orjia.png' %}" style="max-height:36%; max-width:36%;">
+            <img src="{% static 'img/orjia.png' %}"
+                 style="max-height:36%; max-width:36%;">
         </div>
     </a>
 
@@ -17,17 +18,17 @@
             <i class="bi bi-bar-chart-fill"></i>
             <span>Ranking</span>
         </a>
-        <a class="nav-link" href="{% url 'campanha:campanha_list' %}">
-            <i class="fa fa-users"></i>
-            <span>Campanhas</span>
-        </a>
         <a class="nav-link" href="{% url 'atletica:atletica_list' %}">
             <i class="fa fa-users"></i>
-            <span>Atléticas</span>
+            <span>Atleticas</span>
         </a>
         <a class="nav-link" href="{% url 'modalidade:modalidade_list' %}">
             <i class="bi bi-table"></i>
             <span>Modalidades</span>
+        </a>
+        <a class="nav-link" href="{% url 'campanha:campanha_list' %}">
+            <i class="fa fa-users"></i>
+            <span>Campanhas</span>
         </a>
     </li>
 

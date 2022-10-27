@@ -3,8 +3,13 @@ from atletica.models import Equipe
 from campanha.models import Competicao
 from datetime import date
 
+MD = (
+    (1, 'Um (1)'),
+    (3, 'Tres (3)'),
+    (5, 'Cinco (5)'),
+)
 
-# Create your models here.
+
 class Partida(models.Model):
     class Etapa(models.TextChoices):
         PRE = 'P', ('Pre-liminar')
@@ -19,6 +24,7 @@ class Partida(models.Model):
     numero = models.PositiveIntegerField('Sequencia do jogo', null=True, blank=True)
     data = models.DateField('Data da partida', default=date.today)
     local = models.CharField('Local do jogo', max_length=255, null=True, default='A definir')
+    md = models.CharField('Melhor de:', max_length=1, choices=MD, default=1)
     equipes = models.ManyToManyField(Equipe, through='Competidor')
     etapa = models.CharField('Etapa', max_length=1, choices=Etapa.choices, default=Etapa.PRE, null=True)
 

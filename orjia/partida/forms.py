@@ -29,7 +29,7 @@ class PartidaForm(forms.ModelForm):
 
     class Meta:
         model = Partida
-        fields = ('competicao', 'numero', 'data', 'local', 'equipes', 'etapa')
+        fields = ('competicao', 'numero', 'data', 'local', 'equipes', 'etapa', 'md')
         widgets = {
             'competicao': forms.HiddenInput(),
             'local': forms.TextInput(
@@ -38,5 +38,32 @@ class PartidaForm(forms.ModelForm):
             'numero': forms.NumberInput(
                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Sequencia do jogo'}),
             'data': DateInput(),
-            'etapa': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Etapa'})
+            'etapa': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Etapa'}),
+            'md': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Melhor de...'}),
+        }
+
+
+class PartidaUpdateForm(forms.ModelForm):
+    equipes = forms.ModelMultipleChoiceField(
+        label='Equipes',
+        required=True,
+        queryset=Equipe.objects.all(),
+        widget=forms.SelectMultiple(
+            attrs={'class': 'form-control form-control-lg text-center js-example-basic-multiple',
+                   'multiple': 'multiple'}
+        )
+    )
+
+    class Meta:
+        model = Partida
+        fields = ('numero', 'data', 'local', 'equipes', 'etapa', 'md')
+        widgets = {
+            'local': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nome do atleta'}
+            ),
+            'numero': forms.NumberInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Sequencia do jogo'}),
+            'data': DateInput(),
+            'etapa': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Etapa'}),
+            'md': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Melhor de...'}),
         }

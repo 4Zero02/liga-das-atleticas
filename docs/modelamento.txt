@@ -101,8 +101,6 @@ Resultados > Competição.modalidade >
 Ranking > Competição.modalidade
  > Exibir o ranking dos 8 primeiros daquela competição
 
-atribuir score com base no ranking da competicao
-
 <DEIXAR ACESSIVEL PRA COMUNIDADE>
 Add campanha - isso ta ok neh
     - nome
@@ -120,8 +118,14 @@ Add partida >
  numero
  equipes (select many)
  etapa
- queryset(apenas equipes daquela modalidade e sex)
+ queryset(apenas equipes daquela competicao)
  exibir atletica
 
- visualizar equipe
- permitir a liga alterar o status do atletas
+equipe_detail
+
+partida_detail (NAO SEI FAZER TEMPLATE) > partida_delete | [ resultado_create | resultado_update | resultado_delete ]
+partida_update ok
+
+setar vencedor ao registrar resultado
+
+permitir a liga alterar o status do atletas

@@ -15,8 +15,8 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="{% url 'base:index' %}">
-            <i class="fa fa-clipboard"></i>
-            <span>Dashboard</span>
+            <i class="bi bi-bar-chart-fill"></i>
+            <span>Ranking</span>
         </a>
         <a class="nav-link" href="{% url 'atletica:atleta_list' %}">
             <i class="fa fa-users"></i>
@@ -25,6 +25,10 @@
         <a class="nav-link" href="{% url 'atletica:equipe_list' %}">
             <i class="fa fa-users"></i>
             <span>Equipes</span>
+        </a>
+        <a class="nav-link" href="{% url 'modalidade:modalidade_list' %}">
+            <i class="bi bi-table"></i>
+            <span>Modalidades</span>
         </a>
     </li>
 

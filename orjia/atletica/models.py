@@ -28,12 +28,12 @@ def upload_photo(instance, filename):
 
 class Atletica(models.Model):
     usuario = models.OneToOneField(User, related_name='usuario_atletica', on_delete=models.CASCADE)
-    nome = models.CharField('Nome', max_length=150)
+    nome = models.CharField(verbose_name='Nome', max_length=150)
     email = models.CharField(verbose_name='Email', max_length=50, null=True, blank=True)
-    curso = models.CharField('Curso', max_length=50, null=False, blank=False)
-    instagram = models.CharField('Instagem da Atlética', max_length=40, null=True, blank=True)
-    twitter = models.CharField('Twitter da Atlética', max_length=40, null=True, blank=True)
-    logo = models.ImageField(upload_to=upload_photo, null=True)
+    curso = models.CharField(verbose_name='Curso', max_length=50, null=False, blank=False)
+    instagram = models.CharField(verbose_name='Instagem da Atlética', max_length=40, null=True, blank=True)
+    twitter = models.CharField(verbose_name='Twitter da Atlética', max_length=40, null=True, blank=True)
+    logo = models.ImageField(upload_to='logos/', null=True)
 
     class Meta:
         ordering = ['nome']
@@ -49,11 +49,11 @@ class Atleta(models.Model):
         MALE = 'M', _('Masculino')
         FEMALE = 'F', _('Feminino')
 
-    nome = models.CharField('Nome do atleta', max_length=50, null=False, blank=False)
-    matricula = models.PositiveIntegerField('Número da matricula', null=False, blank=False)
-    chave = models.TextField('Chave de autenticação', max_length=39, null=False, blank=False)
+    nome = models.CharField(verbose_name='Nome do atleta', max_length=50, null=False, blank=False)
+    matricula = models.PositiveIntegerField(verbose_name='Número da matricula', null=False, blank=False)
+    chave = models.TextField(verbose_name='Chave de autenticação', max_length=39, null=False, blank=False)
     atletica = models.ForeignKey(Atletica, on_delete=models.CASCADE, null=True, blank=True)
-    sex = models.CharField(_('Sexo'), max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
+    sex = models.CharField(verbose_name=_('Sexo'), max_length=1, choices=Sex.choices, default=Sex.MALE, null=True)
     status = models.BooleanField(default=True)
 
     class Meta:

@@ -17,6 +17,7 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title text-dark"> Campanha {{ campanha.nome }}
+                    {% if user.is_authenticated and user.is_staff %}
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h2 class="text-center"></h2>
                         <span class="pull-right">
@@ -27,6 +28,7 @@
                             </a>
                         </span>
                     </div>
+                    {% endif %}
                 </h2>
                 <div class="row mb-2 mt-2">
                     <div class="col-12">
@@ -62,7 +64,7 @@
                                     </div>
                                     <a href="{% url 'campanha:competicao_detail' object.pk %}"
                                        class="btn btn-primary float-right">
-                                        Visualizar
+                                        Detalhes
                                     </a>
                                     {% if user.is_authenticated and user.is_staff %}
                                     <a href="{% url 'campanha:competicao_update' object.pk %}"

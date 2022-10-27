@@ -26,9 +26,7 @@ def equipe_create(request):
     equipe_form = EquipeForm(request.POST or None)
     atletica = Atletica.objects.get(usuario=request.user)
     campanha = Campanha.objects.get(status=1)
-    # print('chega aqui')
     if equipe_form.is_valid():
-        # print('mas nao aqui')
         form = equipe_form.save(commit=False)
         form.campanha = campanha
         form.atletica = atletica
