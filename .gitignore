@@ -10,6 +10,10 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
+/migrations
+migrations/
+*/migrations/
+migrations
 orjia/.env
 venv
 

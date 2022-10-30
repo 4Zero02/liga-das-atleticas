@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views as v
 
 app_name = 'atletica'
@@ -22,3 +24,5 @@ urlpatterns = [
     path('equipe/delete/<int:pk>', v.equipe_delete, name='equipe_delete'),
     path('equipe/update/<int:pk>', v.EquipeUpdate.as_view(), name='equipe_update'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -23,7 +23,7 @@ def create_token(tam=8):
 
 def upload_photo(instance, filename):
     # /media/logos/<instance.id>-<token_aleatorio>.<extensao_do_arquivo>
-    return f"logos/{instance.pk}-{create_token(4)}{os.path.splitext(filename)[-1]}"
+    return f"logos/{instance.nome}-{create_token(4)}{os.path.splitext(filename)[-1]}"
 
 
 class Atletica(models.Model):
@@ -33,7 +33,7 @@ class Atletica(models.Model):
     curso = models.CharField(verbose_name='Curso', max_length=50, null=False, blank=False)
     instagram = models.CharField(verbose_name='Instagem da Atlética', max_length=40, null=True, blank=True)
     twitter = models.CharField(verbose_name='Twitter da Atlética', max_length=40, null=True, blank=True)
-    logo = models.ImageField(upload_to='logos/', null=True)
+    logo = models.ImageField(upload_to=upload_photo, null=True)
 
     class Meta:
         ordering = ['nome']

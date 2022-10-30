@@ -1,5 +1,4 @@
 {% extends 'base/base.html' %}
-{% load static %}
 
 {% block title %}Atléticas{% endblock title %}
 
@@ -17,7 +16,7 @@
     {% for atletica in object_list %}
     <a href="{% url 'atletica:atletica_detail' atletica.id %}">
         <div class="card" style="width: 18rem;">
-            <img src="{% static 'img/orjia.png' %}" class="card-img-top" alt="...">
+            <img src="{{ atletica.logo.url }}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{atletica.nome}}</h5>
             </div>
