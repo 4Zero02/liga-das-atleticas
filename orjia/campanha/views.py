@@ -35,7 +35,7 @@ def competicao_create(request):
         form.campanha = campanha
         form.save()
         return redirect('campanha:campanha_detail', campanha.pk)
-    return render(request, 'competicao/competicao_create.html', {'form': form})
+    return render(request, 'competicao/competicao_create.html', {'form': form, 'campanha': campanha})
 
 
 class CompeticaoUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -67,12 +67,12 @@ def competicao_detail(request, pk):
     template_name = 'competicao/competicao_detail.html'
     competicao = Competicao.objects.get(pk=pk)
     competidores = Partida.equipes.through.objects.filter(partida__competicao=competicao)
-    result = [[competidores[i], competidores[i+1]] for i in range(0, len(competidores), 2)]
+    competidor_partida = [[competidores[i], competidores[i+1]] for i in range(0, len(competidores), 2)]
     try:
         ranking = Ranking.objects.get(competicao=competicao)
     except Ranking.DoesNotExist:
         ranking = None
-    context = {'competicao': competicao, 'competidores': result, 'ranking': ranking}
+    context = {'competicao': competicao, 'competidores': competidor_partida, 'ranking': ranking}
     return render(request, template_name, context)
 
 

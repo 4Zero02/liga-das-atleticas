@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Detalhes da competição{% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <!--        <div class="card">-->
+        <!--            <div class="card-body">-->
+        <h2 class="card-title text-dark"> Competição {{partida.competicao.modalidade}} - {{partida.competicao.get_sex_display}}</h2>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title text-dark"> Partida - {{ partida.numero }} | {{partida.get_etapa_display}}
+                    {% if user.is_authenticated and user.is_staff %}
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h2 class="text-center"></h2>
+                        <span class="pull-right">
+                                <a href="#">
+                                <button type="button" class="btn btn-primary btn-round">
+                                    <span class="fa fa-plus"></span> Registrar resultado
+                                </button>
+                                </a>
+                            </span>
+                    </div>
+                    {% endif %}
+                </h4>
+                <div class="row mb-2 mt-2">
+                    <div class="col-8">
+                        {% include 'components/read_only_field.html' with value=partida.local label='Local' %}
+                    </div>
+                    <div class="col-4 col-md-2">
+                        {% include 'components/read_only_field.html' with value=partida.data label='Data' %}
+                    </div>
+                </div>
+                <div class="row mb-2 mt-2">
+                    <div class="col-5 col-md-3">
+                        {% include 'components/read_only_field.html' with value=competidor.0.equipe.atletica.nome label='Equipe A' %}
+                    </div>
+                    <!--                            <h2>X</h2>-->
+                    <div class="col-5 col-md-3">
+                        {% include 'components/read_only_field.html' with value=competidor.1.equipe.atletica.nome label='Equipe B' %}
+                    </div>
+                </div>
+                {% if user.is_authenticated and user.is_staff %}
+                <button href="#" class="btn btn-danger">Excluir
+                </button>
+                <a href="{% url 'partida:partida_update' competidor.0.partida.pk %}" class="btn btn-warning float-right">
+                    Editar
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <!--            </div>-->
+        <!--        </div>-->
+    </div>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Ranking, Partida
+from .models import Ranking, Partida, Competidor
 from atletica.models import Equipe
 
 
@@ -67,3 +67,33 @@ class PartidaUpdateForm(forms.ModelForm):
             'etapa': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Etapa'}),
             'md': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Melhor de...'}),
         }
+
+
+'''======================================================================='''
+
+
+# class ResultadoFakeForm(forms.ModelForm):
+#     class Meta:
+#         model = Competidor
+#         fields = ('resultado', 'unidade', 'md')
+#         widgets = {
+#             'resultado': forms.NumberInput(
+#                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Resultado da Equipe A'}),
+#             'unidade': forms.Select(
+#                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Unidade da partida:'}),
+#             'md': forms.NumberInput(
+#                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Resultado da Equipe B'}),
+#         }
+#
+#
+# class CompetidorForm(forms.ModelForm):
+#     class Meta:
+#         model = Competidor
+#         fields = ('qualificador', 'resultado', 'unidade', 'md')
+#         widgets = {
+#             'qualificador': forms.HiddenInput(),
+#             'resultado': forms.NumberInput(
+#                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Sequencia do jogo'}),
+#             'unidade': forms.Select(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Etapa'}),
+#             'md': forms.HiddenInput(),
+#         }

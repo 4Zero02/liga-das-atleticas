@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import PartidaForm, RankingForm, PartidaUpdateForm
-from .models import Partida, Ranking
+#CompetidorForm
+from .models import Partida, Ranking, Competidor
 from campanha.models import Competicao
 
 
@@ -39,6 +40,16 @@ class PartidaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         )
 
 
-def partida_update(request, pk):
-    partida_form = PartidaForm(request.POST or None)
+def partida_detail(request, pk):
+    partida = Partida.objects.get(pk=pk)
+    competidor_partida = Competidor.objects.filter(partida=partida)
+    print(competidor_partida)
+    context = {'partida': partida, 'competidor': competidor_partida}
+    return render(request, 'partida/partida_detail.html', context)
+    # pass
+
+
+def pontuacao_create(request, pk):
     pass
+    # return redirect('campanha:competicao_detail', pk)
+    # return render(request, 'partida/partida_create.html', {'competicao': competicao, 'form': partida_form})
