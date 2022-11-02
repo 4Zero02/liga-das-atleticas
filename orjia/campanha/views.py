@@ -67,7 +67,20 @@ def competicao_detail(request, pk):
     template_name = 'competicao/competicao_detail.html'
     competicao = Competicao.objects.get(pk=pk)
     competidores = Partida.equipes.through.objects.filter(partida__competicao=competicao)
+
     result = [[competidores[i], competidores[i+1]] for i in range(0, len(competidores), 2)]
+
+    competidores_ranking = competidores.filter(partida__etapa__in=['FINAL', 'TERCEIRO'])
+
+    result_ranking = []
+
+    for idx in range(0, len(competidores_ranking), 2):
+        if competidores_ranking[idx].resultado > competidores_ranking[idx+1].resultado:
+            result_ranking.extend([competidores_ranking[idx], competidores_ranking[idx + 1]])
+        else:
+            result_ranking.extend([competidores_ranking[idx + 1], competidores_ranking[idx]])
+
+    print(result_ranking)
     try:
         ranking = Ranking.objects.get(competicao=competicao)
     except Ranking.DoesNotExist:
@@ -91,3 +104,15 @@ class CampanhaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return reverse_lazy(
             'campanha:campanha_detail', kwargs={"pk": self.object.pk}
         )
+
+
+def ranking(request, pk):
+    template_name = 'ranking/ranking.html'
+    competicao = Competicao.objects.get(pk=pk)
+    # competidores = Partida.equipes.through.objects.filter(partida__competicao=competicao)
+    partidas = Partida.objects.filter(competicao=competicao, etapa__in=['FINAL', 'TERCEIRO'])
+    competidores = partidas.equipes.all()
+    print(competidores)
+
+    context = {'result': competidores}
+    return render(request, template_name, context)

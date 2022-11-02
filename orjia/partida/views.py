@@ -22,7 +22,6 @@ def partida_create(request, pk):
         return redirect('campanha:competicao_detail', pk)
     return render(request, 'partida/partida_create.html', {'competicao': competicao, 'form': partida_form})
 
-
 class PartidaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Partida
     form_class = PartidaUpdateForm
