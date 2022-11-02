@@ -72,20 +72,17 @@ class PartidaUpdateForm(forms.ModelForm):
 '''======================================================================='''
 
 
-# class ResultadoFakeForm(forms.ModelForm):
-#     class Meta:
-#         model = Competidor
-#         fields = ('resultado', 'unidade', 'md')
-#         widgets = {
-#             'resultado': forms.NumberInput(
-#                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Resultado da Equipe A'}),
-#             'unidade': forms.Select(
-#                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Unidade da partida:'}),
-#             'md': forms.NumberInput(
-#                 attrs={'class': 'form-control form-control-lg', 'placeholder': 'Resultado da Equipe B'}),
-#         }
-#
-#
+class ResultadoForm(forms.ModelForm):
+    class Meta:
+        model = Competidor
+        fields = ('resultado', 'qualificador')
+        widgets = {
+            'resultado': forms.NumberInput(
+                attrs={'class': 'form-control form-control-lg', 'placeholder': 'Resultado da Equipe'}),
+            'qualificador': forms.TextInput(
+                attrs={'class': 'form-control form-control-lg'}),
+        }
+
 # class CompetidorForm(forms.ModelForm):
 #     class Meta:
 #         model = Competidor

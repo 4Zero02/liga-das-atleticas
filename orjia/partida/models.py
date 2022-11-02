@@ -22,13 +22,13 @@ class Partida(models.Model):
         FINAL = 'F', ('Final')
 
     class Unidade(models.TextChoices):
-        PONTOS = 'P', ('Pontos')
-        SETS = 'S', ('Sets')
-        GOLS = 'G', ('Gols')
-        SEC = 'T', ('Segundos')
-        MIN = 'M', ('Minutos')
-        ROUNDS = 'R', ('Rodadas')
-        GERAL = 'O', ('Geral')
+        PONTOS = 'P', 'Pontos'
+        SETS = 'S', 'Sets'
+        GOLS = 'G', 'Gols'
+        SEC = 'T', 'Segundos'
+        MIN = 'M', 'Minutos'
+        ROUNDS = 'R', 'Rodadas'
+        GERAL = 'O', 'Geral'
         # RODADAS = 'O', ('Misto')
 
     competicao = models.ForeignKey(Competicao, on_delete=models.PROTECT, null=True, blank=True)
@@ -50,13 +50,23 @@ class Competidor(models.Model):
     equipe = models.ForeignKey(Equipe, on_delete=models.PROTECT, null=True)
     partida = models.ForeignKey(Partida, on_delete=models.PROTECT, null=True)
     qualificador = models.CharField(max_length=1, null=True)
-    resultado = models.PositiveIntegerField('Resultado da equipe', null=True, blank=True)
+    resultado = models.PositiveIntegerField('Resultado da equipe', default=0, null=True, blank=True)
 
 
-class Pontuacao(models.Model):
-    competidor = models.ForeignKey(Competidor, on_delete=models.CASCADE)
-    pontuacao = models.PositiveIntegerField('Pontuacao do jogo:', default=0, null=True, blank=True)
-    md = models.PositiveIntegerField(default=1)
+# class Pontuacao(models.Model):
+#     class Unidade(models.TextChoices):
+#         PONTOS = 'P', 'Pontos'
+#         SETS = 'S', 'Sets'
+#         GOLS = 'G', 'Gols'
+#         SEC = 'T', 'Segundos'
+#         MIN = 'M', 'Minutos'
+#         ROUNDS = 'R', 'Rodadas'
+#         GERAL = 'O', 'Geral'
+#
+#     competidor = models.ForeignKey(Competidor, on_delete=models.CASCADE)
+#     unidade = models.CharField('Unidade', choices=Unidade.choices, max_length=1, default=Unidade.GERAL, null=True)
+#     pontuacao = models.PositiveIntegerField('Pontuacao do jogo:', default=0, null=True, blank=True)
+#     md = models.PositiveIntegerField(default=1)
 
 
 class Ranking(models.Model):
