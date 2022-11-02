@@ -1,24 +1,8 @@
-import string
-from distutils.command.upload import upload
-from random import choice
 from django.db import models
-from campanha.models import Campanha, Competicao
-from modalidade.models import Modalidade
+from campanha.models import Campanha, Competicao, create_token
 from django.utils.translation import gettext as _
 from base.models import User
 import os
-
-
-def create_token(tam=8):
-    token = ''
-    choices = string.ascii_letters + string.digits
-    for i in range(1, tam + 1):
-        token += choice(choices)
-
-        if i % 4 == 0 and i != tam:
-            token += '.'
-
-    return token.upper()
 
 
 def upload_photo(instance, filename):

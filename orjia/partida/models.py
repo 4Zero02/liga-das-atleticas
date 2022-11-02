@@ -4,9 +4,9 @@ from campanha.models import Competicao
 from datetime import date
 
 MD = (
-    (1, 'Um (1)'),
-    (3, 'Tres (3)'),
-    (5, 'Cinco (5)'),
+    ('1', 'Um (1)'),
+    ('3', 'Tres (3)'),
+    ('5', 'Cinco (5)'),
 )
 
 
@@ -15,10 +15,21 @@ class Partida(models.Model):
         PRE = 'P', ('Pre-liminar')
         OITAVAS = 'O', ('Oitavas')
         QUARTAS = 'Q', ('Quartas')
-        DESEMPATE = 'D', ('Quartas-desempate')
+        DESEMPATE56 = 'D', ('Quartas-desempate | Quinto e Sexto')
+        DESEMPATE78 = 'U', ('Quartas-desempate | Setimo e Oitavo')
         SEMI = 'S', ('Semi-final')
         TERCEIRO = 'T', ('Terceiro lugar')
         FINAL = 'F', ('Final')
+
+    class Unidade(models.TextChoices):
+        PONTOS = 'P', 'Pontos'
+        SETS = 'S', 'Sets'
+        GOLS = 'G', 'Gols'
+        SEC = 'T', 'Segundos'
+        MIN = 'M', 'Minutos'
+        ROUNDS = 'R', 'Rodadas'
+        GERAL = 'O', 'Geral'
+        # RODADAS = 'O', ('Misto')
 
     competicao = models.ForeignKey(Competicao, on_delete=models.PROTECT, null=True, blank=True)
     numero = models.PositiveIntegerField('Sequencia do jogo', null=True, blank=True)
@@ -26,6 +37,7 @@ class Partida(models.Model):
     local = models.CharField('Local do jogo', max_length=255, null=True, default='A definir')
     md = models.CharField('Melhor de:', max_length=1, choices=MD, default=1)
     equipes = models.ManyToManyField(Equipe, through='Competidor')
+    unidade = models.CharField('Unidade', choices=Unidade.choices, max_length=1, default=Unidade.GERAL, null=True)
     etapa = models.CharField('Etapa', max_length=1, choices=Etapa.choices, default=Etapa.PRE, null=True)
 
     class Meta:
@@ -35,21 +47,26 @@ class Partida(models.Model):
 
 
 class Competidor(models.Model):
-    class Unidade(models.TextChoices):
-        PONTOS = 'P', ('Pontos')
-        SETS = 'S', ('Sets')
-        GOLS = 'G', ('Gols')
-        SEC = 'T', ('Segundos')
-        MIN = 'M', ('Minutos')
-        ROUNDS = 'R', ('Rodadas')
-        GERAL = 'O', ('Geral')
-        # RODADAS = 'O', ('Misto')
-
     equipe = models.ForeignKey(Equipe, on_delete=models.PROTECT, null=True)
     partida = models.ForeignKey(Partida, on_delete=models.PROTECT, null=True)
     qualificador = models.CharField(max_length=1, null=True)
-    resultado = models.PositiveIntegerField('Resultado da equipe', null=True, blank=True)
-    unidade = models.CharField('Unidade', choices=Unidade.choices, max_length=1, default=Unidade.GERAL, null=True)
+    resultado = models.PositiveIntegerField('Resultado da equipe', default=0, null=True, blank=True)
+
+
+# class Pontuacao(models.Model):
+#     class Unidade(models.TextChoices):
+#         PONTOS = 'P', 'Pontos'
+#         SETS = 'S', 'Sets'
+#         GOLS = 'G', 'Gols'
+#         SEC = 'T', 'Segundos'
+#         MIN = 'M', 'Minutos'
+#         ROUNDS = 'R', 'Rodadas'
+#         GERAL = 'O', 'Geral'
+#
+#     competidor = models.ForeignKey(Competidor, on_delete=models.CASCADE)
+#     unidade = models.CharField('Unidade', choices=Unidade.choices, max_length=1, default=Unidade.GERAL, null=True)
+#     pontuacao = models.PositiveIntegerField('Pontuacao do jogo:', default=0, null=True, blank=True)
+#     md = models.PositiveIntegerField(default=1)
 
 
 class Ranking(models.Model):

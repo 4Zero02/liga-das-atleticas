@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <h2 class="card-title text-dark"> Competição {{ competicao.modalidade }} - {{ competicao.get_sex_display }}</h2>
+                <h2 class="card-title text-dark">Partida - {{partia.numero}} | {{partida.get_etapa_display}}</h2>
                 <form method="POST">
                     <div class="card">
                         <div class="card-header pb-0">
@@ -17,15 +17,16 @@
                                 <h4 class="mb-0 font-weight-bold">Informações da partida</h4>
                             </div>
                         </div>
-
                         <div class="card-body pt-0">
+                            {% for form in formset %}
                             <div class="m-sm-4">
-                                {% include 'forms/partida_form.html' with form=form %}
+                                {% include 'forms/resultado_form.html' with form=form %}
                             </div>
+                            {% endfor %}
                         </div>
                         <div class="text-center mt-3 mb-5">
-                            <a href="{% url 'campanha:competicao_detail' competicao.pk %}" class="btn btn-lg btn-danger">Cancelar</a>
-                            <button type="submit" class="btn btn-lg btn-success">Cadastrar</button>
+                            <a href="{% url 'partida:partida_detail' partida.pk %}" class="btn btn-lg btn-danger">Cancelar</a>
+                            <button type="submit" class="btn btn-lg btn-success">Salvar</button>
                         </div>
                     </div>
                 </form>
@@ -34,11 +35,3 @@
     </div>
 </div>
 {% endblock %}
-{% block javascript %}
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.js-example-basic-multiple').select2();
-    });
-</script>
-{% endblock javascript %}

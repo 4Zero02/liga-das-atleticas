@@ -72,10 +72,12 @@
                                                 </button>
                                             </a>
                                             {% endif %}
-                                            <button type="button" rel="tooltip" data-placement="left"
-                                                    title="Editar item"
-                                                    class="btn btn-info"><i class="bi bi-eye-fill"></i>
-                                            </button>
+                                            <a href="{% url 'partida:partida_detail' competidor.0.partida.pk %}">
+                                                <button type="button" rel="tooltip" data-placement="left"
+                                                        title="Editar item"
+                                                        class="btn btn-info"><i class="bi bi-eye-fill"></i>
+                                                </button>
+                                            </a>
                                         </td>
                                     </tr>
                                     {% endfor %}

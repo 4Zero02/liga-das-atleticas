@@ -47,13 +47,13 @@
                                                     <h1 class="h4 text-gray-900 mb-4">Acesse sua conta para
                                                         continuar!</h1>
                                                 </div>
-                                                {% comment %} {% if messages %}
+                                                {% if messages %}
                                                 <div class="row align-items-center py-4">
                                                     <div class="col">
                                                         {% include 'components/messages.html' %}
                                                     </div>
                                                 </div>
-                                                {% endif %} {% endcomment %}
+                                                {% endif %}
                                                 <form method="post">
                                                     {% csrf_token %}
                                                     {% include 'components/form_messages.html' with form=form %}
@@ -85,18 +85,15 @@
                     </div>
                 </div>
             </div>
-            <!-- /.container-fluid -->
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        {% include 'components/footer.html' %}
-        <!-- End of Footer -->
     </div>
-    <!-- End of Content Wrapper -->
 </div>
-<!-- End of Page Wrapper -->
-<!-- Bootstrap core JavaScript-->
+<!-- Footer -->
+{% include 'components/footer.html' %}
+<!-- End of Footer -->
+</body>
+</html>
+{% block javascript %}
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- Core plugin JavaScript-->
@@ -108,7 +105,4 @@
 <!-- Page level custom scripts -->
 <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
 <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
-{% block javascript %}
 {% endblock javascript %}
-</body>
-</html>
