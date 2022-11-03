@@ -5,13 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from .models import Campanha, Competicao
 from .forms import CampanhaForm, CompeticaoForm, CompeticaoUpdateForm
-from django.views.generic import (
-    CreateView,
-    DetailView,
-    ListView,
-    UpdateView,
-    DeleteView,
-)
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from partida.models import Partida, Ranking, Competidor

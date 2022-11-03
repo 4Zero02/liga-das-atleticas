@@ -2,12 +2,20 @@ from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, FormView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import PartidaForm, RankingForm, PartidaUpdateForm, ResultadoForm
-#CompetidorForm
+from .forms import (
+    PartidaForm,
+    RankingForm,
+    PartidaUpdateForm,
+    ResultadoForm,
+    CompetidorResultadoUpdateForm,
+    CompetidorResultadoUpdateFormSet,
+)
+
+# CompetidorForm
 from .models import Partida, Ranking, Competidor
 from campanha.models import Competicao
 
@@ -21,37 +29,71 @@ def partida_create(request, pk):
         form.competicao = competicao
         form.save()
         partida_form.save_m2m()
-        return redirect('campanha:competicao_detail', pk)
-    return render(request, 'partida/partida_create.html', {'competicao': competicao, 'form': partida_form})
+        return redirect("campanha:competicao_detail", pk)
+    return render(
+        request,
+        "partida/partida_create.html",
+        {"competicao": competicao, "form": partida_form},
+    )
+
 
 class PartidaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Partida
     form_class = PartidaUpdateForm
-    template_name: str = 'partida/partida_update.html'
+    template_name: str = "partida/partida_update.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(PartidaUpdate, self).get_context_data(*args, **kwargs)
-        context['competicao'] = Competicao.objects.get(pk=self.object.competicao.pk)
+        context["competicao"] = Competicao.objects.get(pk=self.object.competicao.pk)
         return context
 
     def get_success_url(self):
         return reverse_lazy(
-            'campanha:competicao_detail', kwargs={"pk": self.object.competicao.pk}
+            "campanha:competicao_detail", kwargs={"pk": self.object.competicao.pk}
         )
+
+
+class CompeticaoResultadoUpdate(SuccessMessageMixin, CreateView):
+    model = Competidor
+    template_name = "competicao/gerenciar_resultado.html"
+    form_class = CompetidorResultadoUpdateForm
+
+    def get_context_data(self, **kwargs):
+        context = super(CompeticaoResultadoUpdate, self).get_context_data(**kwargs)
+
+        context["formset"] = CompetidorResultadoUpdateFormSet(
+            queryset=Competidor.objects.filter(
+                partida=self.kwargs["partida_pk"]
+            ).prefetch_related("equipe")
+        )
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        formset = CompetidorResultadoUpdateFormSet(request.POST)
+        if formset.is_valid():
+            return self.form_valid(formset)
+        else:
+            print(formset.errors)
+            return self.form_invalid(formset)
+
+    def get_success_url(self):
+        competicao = Partida.objects.get(pk=self.kwargs["partida_pk"]).competicao
+        return reverse_lazy("campanha:competicao_detail", kwargs={"pk": competicao.pk})
 
 
 def partida_detail(request, pk):
     partida = Partida.objects.get(pk=pk)
     competidor_partida = Competidor.objects.filter(partida=partida)
     print(competidor_partida)
-    context = {'partida': partida, 'competidor': competidor_partida}
-    return render(request, 'partida/partida_detail.html', context)
+    context = {"partida": partida, "competidor": competidor_partida}
+    return render(request, "partida/partida_detail.html", context)
     # pass
 
 
 def resultado_create(request, pk):
     partida = Partida.objects.get(pk=pk)
-    template_name = 'competidor/resultado_add.html'
+    template_name = "competidor/resultado_add.html"
     competior_form = Competidor()
     competidor_resultado_formset = inlineformset_factory(
         Partida,
@@ -61,14 +103,10 @@ def resultado_create(request, pk):
         min_num=2,
         validate_min=True,
     )
-    if request.method == 'POST':
+    if request.method == "POST":
         formset = competidor_resultado_formset(
-            request.POST,
-            instance=competior_form,
-            prefix=partida
+            request.POST, instance=competior_form, prefix=partida
         )
-        print('form:')
-        print(formset)
         if formset.is_valid():
             formset.save()
             # url = 'estoque:estoque_entrada_detail'
@@ -76,5 +114,5 @@ def resultado_create(request, pk):
     else:
         formset = competidor_resultado_formset(instance=competior_form, prefix=partida)
 
-    context = {'formset': formset, 'partida': partida}
+    context = {"formset": formset, "partida": partida}
     return render(request, template_name, context)

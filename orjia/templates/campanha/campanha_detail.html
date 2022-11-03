@@ -51,33 +51,33 @@
                 <br><br>
                 <div class="col">
                     {% if competicao %}
-                    {% for object in competicao %}
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h2 class="card-title text-dark"> Competição {{ object.modalidade }}</h2>
-                                    <div class="row mb-2 mt-2">
-                                        <div class="col-12">
-                                            {% include 'components/read_only_field.html' with value=object.get_sex_display label='Naipe' %}
+                        {% for object in competicao %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h2 class="card-title text-dark"> Competição {{ object.modalidade }}</h2>
+                                            <div class="row mb-2 mt-2">
+                                                <div class="col-12">
+                                                    {% include 'components/read_only_field.html' with value=object.get_sex_display label='Naipe' %}
+                                                </div>
+                                            </div>
+                                            <a href="{% url 'campanha:competicao_detail' object.pk %}"
+                                            class="btn btn-primary float-right">
+                                                Detalhes
+                                            </a>
+                                            {% if user.is_authenticated and user.is_staff %}
+                                                <a href="{% url 'campanha:competicao_update' object.pk %}"
+                                                class="btn btn-warning float-right">
+                                                    Editar
+                                                </a>
+                                            {% endif %}
                                         </div>
                                     </div>
-                                    <a href="{% url 'campanha:competicao_detail' object.pk %}"
-                                       class="btn btn-primary float-right">
-                                        Detalhes
-                                    </a>
-                                    {% if user.is_authenticated and user.is_staff %}
-                                    <a href="{% url 'campanha:competicao_update' object.pk %}"
-                                       class="btn btn-warning float-right">
-                                        Editar
-                                    </a>
-                                    {% endif %}
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <br>
-                    {% endfor %}
+                            <br>
+                        {% endfor %}
                     {% else %}
                     <div class="tab-content text-center">
                         <p class="alert alert-warning">Sem competições cadastradas.</p>

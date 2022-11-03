@@ -1,0 +1,20 @@
+<div class="row">
+  {% if messages %}
+  <div class="row align-items-center">
+      <div class="col">
+          {% include 'components/messages.html' %}
+      </div>
+  </div>
+  {% endif %}
+
+  {% include 'components/form_messages.html' with form=form %}
+    {{ form.equipe }}
+
+    <div class="col-6 mb-3">
+      {% include 'components/field.html' with label='Equipe:' field=form.equipe_name %}
+    </div>
+
+    <div class="col-6 mb-3">
+      {% include 'components/field.html' with label='Resultado:' field=form.resultado %}
+    </div>
+</div>
