@@ -16,7 +16,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from partida.models import Partida, Ranking, Competidor
 from partida.forms import RankingForm
-from orjia.partida.services.partidas_service import make_ranking
+from partida.services.partidas_service import make_ranking
 
 
 class CampanhaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
