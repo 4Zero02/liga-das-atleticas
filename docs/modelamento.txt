@@ -135,4 +135,4 @@ atribuir a pontuacao da atletica ao score todas as vezes
 
 ranking top 8 de cada competicao
 
-chama a def, ela retorna
+chama a def, ela retorna 1 ranking da competicao,cada equipe fora desse ranking recebe 1 ponto
