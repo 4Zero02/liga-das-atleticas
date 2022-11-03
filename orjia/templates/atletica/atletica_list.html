@@ -16,7 +16,9 @@
     {% for atletica in object_list %}
     <a href="{% url 'atletica:atletica_detail' atletica.id %}">
         <div class="card" style="width: 18rem;">
-            <img src="{{ atletica.logo.url }}" class="card-img-top" alt="...">
+            {% if atletica.logo %}
+                <img src="{{ atletica.logo.url }}" class="card-img-top" alt="...">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{atletica.nome}}</h5>
             </div>

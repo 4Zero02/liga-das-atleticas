@@ -16,6 +16,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from partida.models import Partida, Ranking, Competidor
 from partida.forms import RankingForm
+from orjia.partida.services.partidas_service import make_ranking
 
 
 class CampanhaCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -84,26 +85,7 @@ def competicao_detail(request, pk):
         [competidores[i], competidores[i + 1]] for i in range(0, len(competidores), 2)
     ]
 
-    # Busca as partida_competidores que estão nas etapas Final e TerceiroLugar
-    # para a competição X
-    partida_ranking = competidores.filter(
-        partida__etapa__in=[Partida.Etapa.FINAL, Partida.Etapa.TERCEIRO]
-    ).prefetch_related("equipe")
-
-    result_ranking = []
-
-    # Itera sobre as partida_competidores que estão na Final e TerceiroLugar
-    # O loop vai de 2 em 2, pois cada partida tem 2 equipes
-    # O primeiro loop é da final e o segundo é para TerceiroLugar
-    for idx in range(0, len(partida_ranking), 2):
-        if partida_ranking[idx].resultado > partida_ranking[idx + 1].resultado:
-            result_ranking.extend(
-                [partida_ranking[idx].equipe, partida_ranking[idx + 1].equipe]
-            )
-        else:
-            result_ranking.extend(
-                [partida_ranking[idx + 1].equipe, partida_ranking[idx].equipe]
-            )
+    result_ranking = make_ranking(competicao)
 
     context = {
         "competicao": competicao,
