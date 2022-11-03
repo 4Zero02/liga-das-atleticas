@@ -69,7 +69,7 @@ class Equipe(models.Model):
 class Score(models.Model):
     atletica = models.ForeignKey(Atletica, on_delete=models.PROTECT)
     campanha = models.ForeignKey(Campanha, on_delete=models.PROTECT)
-    pontos = models.PositiveIntegerField()
+    pontos = models.PositiveIntegerField(default=0, null=True)
 
     class Meta:
         ordering = ['pontos']
