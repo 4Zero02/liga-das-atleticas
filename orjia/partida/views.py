@@ -53,7 +53,7 @@ class PartidaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         )
 
 
-class CompeticaoResultadoUpdate(SuccessMessageMixin, CreateView):
+class CompeticaoResultadoUpdate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Competidor
     template_name = "competicao/gerenciar_resultado.html"
     form_class = CompetidorResultadoUpdateForm
@@ -90,29 +90,3 @@ def partida_detail(request, pk):
     return render(request, "partida/partida_detail.html", context)
     # pass
 
-
-def resultado_create(request, pk):
-    partida = Partida.objects.get(pk=pk)
-    template_name = "competidor/resultado_add.html"
-    competior_form = Competidor()
-    competidor_resultado_formset = inlineformset_factory(
-        Partida,
-        Competidor,
-        form=ResultadoForm,
-        extra=0,
-        min_num=2,
-        validate_min=True,
-    )
-    if request.method == "POST":
-        formset = competidor_resultado_formset(
-            request.POST, instance=competior_form, prefix=partida
-        )
-        if formset.is_valid():
-            formset.save()
-            # url = 'estoque:estoque_entrada_detail'
-            # return HttpResponseRedirect(resolve_url(url, .pk))
-    else:
-        formset = competidor_resultado_formset(instance=competior_form, prefix=partida)
-
-    context = {"formset": formset, "partida": partida}
-    return render(request, template_name, context)

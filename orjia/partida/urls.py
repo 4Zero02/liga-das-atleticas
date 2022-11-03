@@ -13,5 +13,4 @@ urlpatterns = [
         CompeticaoResultadoUpdate.as_view(),
         name="gerenciar_resultados",
     ),
-    path("<int:pk>/resultado", v.resultado_create, name="resultado_create"),
 ]

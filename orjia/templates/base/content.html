@@ -20,11 +20,13 @@
         </tr>
         </thead>
         <tbody>
+        {% for s in score %}
         <tr>
-            <th scope="row">1</th>
-            <td>IMPERIAL</td>
-            <td>-20</td>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ s.atletica.nome }}</td>
+            <td>{{ s.pontos }}</td>
         </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>

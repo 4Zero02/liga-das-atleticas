@@ -61,7 +61,7 @@ class CampanhaDetail(SuccessMessageMixin, DetailView):
 def campanha_detail(request, pk):
     template_name = "campanha/campanha_detail.html"
     campanha = Campanha.objects.get(pk=pk)
-    competicao = Competicao.objects.filter(campanha=campanha)
+    competicao = Competicao.objects.filter(campanha=campanha).order_by('modalidade')
     context = {"campanha": campanha, "competicao": competicao}
     return render(request, template_name, context)
 
