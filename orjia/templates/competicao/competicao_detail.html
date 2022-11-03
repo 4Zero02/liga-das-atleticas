@@ -41,7 +41,9 @@
                                             <th>Etapa</th>
                                             <th>Sequencia do jogo</th>
                                             <th>Atlética</th>
+                                            <th></th>
                                             <th>X</th>
+                                            <th></th>
                                             <th>Atlética</th>
                                             <th>Vencedor</th>
                                             <th>Ações</th>
@@ -53,7 +55,9 @@
                                             <td>{{ competidor.0.partida.get_etapa_display }}</td>
                                             <td>{{ competidor.0.partida.numero }}</td>
                                             <td>{{ competidor.0.equipe.atletica.nome }}</td>
+                                            <td>{{ competidor.0.resultado}}</td>
                                             <td>X</td>
+                                            <td>{{ competidor.1.resultado}}</td>
                                             <td>{{ competidor.1.equipe.atletica.nome }}</td>
                                             <td>
                                                 {% if competidor.0.resultado > competidor.1.resultado %}

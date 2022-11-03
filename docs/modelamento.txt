@@ -129,3 +129,10 @@ partida_update ok
 setar vencedor ao registrar resultado
 
 permitir a liga alterar o status do atletas
+
+ranking geral calculado sempre que for exibido
+atribuir a pontuacao da atletica ao score todas as vezes
+
+ranking top 8 de cada competicao
+
+chama a def, ela retorna 1 ranking da competicao,cada equipe fora desse ranking recebe 1 ponto
