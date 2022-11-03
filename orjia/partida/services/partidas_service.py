@@ -1,3 +1,4 @@
+from unittest import result
 from ..models import Partida, Competicao
 
 
@@ -13,21 +14,35 @@ def make_ranking(competicao: Competicao):
         # Busca as partida_competidores que estão nas etapas Final e TerceiroLugar
         # para a competição X
         partida_ranking = competidores.filter(
-            partida__etapa__in=[Partida.Etapa.FINAL, Partida.Etapa.TERCEIRO]
+            partida__etapa__in=[
+                Partida.Etapa.FINAL,
+                Partida.Etapa.TERCEIRO,
+                Partida.Etapa.DESEMPATE56,
+                Partida.Etapa.DESEMPATE78,
+            ]
         ).prefetch_related("equipe")
 
-        # Itera sobre as partida_competidores que estão na Final e TerceiroLugar
-        # O loop vai de 2 em 2, pois cada partida tem 2 equipes
-        # O primeiro loop é da final e o segundo é para TerceiroLugar
+        r = {
+            Partida.Etapa.FINAL: [None, None],
+            Partida.Etapa.TERCEIRO: [None, None],
+            Partida.Etapa.DESEMPATE56: [None, None],
+            Partida.Etapa.DESEMPATE78: [None, None],
+        }
+
         for idx in range(0, len(partida_ranking), 2):
             if partida_ranking[idx].resultado > partida_ranking[idx + 1].resultado:
-                result_ranking.extend(
-                    [partida_ranking[idx].equipe, partida_ranking[idx + 1].equipe]
-                )
+                r[partida_ranking[idx].partida.etapa] = [
+                    partida_ranking[idx].equipe,
+                    partida_ranking[idx + 1].equipe,
+                ]
             else:
-                result_ranking.extend(
-                    [partida_ranking[idx + 1].equipe, partida_ranking[idx].equipe]
-                )
+                r[partida_ranking[idx].partida.etapa] = [
+                    partida_ranking[idx + 1].equipe,
+                    partida_ranking[idx].equipe,
+                ]
+
+        for etapa, times in r.items():
+            result_ranking.extend(times)
 
     # Modalidade Todos-contra-Todos
     elif competicao.modalidade.tipo_confronto == "1":
