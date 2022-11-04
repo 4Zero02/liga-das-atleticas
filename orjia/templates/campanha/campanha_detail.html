@@ -51,33 +51,67 @@
                 <br><br>
                 <div class="col">
                     {% if competicao %}
-                        {% for object in competicao %}
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h2 class="card-title text-dark"> Competição {{ object.modalidade }}</h2>
-                                            <div class="row mb-2 mt-2">
-                                                <div class="col-12">
-                                                    {% include 'components/read_only_field.html' with value=object.get_sex_display label='Naipe' %}
-                                                </div>
-                                            </div>
-                                            <a href="{% url 'campanha:competicao_detail' object.pk %}"
-                                            class="btn btn-primary float-right">
-                                                Detalhes
-                                            </a>
-                                            {% if user.is_authenticated and user.is_staff %}
-                                                <a href="{% url 'campanha:competicao_update' object.pk %}"
-                                                class="btn btn-warning float-right">
-                                                    Editar
-                                                </a>
-                                            {% endif %}
+                    {% for object in competicao %}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="card-title text-dark"> Competição {{ object.modalidade }}</h2>
+                                    <div class="row mb-2 mt-2">
+                                        <div class="col-12">
+                                            {% include 'components/read_only_field.html' with value=object.get_sex_display label='Naipe' %}
                                         </div>
                                     </div>
+                                    {% if user.is_authenticated and user.is_staff %}
+                                    <button type="button" rel="tooltip" data-placement="left" title="Apagar item"
+                                            class="btn btn-danger"
+                                            data-toggle="modal" data-target="#modalCompeticao{{object.pk}}">Excluir
+                                    </button>
+                                    <a href="{% url 'campanha:competicao_update' object.pk %}"
+                                       class="btn btn-warning">
+                                        Editar
+                                    </a>
+                                    {% endif %}
+                                    <a href="{% url 'campanha:competicao_detail' object.pk %}"
+                                       class="btn btn-primary float-right">
+                                        Detalhes
+                                    </a>
                                 </div>
                             </div>
-                            <br>
-                        {% endfor %}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal fade" id="modalCompeticao{{object.pk}}" tabindex="-1" role="dialog"
+                         aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="TituloModalCentralizado">Apagar Competicao</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{% url 'campanha:competicao_delete' object.pk %}" method="POST"
+                                          novalidate>
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col">
+                                                Tem certeza que deseja apagar a competicao {{object.nome}}?
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-round"
+                                                    data-dismiss="modal">Cancelar
+                                            </button>
+                                            <button type="submit" class="btn btn-danger btn-round">Apagar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                     {% else %}
                     <div class="tab-content text-center">
                         <p class="alert alert-warning">Sem competições cadastradas.</p>

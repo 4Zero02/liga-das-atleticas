@@ -13,6 +13,6 @@ urlpatterns = [
     # URLS COMPETIÇÃO
     path('competicao/create/', v.competicao_create, name='competicao_create'),
     path('competicao/update/<int:pk>/', v.CompeticaoUpdate.as_view(), name='competicao_update'),
+    path('competicao/delete/<int:pk>', v.CompeticaoDelete.as_view(), name='competicao_delete'),
     path('competicao/<int:pk>/', v.competicao_detail, name='competicao_detail'),
-    path('competicao/<int:pk>/ranking', v.ranking, name='competicao_ranking'),
 ]

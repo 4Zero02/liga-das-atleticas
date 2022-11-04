@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from .models import Campanha, Competicao
 from .forms import CampanhaForm, CompeticaoForm, CompeticaoUpdateForm
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, FormView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, FormView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from partida.models import Partida, Ranking, Competidor
@@ -41,6 +41,17 @@ def competicao_create(request):
     )
 
 
+class CompeticaoDelete(LoginRequiredMixin, DeleteView, SuccessMessageMixin):
+    model = Competicao
+    success_message = "Competicao removida com sucesso!"
+    # success_url = reverse_lazy('campanha:campanha_detail')
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'campanha:campanha_detail', kwargs={"pk": self.object.campanha.pk}
+        )
+
+
 class CompeticaoUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Competicao
     form_class = CompeticaoUpdateForm
@@ -67,12 +78,14 @@ def campanha_detail(request, pk):
 
 
 def competicao_detail(request, pk):
-    template_name = "competicao/competicao_detail.html"
     competicao = Competicao.objects.get(pk=pk)
+    if competicao.modalidade.tipo_confronto == '0':
+        template_name = "competicao/competicao_detail.html"
+    else:
+        template_name = "competicao/competicao_detail_TxT.html"
     competidores = Partida.equipes.through.objects.filter(
         partida__competicao=competicao
     )
-
     # Monta uma lista L onde cada elemento é outra lista Lx, com 2 partida_competidores
     # Lx[i] é a equipe A da partida X e Lx[i + 1] é a equipe B da partida X
     partida_competidor = [

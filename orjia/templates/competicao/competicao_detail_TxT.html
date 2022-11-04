@@ -1,0 +1,117 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Detalhes da competição{% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-dark"> Competição {{ competicao.modalidade }} - {{ competicao.get_sex_display }}</h2>
+                <div class="card-body ">
+                    {% if ranking %}
+                    <table id="tabelaRANKING" class="table table-striped table-responsive-sm">
+                        <thead>
+                        <tr>
+                            <th>Colocação</th>
+                            <th>Equipes</th>
+                            <th>Resultado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                {% if ranking.0 %}
+                                {{ ranking.0 }}
+                                {% else %}
+                                A DEFINIR
+                                {% endif %}
+                            </td>
+                            <td>Resultado da equipe/competidor</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                {% if ranking.1 %}
+                                {{ ranking.1 }}
+                                {% else %}
+                                A DEFINIR
+                                {% endif %}
+                            </td>
+                            <td>Resultado da equipe/competidor</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                {% if ranking.2 %}
+                                {{ ranking.2 }}
+                                {% else %}
+                                A DEFINIR
+                                {% endif %}
+                            </td>
+                            <td>Resultado da equipe/competidor</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                {% if ranking.3 %}
+                                {{ ranking.3 }}
+                                {% else %}
+                                A DEFINIR
+                                {% endif %}
+                            </td>
+                            <td>Resultado da equipe/competidor</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>
+                                {% if ranking.4 %}
+                                {{ ranking.4 }}
+                                {% else %}
+                                A DEFINIR
+                                {% endif %}
+                            </td>
+                            <td>Resultado da equipe/competidor</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>
+                                {% if ranking.5 %}
+                                {{ ranking.5 }}
+                                {% else %}
+                                A DEFINIR
+                                {% endif %}
+                            </td>
+                            <td>Resultado da equipe/competidor</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>
+                                {% if ranking.6 %}
+                                {{ ranking.6 }}
+                                {% else %}
+                                A DEFINIR
+                                {% endif %}
+                            </td>
+                            <td>Resultado da equipe/competidor</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>
+                                {% if ranking.7 %}
+                                {{ ranking.7 }}
+                                {% else %}
+                                A DEFINIR
+                                {% endif %}
+                            </td>
+                            <td>Resultado da equipe/competidor</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

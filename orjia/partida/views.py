@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth.decorators import login_required
-from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, FormView
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView)
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -14,8 +15,6 @@ from .forms import (
     CompetidorResultadoUpdateForm,
     CompetidorResultadoUpdateFormSet,
 )
-
-# CompetidorForm
 from .models import Partida, Ranking, Competidor
 from campanha.models import Competicao
 
@@ -53,6 +52,17 @@ class PartidaUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy(
             "campanha:competicao_detail", kwargs={"pk": self.object.competicao.pk}
+        )
+
+
+class PartidaDelete(LoginRequiredMixin, DeleteView, SuccessMessageMixin):
+    model = Partida
+    success_message = "Competicao removida com sucesso!"
+    # success_url = reverse_lazy('campanha:campanha_detail')
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'campanha:competicao_detail', kwargs={"pk": self.object.competicao.pk}
         )
 
 

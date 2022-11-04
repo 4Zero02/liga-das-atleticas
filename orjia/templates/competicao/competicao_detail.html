@@ -22,7 +22,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- PARTIDAS -->
                     <div class="card-body ">
                         <div class="tab-content text-center">
@@ -62,8 +61,10 @@
                                             <td>
                                                 {% if competidor.0.resultado > competidor.1.resultado %}
                                                     {{ competidor.0.equipe.atletica.nome }}
-                                                {% else %}
+                                                {% elif competidor.1.resultado > competidor.0.resultado %}
                                                     {{ competidor.1.equipe.atletica.nome }}
+                                                {% else %}
+                                                A DEFINIR
                                                 {% endif %}
                                             </td>
                                             <td>
@@ -94,32 +95,13 @@
                                     </table>
                                 {% else %}
                                     <br>
+                                    <br>
                                     <p class="alert alert-warning">Sem partidas registradas.</p>
                                 {% endif %}
                             </div>
 
                             <!-- RANKING -->
                             <div class="tab-pane" id="ranking">
-                                <span class="pull-right">
-                                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                        <h2 class="text-center"></h2>
-                                        <span class="pull-right">
-                                            {% if ranking %}
-                                                <a href="#">
-                                                <button type="button" class="btn btn-warning btn-round">
-                                                    Editar ranking
-                                                </button>
-                                                </a>
-                                            {% else %}
-                                                <a href="#">
-                                                <button type="button" class="btn btn-warning btn-round">
-                                                    Editar ranking
-                                                </button>
-                                                </a>
-                                            {% endif %}
-                                        </span>
-                                    </div>
-                                </span>
                                 {% if ranking %}
                                 <table id="tabelaRANKING" class="table table-striped table-responsive-sm">
                                     <thead>
@@ -132,35 +114,83 @@
                                     <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>{{ ranking.0 }}</td>
+                                        <td>
+                                            {% if ranking.0 %}
+                                            {{ ranking.0 }}
+                                            {% else %}
+                                            A DEFINIR
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>{{ ranking.1 }}</td>
+                                        <td>
+                                            {% if ranking.1 %}
+                                            {{ ranking.1 }}
+                                            {% else %}
+                                            A DEFINIR
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td>{{ ranking.2 }}</td>
+                                        <td>
+                                            {% if ranking.2 %}
+                                            {{ ranking.2 }}
+                                            {% else %}
+                                            A DEFINIR
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>4</td>
-                                        <td>{{ ranking.3 }}</td>
+                                        <td>
+                                            {% if ranking.3 %}
+                                            {{ ranking.3 }}
+                                            {% else %}
+                                            A DEFINIR
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
-                                        <td></td>
+                                        <td>
+                                            {% if ranking.4 %}
+                                            {{ ranking.4 }}
+                                            {% else %}
+                                            A DEFINIR
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>6</td>
-                                        <td></td>
+                                        <td>
+                                            {% if ranking.5 %}
+                                            {{ ranking.5 }}
+                                            {% else %}
+                                            A DEFINIR
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>7</td>
-                                        <td></td>
+                                        <td>
+                                            {% if ranking.6 %}
+                                            {{ ranking.6 }}
+                                            {% else %}
+                                            A DEFINIR
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>8</td>
-                                        <td></td>
+                                        <td>
+                                            {% if ranking.7 %}
+                                            {{ ranking.7 }}
+                                            {% else %}
+                                            A DEFINIR
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

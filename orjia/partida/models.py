@@ -48,7 +48,7 @@ class Partida(models.Model):
 
 class Competidor(models.Model):
     equipe = models.ForeignKey(Equipe, on_delete=models.PROTECT, null=True)
-    partida = models.ForeignKey(Partida, on_delete=models.PROTECT, null=True)
+    partida = models.ForeignKey(Partida, on_delete=models.CASCADE, null=True)
     qualificador = models.CharField(max_length=1, null=True)
     resultado = models.PositiveIntegerField('Resultado da equipe', default=0, null=True, blank=True)
 

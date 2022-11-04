@@ -26,8 +26,8 @@ def home(request):
             score.save()
     for competicao in competicoes:
         equipes = Equipe.objects.filter(competicao=competicao)
-        print(competicao)
-        print(equipes)
+        # print(competicao)
+        # print(equipes)
         ranking = make_ranking(competicao)
         if ranking:
             pontos = 20
