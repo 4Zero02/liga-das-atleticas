@@ -22,7 +22,7 @@ def make_ranking(competicao: Competicao):
             ]
         ).prefetch_related("equipe")
 
-        r = {
+        partidas_etapa = {
             Partida.Etapa.FINAL: [None, None],
             Partida.Etapa.TERCEIRO: [None, None],
             Partida.Etapa.DESEMPATE56: [None, None],
@@ -31,17 +31,17 @@ def make_ranking(competicao: Competicao):
 
         for idx in range(0, len(partida_ranking), 2):
             if partida_ranking[idx].resultado > partida_ranking[idx + 1].resultado:
-                r[partida_ranking[idx].partida.etapa] = [
+                partidas_etapa[partida_ranking[idx].partida.etapa] = [
                     partida_ranking[idx].equipe,
                     partida_ranking[idx + 1].equipe,
                 ]
             else:
-                r[partida_ranking[idx].partida.etapa] = [
+                partidas_etapa[partida_ranking[idx].partida.etapa] = [
                     partida_ranking[idx + 1].equipe,
                     partida_ranking[idx].equipe,
                 ]
 
-        for etapa, times in r.items():
+        for etapa, times in partidas_etapa.items():
             result_ranking.extend(times)
 
     # Modalidade Todos-contra-Todos

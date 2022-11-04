@@ -22,14 +22,17 @@ from campanha.models import Competicao
 
 @login_required
 def partida_create(request, pk):
-    partida_form = PartidaForm(request.POST or None)
     competicao = Competicao.objects.get(pk=pk)
-    if partida_form.is_valid():
-        form = partida_form.save(commit=False)
-        form.competicao = competicao
-        form.save()
-        partida_form.save_m2m()
-        return redirect("campanha:competicao_detail", pk)
+    partida_form = PartidaForm(request.POST or None, competicao=competicao)
+
+    if request.method == "POST":
+        if partida_form.is_valid():
+            form = partida_form.save(commit=False)
+            form.competicao = competicao
+            form.save()
+            partida_form.save_m2m()
+            return redirect("campanha:competicao_detail", pk)
+
     return render(
         request,
         "partida/partida_create.html",
@@ -89,4 +92,3 @@ def partida_detail(request, pk):
     context = {"partida": partida, "competidor": competidor_partida}
     return render(request, "partida/partida_detail.html", context)
     # pass
-

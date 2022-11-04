@@ -1,4 +1,6 @@
+from asyncio import base_events
 from dataclasses import fields
+from email.mime import base
 from xml.dom import ValidationErr
 from django import forms
 from django.forms import modelformset_factory, BaseModelFormSet
@@ -23,7 +25,7 @@ class PartidaForm(forms.ModelForm):
     equipes = forms.ModelMultipleChoiceField(
         label="Equipes",
         required=True,
-        queryset=Equipe.objects.all(),
+        queryset=Equipe.objects.none(),
         widget=forms.SelectMultiple(
             attrs={
                 "class": "form-control form-control-lg text-center js-example-basic-multiple",
@@ -60,6 +62,19 @@ class PartidaForm(forms.ModelForm):
                 }
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+        competicao = kwargs.pop("competicao", None)
+
+        super(PartidaForm, self).__init__(*args, **kwargs)
+
+        if competicao:
+            base_qs = Equipe.objects.filter(competicao=competicao)
+
+            if competicao.sex != "O":
+                base_qs = base_qs.filter(sex=competicao.sex)
+
+            self.fields["equipes"].queryset = base_qs
 
 
 class PartidaUpdateForm(forms.ModelForm):
