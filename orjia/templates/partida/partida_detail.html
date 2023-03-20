@@ -38,6 +38,9 @@
                         {% include 'components/read_only_field.html' with value=competidor.1.equipe.atletica.nome label='Equipe B' %}
                     </div>
                 </div>
+                <div class="col-12 mb-3">
+                        {% include 'components/read_only_field.html' with value=partida.obs label='Observações' %}
+                </div>
                 {% if user.is_authenticated and user.is_staff %}
                 <button type="button" rel="tooltip" data-placement="left" title="Apagar item" class="btn btn-danger"
                         data-toggle="modal" data-target="#modalPartida{{partida.pk}}">Excluir

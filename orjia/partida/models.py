@@ -39,7 +39,7 @@ class Partida(models.Model):
     equipes = models.ManyToManyField(Equipe, through='Competidor')
     unidade = models.CharField('Unidade', choices=Unidade.choices, max_length=1, default=Unidade.GERAL, null=True)
     etapa = models.CharField('Etapa', max_length=1, choices=Etapa.choices, default=Etapa.PRE, null=True)
-    # obs = models.TextField('Observações', blank=True, null=True)
+    obs = models.TextField('Observações', blank=True, null=True)
 
     class Meta:
         ordering = ['numero']

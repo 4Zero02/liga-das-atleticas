@@ -66,6 +66,15 @@ class PartidaDelete(LoginRequiredMixin, DeleteView, SuccessMessageMixin):
         )
 
 
+def partida_detail(request, pk):
+    partida = Partida.objects.get(pk=pk)
+    competidor_partida = Competidor.objects.filter(partida=partida)
+    print(competidor_partida)
+    context = {"partida": partida, "competidor": competidor_partida}
+    return render(request, "partida/partida_detail.html", context)
+    # pass
+
+
 class CompeticaoResultadoUpdate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Competidor
     template_name = "competicao/gerenciar_resultado.html"
@@ -93,12 +102,3 @@ class CompeticaoResultadoUpdate(LoginRequiredMixin, SuccessMessageMixin, CreateV
     def get_success_url(self):
         competicao = Partida.objects.get(pk=self.kwargs["partida_pk"]).competicao
         return reverse_lazy("campanha:competicao_detail", kwargs={"pk": competicao.pk})
-
-
-def partida_detail(request, pk):
-    partida = Partida.objects.get(pk=pk)
-    competidor_partida = Competidor.objects.filter(partida=partida)
-    print(competidor_partida)
-    context = {"partida": partida, "competidor": competidor_partida}
-    return render(request, "partida/partida_detail.html", context)
-    # pass

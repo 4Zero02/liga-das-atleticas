@@ -36,7 +36,7 @@ class PartidaForm(forms.ModelForm):
 
     class Meta:
         model = Partida
-        fields = ("competicao", "numero", "data", "local", "equipes", "etapa", "md")
+        fields = ("competicao", "numero", "data", "local", "equipes", "etapa", "md", "obs")
         widgets = {
             "competicao": forms.HiddenInput(),
             "local": forms.TextInput(
@@ -59,6 +59,12 @@ class PartidaForm(forms.ModelForm):
                 attrs={
                     "class": "form-control form-control-lg",
                     "placeholder": "Melhor de...",
+                }
+            ),
+            "obs": forms.TextInput(
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "Observações da partida",
                 }
             ),
         }
@@ -92,7 +98,7 @@ class PartidaUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Partida
-        fields = ("numero", "data", "local", "equipes", "etapa", "md")
+        fields = ("numero", "data", "local", "equipes", "etapa", "md", "obs")
         widgets = {
             "local": forms.TextInput(
                 attrs={
@@ -114,6 +120,12 @@ class PartidaUpdateForm(forms.ModelForm):
                 attrs={
                     "class": "form-control form-control-lg",
                     "placeholder": "Melhor de...",
+                }
+            ),
+            "obs": forms.TextInput(
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "Observações da partida",
                 }
             ),
         }
