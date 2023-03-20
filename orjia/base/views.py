@@ -47,7 +47,7 @@ def home(request):
                     # print(equipe.atletica)
                     # print(score.pontos)
     score = Score.objects.all().order_by('-pontos')
-    context = {'score': score}
+    context = {'score': score, "campanha": campanha}
     return render(request, template, context)
 
 

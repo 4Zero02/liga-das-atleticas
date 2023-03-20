@@ -4,7 +4,7 @@
 {% block content %}
 <!-- ATLETAS -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h2 class="text-center"> Atletas </h2>
+    <h2 class="text-center"> Atletas - {{ atletica.nome }}</h2>
     {% if user.is_authenticated %}
     <a href="{% url 'atletica:atleta_add' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><span
             class="fa fa-plus"></span> Adicionar Atleta</a>

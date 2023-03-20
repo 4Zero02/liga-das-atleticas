@@ -97,7 +97,7 @@ class PartidaUpdateForm(forms.ModelForm):
             "local": forms.TextInput(
                 attrs={
                     "class": "form-control form-control-lg",
-                    "placeholder": "Nome do atleta",
+                    "placeholder": "Local da partida",
                 }
             ),
             "numero": forms.NumberInput(

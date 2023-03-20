@@ -80,7 +80,7 @@ def atleta_list(request):
     template_name = "atleta/atleta_list.html"
     atletica_id = Atletica.objects.get(usuario=request.user)
     atleta_list = Atleta.objects.filter(atletica=atletica_id).order_by("nome")
-    context = {"atletas": atleta_list}
+    context = {"atletas": atleta_list, "atletica": atletica_id}
     return render(request, template_name, context)
 
 
