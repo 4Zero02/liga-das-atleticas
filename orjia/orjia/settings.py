@@ -22,12 +22,12 @@ environ.Env.read_env(env_file=os.path.join(BASE_DIR, ".env"))
 PRODUCTION = True if env("PRODUCTION") == "True" else False
 
 # Allowed hosts based on current environment
-if PRODUCTION:
-    ALLOWED_HOSTS = ["127.0.0.1", "localhost", "liga.fly.dev"]
-    CSRF_TRUSTED_ORIGINS = ["https://liga.fly.dev"]
-else:
-    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-    CSRF_TRUSTED_ORIGINS = ["https://liga.fly.dev"]
+# if PRODUCTION:
+ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "localhost", "liga.fly.dev"]
+CSRF_TRUSTED_ORIGINS = ["https://liga.fly.dev"]
+# else:
+#     ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+#     CSRF_TRUSTED_ORIGINS = ["https://liga.fly.dev"]
 
 # Application definition
 
