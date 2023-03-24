@@ -36,7 +36,7 @@ class Campanha(models.Model):
     data_inicio = models.DateField('Data de início', default=date.today)
     data_final = models.DateField('Data de término', default=date.today)
     ano = models.PositiveIntegerField('Ano do evento', null=False, blank=False)
-    status = models.CharField(max_length=1, choices=STATUS, default=1)
+    status = models.IntegerField(choices=STATUS, default=1)
     # logo = models.ImageField(upload_to='logos/', null=True)
 
     class Meta:

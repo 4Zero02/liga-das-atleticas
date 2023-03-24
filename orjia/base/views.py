@@ -11,43 +11,38 @@ User = get_user_model()
 
 def home(request):
     template = 'base/content.html'
-    campanha = Campanha.objects.get(status=1)
-    competicoes = Competicao.objects.filter(campanha=campanha)
-    atleticas = Atletica.objects.all()
-    # print('competicoes:')
-    # print(competicoes)
-    for atletica in atleticas:
-        try:
-            score = Score.objects.get(campanha=campanha, atletica=atletica)
-            score.pontos = 0
-            score.save()
-        except Score.DoesNotExist:
-            score = Score(campanha=campanha, atletica=atletica, pontos=0)
-            score.save()
-    for competicao in competicoes:
-        equipes = Equipe.objects.filter(competicao=competicao)
-        # print(competicao)
-        # print(equipes)
-        ranking = make_ranking(competicao)
-        if ranking:
-            pontos = 20
-            for equipe in ranking:
-                if equipe:
-                    score = Score.objects.get(campanha=campanha, atletica=equipe.atletica)
-                    score.pontos += pontos
-                    score.save()
-                    pontos -= 2
-                    # print(equipe.atletica)
-                    # print(score.pontos)
-            for equipe in equipes:
-                if equipe not in ranking:
-                    score = Score.objects.get(campanha=campanha, atletica=equipe.atletica)
-                    score.pontos += 1
-                    score.save()
-                    # print(equipe.atletica)
-                    # print(score.pontos)
-    score = Score.objects.all().order_by('-pontos')
-    context = {'score': score, "campanha": campanha}
+    try:
+        campanha = Campanha.objects.get(status=1)
+        competicoes = Competicao.objects.filter(campanha=campanha)
+        atleticas = Atletica.objects.all()
+        for atletica in atleticas:
+            try:
+                score = Score.objects.get(campanha=campanha, atletica=atletica)
+                score.pontos = 0
+                score.save()
+            except Score.DoesNotExist:
+                score = Score(campanha=campanha, atletica=atletica, pontos=0)
+                score.save()
+        for competicao in competicoes:
+            equipes = Equipe.objects.filter(competicao=competicao)
+            ranking = make_ranking(competicao)
+            if ranking:
+                pontos = 20
+                for equipe in ranking:
+                    if equipe:
+                        score = Score.objects.get(campanha=campanha, atletica=equipe.atletica)
+                        score.pontos += pontos
+                        score.save()
+                        pontos -= 2
+                for equipe in equipes:
+                    if equipe not in ranking:
+                        score = Score.objects.get(campanha=campanha, atletica=equipe.atletica)
+                        score.pontos += 1
+                        score.save()
+        score = Score.objects.all().order_by('-pontos')
+        context = {'score': score, "campanha": campanha}
+    except Campanha.DoesNotExist:
+        context = {"campanha": None}
     return render(request, template, context)
 
 
